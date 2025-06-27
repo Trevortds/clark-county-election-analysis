@@ -1,0 +1,14 @@
+
+
+create convergence graphs for many experiments of both coin flipping and election running in the simulations. 
+
+The x axis on the graphs is the number of flips in the simulation, and the y axis will be the average of flips in that simulation. The number of simulations to be done should be random, maybe with a slight bias towards the low side, so that it looks real-ish
+
+These will involve a lot of data so they need to either be animated, or be fixed data ahead of time.
+
+
+Eventually want to use the Dodge transform of observable to make histograms out of various size bubbles, showing the number of votes counted by each machine. 
+
+make the chart generation separate from the simulation, and let the charts be reactive if at all possible.
+
+try to reintroduce some of the clustering that is seen in the original data, and add some covariance between the data location and the likelihood of voting a certain way. 

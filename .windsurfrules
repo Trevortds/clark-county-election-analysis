@@ -1,0 +1,18 @@
+
+# Project: Election Visualization
+You are building an interactive data visualization about election statistics.
+
+## Tech Stack
+- Observable Plot for visualizations  
+- Vanilla JS (no frameworks)
+- GitHub Pages compatible (static only)
+
+## Coding Standards
+- Use const/let, never var
+- Comment complex D3 selections
+- All functions should be pure where possible
+
+## Key Context
+- This project aims to demonstrate statistical concepts
+- Assume users have no statistics background
+- Prioritize clarity over performance

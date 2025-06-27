@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debunking the "Russian Tail": Why Election Data Convergence Is Normal Statistics</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .article-section {
+            background: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        
+        .controls {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .control-group {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        label {
+            font-weight: 600;
+            min-width: 200px;
+        }
+        
+        input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+        }
+        
+        .value-display {
+            min-width: 60px;
+            font-weight: 600;
+            color: #3498db;
+        }
+        
+        .chart-container {
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .axis {
+            font-size: 12px;
+        }
+        
+        .axis-label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .dot {
+            fill-opacity: 0.7;
+            stroke: white;
+            stroke-width: 1;
+        }
+        
+        .trump-dot {
+            fill: #e74c3c;
+        }
+        
+        .harris-dot {
+            fill: #3498db;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        .legend {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .legend-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="article-section">
+        <h1>Debunking the "Russian Tail": Why Election Data Convergence Is Normal Statistics</h1>
+        
+        <p>Recent claims by the Election Truth Alliance suggest that voting machine data showing convergence patterns is evidence of manipulation. This interactive demonstration shows why these patterns are actually <strong>expected mathematical behavior</strong> - specifically, the Central Limit Theorem in action.</p>
+        
+        <div class="highlight-box">
+            <strong>Key Insight:</strong> When you flip coins in sets of 4, you see huge variability. When you flip coins in sets of 1000, they're always close to 50/50. The same principle applies to voting machines - those processing more ballots naturally show less variance.
+        </div>
+        
+        <h2>What ETA Gets Wrong</h2>
+        
+        <p>The Election Truth Alliance claims to see a "Russian tail" in the data - but they fundamentally misunderstand what this term means. Below, we'll show:</p>
+        <ul>
+            <li>What a real "Russian tail" looks like (hint: it's not what they're showing)</li>
+            <li>Why machines counting more votes show less variability (Central Limit Theorem)</li>
+            <li>How urban/rural divides create bimodal distributions</li>
+            <li>Why their analysis would flag even perfectly fair coin flips as "suspicious"</li>
+        </ul>
+        
+        <h2>Interactive Coin Flip Demonstration</h2>
+        
+        <p>Let's start with the simplest example - coin flips:</p>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>Number of coins per group:</label>
+                <input type="range" id="coinsPerGroup" min="4" max="1000" value="10" step="1">
+                <span class="value-display" id="coinsPerGroupValue">10</span>
+            </div>
+            
+            <button id="runCoinFlips">Flip Coins</button>
+        </div>
+        
+        <div id="coinFlipChart" class="chart-container"></div>
+        
+        <h2>What a Real "Russian Tail" Looks Like</h2>
+        
+        <p>A "Russian tail" in election data refers to an anomalous pattern where an unusually high number of districts report unanimous or near-unanimous results. This creates a flat "tail" at the extreme ends of the distribution.</p>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>Manipulation level (% of districts made unanimous):</label>
+                <input type="range" id="manipulationLevel" min="0" max="30" value="0" step="1">
+                <span class="value-display" id="manipulationLevelValue">0%</span>
+            </div>
+            
+            <button id="showRussianTail">Generate Distribution</button>
+        </div>
+        
+        <div id="russianTailChart" class="chart-container"></div>
+        
+        <div class="highlight-box">
+            <strong>Key Difference:</strong> A real Russian tail shows an abrupt spike at 100% (or 0%), not the gradual convergence that ETA is highlighting. What they're seeing is normal statistical behavior, not manipulation.
+        </div>
+        
+        <h2>Interactive Simulation</h2>
+        
+        <p>Adjust the parameters below to see how sample size affects convergence:</p>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>True Trump Support %:</label>
+                <input type="range" id="trumpSupport" min="40" max="70" value="60" step="1">
+                <span class="value-display" id="trumpSupportValue">60%</span>
+            </div>
+            
+            <div class="control-group">
+                <label>Number of Machines:</label>
+                <input type="range" id="numMachines" min="20" max="200" value="100" step="10">
+                <span class="value-display" id="numMachinesValue">100</span>
+            </div>
+            
+            <div class="control-group">
+                <label>Geographic Clustering:</label>
+                <input type="range" id="clustering" min="0" max="100" value="80" step="5">
+                <span class="value-display" id="clusteringValue">80%</span>
+            </div>
+            
+            <button id="runSimulation">Run Simulation</button>
+            <button id="animateConvergence">Show Convergence Animation</button>
+        </div>
+        
+        <div id="mainChart" class="chart-container"></div>
+        
+        <!-- Histogram for vote distribution -->
+        <div id="histogramChart" class="chart-container">
+            <h3>Vote Percentage Distribution</h3>
+        </div>
+        
+        <div class="legend">
+            <span class="legend-item">
+                <span class="legend-color" style="background: #e74c3c;"></span>
+                Republican-leaning precincts
+            </span>
+            <span class="legend-item">
+                <span class="legend-color" style="background: #3498db;"></span>
+                Democratic-leaning precincts
+            </span>
+        </div>
+        
+        <h2>What This Shows</h2>
+        
+        <p>Notice how machines that process more ballots (right side of the chart) cluster more tightly around their true values, while machines processing fewer ballots (left side) show much more variance. This is exactly what we see in the Clark County data.</p>
+        
+        <div class="highlight-box">
+            <strong>The "Anomaly" Explained:</strong> High-volume machines in Republican areas converge to ~60% Trump because that's the true preference in those areas. The pattern isn't evidence of manipulation—it's evidence of normal statistical behavior combined with geographic sorting of voting machines.
+        </div>
+        
+        <h2>Why This Matters</h2>
+        
+        <p>Understanding basic statistical principles like the Law of Large Numbers is crucial for interpreting election data correctly. What might appear suspicious to those unfamiliar with statistics is often completely expected behavior.</p>
+        
+        <div id="convergenceChart" class="chart-container">
+            <h3>Convergence Visualization</h3>
+            <p>This chart shows how vote percentage stabilizes as more ballots are counted:</p>
+        </div>
+    </div>
+    
+    <div class="tooltip" style="display: none;"></div>
+    
+    <script>
+        // Initialize variables
+        let simulation = {
+            trumpSupport: 60,
+            numMachines: 100,
+            clustering: 80
+        };
+        
+        // Coin flip demonstration
+        let coinSimulation = {
+            coinsPerGroup: 10
+        };
+        
+        // Update coin flip controls
+        document.getElementById('coinsPerGroup').addEventListener('input', (e) => {
+            coinSimulation.coinsPerGroup = +e.target.value;
+            document.getElementById('coinsPerGroupValue').textContent = e.target.value;
+        });
+        
+        // Coin flip simulation
+        function runCoinFlipSimulation() {
+            const groups = 100; // Number of groups to simulate
+            const data = [];
+            
+            for (let i = 0; i < groups; i++) {
+                let heads = 0;
+                for (let j = 0; j < coinSimulation.coinsPerGroup; j++) {
+                    if (Math.random() < 0.5) heads++;
+                }
+                const percentage = (heads / coinSimulation.coinsPerGroup) * 100;
+                data.push({
+                    group: i,
+                    headsPercentage: percentage,
+                    totalFlips: coinSimulation.coinsPerGroup
+                });
+            }
+            
+            drawCoinFlipChart(data);
+        }
+        
+        // Draw coin flip chart
+        function drawCoinFlipChart(data) {
+            const container = d3.select('#coinFlipChart');
+            container.selectAll('*').remove();
+            
+            const margin = {top: 40, right: 40, bottom: 60, left: 70};
+            const width = 860 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            
+            const svg = container.append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom);
+            
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            // Create histogram bins
+            const bins = d3.bin()
+                .domain([0, 100])
+                .thresholds(d3.range(0, 105, 5))
+                (data.map(d => d.headsPercentage));
+            
+            // Scales
+            const xScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([0, width]);
+            
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(bins, d => d.length)])
+                .nice()
+                .range([height, 0]);
+            
+            // Bars
+            g.selectAll('rect')
+                .data(bins)
+                .enter()
+                .append('rect')
+                .attr('x', d => xScale(d.x0) + 1)
+                .attr('y', d => yScale(d.length))
+                .attr('width', d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 2))
+                .attr('height', d => height - yScale(d.length))
+                .attr('fill', '#2ecc71')
+                .attr('opacity', 0.8);
+            
+            // Add 50% reference line
+            g.append('line')
+                .attr('x1', xScale(50))
+                .attr('x2', xScale(50))
+                .attr('y1', 0)
+                .attr('y2', height)
+                .style('stroke', '#e74c3c')
+                .style('stroke-width', 2)
+                .style('stroke-dasharray', '5,5');
+            
+            // Axes
+            g.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).tickFormat(d => d + '%'));
+            
+            g.append('g')
+                .attr('class', 'axis')
+                .call(d3.axisLeft(yScale));
+            
+            // Labels
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', `translate(${width / 2}, ${height + margin.bottom - 10})`)
+                .style('text-anchor', 'middle')
+                .text('Percentage of Heads');
+            
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', 0 - margin.left + 15)
+                .attr('x', 0 - (height / 2))
+                .style('text-anchor', 'middle')
+                .text('Number of Groups');
+            
+            // Add text showing variance
+            const mean = d3.mean(data, d => d.headsPercentage);
+            const variance = d3.variance(data, d => d.headsPercentage);
+            
+            g.append('text')
+                .attr('x', width - 10)
+                .attr('y', 20)
+                .attr('text-anchor', 'end')
+                .style('font-size', '14px')
+                .text(`Mean: ${mean.toFixed(1)}% | Std Dev: ${Math.sqrt(variance).toFixed(1)}%`);
+        }
+        
+        // Russian tail demonstration
+        let russianTailSimulation = {
+            manipulationLevel: 0
+        };
+        
+        document.getElementById('manipulationLevel').addEventListener('input', (e) => {
+            russianTailSimulation.manipulationLevel = +e.target.value;
+            document.getElementById('manipulationLevelValue').textContent = e.target.value + '%';
+        });
+        
+        function generateRussianTailData() {
+            const districts = 2000;
+            const data = [];
+            const manipulatedCount = Math.floor(districts * (russianTailSimulation.manipulationLevel / 100));
+            
+            // Box-Muller transform for normal distribution
+            function normalRandom(mean, stdDev) {
+                const u1 = Math.random();
+                const u2 = Math.random();
+                const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+                return z0 * stdDev + mean;
+            }
+            
+            // Generate normal distributions for non-manipulated districts
+            const urbanCount = Math.floor((districts - manipulatedCount) * 0.4);
+            const ruralCount = (districts - manipulatedCount) - urbanCount;
+            
+            // Urban districts - normal distribution centered around 35%
+            for (let i = 0; i < urbanCount; i++) {
+                let votePercentage = normalRandom(35, 8); // mean 35%, std dev 8%
+                votePercentage = Math.max(0, Math.min(100, votePercentage)); // Clamp to 0-100
+                
+                data.push({
+                    district: i,
+                    votePercentage: votePercentage,
+                    type: 'urban',
+                    manipulated: false
+                });
+            }
+            
+            // Rural districts - normal distribution centered around 65%
+            for (let i = 0; i < ruralCount; i++) {
+                let votePercentage = normalRandom(65, 8); // mean 65%, std dev 8%
+                votePercentage = Math.max(0, Math.min(100, votePercentage)); // Clamp to 0-100
+                
+                data.push({
+                    district: urbanCount + i,
+                    votePercentage: votePercentage,
+                    type: 'rural',
+                    manipulated: false
+                });
+            }
+            
+            // Add manipulated districts (flat distribution between 80-90%)
+            for (let i = 0; i < manipulatedCount; i++) {
+                data.push({
+                    district: districts - manipulatedCount + i,
+                    votePercentage: 80 + Math.random() * 15, // Flat between 80-90%
+                    type: 'manipulated',
+                    manipulated: true
+                });
+            }
+            
+            return data;
+        }
+        
+        function drawRussianTailChart() {
+            const data = generateRussianTailData();
+            const container = d3.select('#russianTailChart');
+            container.selectAll('*').remove();
+            
+            const margin = {top: 40, right: 40, bottom: 60, left: 70};
+            const width = 860 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+            
+            const svg = container.append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom);
+            
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            // Create histogram bins
+            const bins = d3.bin()
+                .domain([0, 100])
+                .thresholds(d3.range(0, 102, 2))
+                (data.map(d => d.votePercentage));
+            
+            // Scales
+            const xScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([0, width]);
+            
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(bins, d => d.length)])
+                .nice()
+                .range([height, 0]);
+            
+            // Process bins to track type composition
+            bins.forEach(bin => {
+                bin.urban = 0;
+                bin.rural = 0;
+                bin.manipulated = 0;
+                bin.forEach(d => {
+                    if (d.type === 'urban') bin.urban++;
+                    else if (d.type === 'rural') bin.rural++;
+                    else if (d.type === 'manipulated') bin.manipulated++;
+                });
+            });
+            
+            // Draw stacked bars
+            const barGroups = g.selectAll('.bar-group')
+                .data(bins)
+                .enter()
+                .append('g')
+                .attr('class', 'bar-group');
+            
+            // Urban bars (blue)
+            barGroups.append('rect')
+                .attr('x', d => xScale(d.x0) + 1)
+                .attr('y', d => yScale(d.urban))
+                .attr('width', d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 2))
+                .attr('height', d => height - yScale(d.urban))
+                .attr('fill', '#3498db')
+                .attr('opacity', 0.8);
+            
+            // Rural bars (green) - stacked on top of urban
+            barGroups.append('rect')
+                .attr('x', d => xScale(d.x0) + 1)
+                .attr('y', d => yScale(d.urban + d.rural))
+                .attr('width', d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 2))
+                .attr('height', d => height - yScale(d.rural))
+                .attr('fill', '#27ae60')
+                .attr('opacity', 0.8);
+            
+            // Manipulated bars (red) - stacked on top of both
+            barGroups.append('rect')
+                .attr('x', d => xScale(d.x0) + 1)
+                .attr('y', d => yScale(d.urban + d.rural + d.manipulated))
+                .attr('width', d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 2))
+                .attr('height', d => height - yScale(d.manipulated))
+                .attr('fill', '#e74c3c')
+                .attr('opacity', 0.8);
+            
+            // Axes
+            g.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).tickFormat(d => d + '%'));
+            
+            g.append('g')
+                .attr('class', 'axis')
+                .call(d3.axisLeft(yScale));
+            
+            // Labels
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', `translate(${width / 2}, ${height + margin.bottom - 10})`)
+                .style('text-anchor', 'middle')
+                .text('Vote Percentage for Candidate');
+            
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', 0 - margin.left + 15)
+                .attr('x', 0 - (height / 2))
+                .style('text-anchor', 'middle')
+                .text('Number of Districts');
+            
+            // Legend
+            const legend = g.append('g')
+                .attr('transform', `translate(${width - 120}, 20)`);
+            
+            const legendItems = [
+                { color: '#3498db', label: 'Urban' },
+                { color: '#27ae60', label: 'Rural' },
+                { color: '#e74c3c', label: 'Manipulated' }
+            ];
+            
+            legendItems.forEach((item, i) => {
+                const legendRow = legend.append('g')
+                    .attr('transform', `translate(0, ${i * 20})`);
+                
+                legendRow.append('rect')
+                    .attr('width', 15)
+                    .attr('height', 15)
+                    .attr('fill', item.color)
+                    .attr('opacity', 0.8);
+                
+                legendRow.append('text')
+                    .attr('x', 20)
+                    .attr('y', 12)
+                    .style('font-size', '12px')
+                    .text(item.label);
+            });
+            
+            // Add annotation for Russian tail if present
+            if (russianTailSimulation.manipulationLevel > 0) {
+                g.append('text')
+                    .attr('x', xScale(85))
+                    .attr('y', 20)
+                    .attr('text-anchor', 'middle')
+                    .style('font-size', '12px')
+                    .style('fill', '#e74c3c')
+                    .text('← Russian Tail (80-90%)');
+                
+                // Draw arrow pointing to the tail
+                g.append('path')
+                    .attr('d', `M ${xScale(85)} 25 L ${xScale(85)} 40`)
+                    .style('stroke', '#e74c3c')
+                    .style('stroke-width', 2)
+                    .style('marker-end', 'url(#arrowhead)');
+                
+                // Define arrowhead
+                svg.append('defs')
+                    .append('marker')
+                    .attr('id', 'arrowhead')
+                    .attr('markerWidth', 10)
+                    .attr('markerHeight', 10)
+                    .attr('refX', 0)
+                    .attr('refY', 3)
+                    .attr('orient', 'auto')
+                    .append('path')
+                    .attr('d', 'M0,0 L0,6 L9,3 z')
+                    .style('fill', '#e74c3c');
+            }
+        }
+        
+        // Update value displays
+        document.getElementById('trumpSupport').addEventListener('input', (e) => {
+            simulation.trumpSupport = +e.target.value;
+            document.getElementById('trumpSupportValue').textContent = e.target.value + '%';
+        });
+        
+        document.getElementById('numMachines').addEventListener('input', (e) => {
+            simulation.numMachines = +e.target.value;
+            document.getElementById('numMachinesValue').textContent = e.target.value;
+        });
+        
+        document.getElementById('clustering').addEventListener('input', (e) => {
+            simulation.clustering = +e.target.value;
+            document.getElementById('clusteringValue').textContent = e.target.value + '%';
+        });
+        
+        // Simulation function
+        function generateElectionData() {
+            const data = [];
+            const clusteringFactor = simulation.clustering / 100;
+            
+            for (let i = 0; i < simulation.numMachines; i++) {
+                // Determine if this machine is in a red or blue area
+                const isRepublicanArea = Math.random() < clusteringFactor;
+                
+                // Set base support based on area
+                let baseSupport;
+                if (isRepublicanArea) {
+                    baseSupport = simulation.trumpSupport + (Math.random() - 0.5) * 10;
+                } else {
+                    baseSupport = (100 - simulation.trumpSupport) + (Math.random() - 0.5) * 10;
+                }
+                
+                // Vary number of ballots processed (log-normal distribution)
+                const ballotsProcessed = Math.floor(Math.exp(Math.random() * 3 + 5));
+                
+                // Simulate actual votes with binomial distribution
+                let trumpVotes = 0;
+                for (let j = 0; j < ballotsProcessed; j++) {
+                    if (Math.random() < (baseSupport / 100)) {
+                        trumpVotes++;
+                    }
+                }
+                
+                data.push({
+                    machineId: i,
+                    ballotsProcessed: ballotsProcessed,
+                    trumpPercentage: (trumpVotes / ballotsProcessed) * 100,
+                    isRepublicanArea: isRepublicanArea,
+                    baseSupport: baseSupport
+                });
+            }
+            
+            return data;
+        }
+        
+        // D3 visualization
+        function drawMainChart(data) {
+            const container = d3.select('#mainChart');
+            container.selectAll('*').remove();
+            
+            const margin = {top: 40, right: 40, bottom: 60, left: 70};
+            const width = 860 - margin.left - margin.right;
+            const height = 500 - margin.top - margin.bottom;
+            
+            const svg = container.append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom);
+            
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            // Scales
+            const xScale = d3.scaleLog()
+                .domain([30, d3.max(data, d => d.ballotsProcessed)])
+                .range([0, width]);
+            
+            const yScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([height, 0]);
+            
+            // Axes
+            g.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).tickFormat(d3.format('.0f')));
+            
+            g.append('g')
+                .attr('class', 'axis')
+                .call(d3.axisLeft(yScale));
+            
+            // Axis labels
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', 0 - margin.left)
+                .attr('x', 0 - (height / 2))
+                .attr('dy', '1em')
+                .style('text-anchor', 'middle')
+                .text('Trump Vote Percentage');
+            
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', `translate(${width / 2}, ${height + margin.bottom})`)
+                .style('text-anchor', 'middle')
+                .text('Ballots Processed by Machine (log scale)');
+            
+            // Tooltip
+            const tooltip = d3.select('.tooltip');
+            
+            // Points
+            g.selectAll('.dot')
+                .data(data)
+                .enter().append('circle')
+                .attr('class', d => `dot ${d.isRepublicanArea ? 'trump-dot' : 'harris-dot'}`)
+                .attr('cx', d => xScale(d.ballotsProcessed))
+                .attr('cy', d => yScale(d.trumpPercentage))
+                .attr('r', 5)
+                .on('mouseover', (event, d) => {
+                    tooltip.style('display', 'block')
+                        .html(`Machine #${d.machineId}<br/>
+                               Ballots: ${d.ballotsProcessed}<br/>
+                               Trump %: ${d.trumpPercentage.toFixed(1)}%<br/>
+                               Area: ${d.isRepublicanArea ? 'Republican' : 'Democratic'}`)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', () => {
+                    tooltip.style('display', 'none');
+                });
+            
+            // Add reference lines
+            g.append('line')
+                .attr('x1', 0)
+                .attr('x2', width)
+                .attr('y1', yScale(simulation.trumpSupport))
+                .attr('y2', yScale(simulation.trumpSupport))
+                .style('stroke', '#e74c3c')
+                .style('stroke-dasharray', '3,3')
+                .style('opacity', 0.5);
+            
+            g.append('line')
+                .attr('x1', 0)
+                .attr('x2', width)
+                .attr('y1', yScale(100 - simulation.trumpSupport))
+                .attr('y2', yScale(100 - simulation.trumpSupport))
+                .style('stroke', '#3498db')
+                .style('stroke-dasharray', '3,3')
+                .style('opacity', 0.5);
+        }
+        
+        // Histogram of vote percentages
+        function drawHistogram(data) {
+            const container = d3.select('#histogramChart');
+            container.selectAll('svg').remove();
+
+            const margin = {top: 40, right: 30, bottom: 60, left: 70};
+            const width = 860 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            const svg = container.append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom);
+
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            // X scale (0-100%)
+            const xScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([0, width]);
+
+            // Bins (2% intervals)
+            const bins = d3.bin()
+                .domain(xScale.domain())
+                .thresholds(d3.range(0, 102, 2))
+                (data.map(d => d.trumpPercentage));
+
+            // Y scale
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(bins, d => d.length)])
+                .nice()
+                .range([height, 0]);
+
+            // Bars
+            g.selectAll('rect')
+                .data(bins)
+                .enter()
+                .append('rect')
+                .attr('x', d => xScale(d.x0) + 1)
+                .attr('y', d => yScale(d.length))
+                .attr('width', d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 2))
+                .attr('height', d => height - yScale(d.length))
+                .attr('fill', '#6666ff')
+                .attr('opacity', 0.8);
+
+            // Axes
+            g.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).tickFormat(d => d + '%'));
+
+            g.append('g')
+                .attr('class', 'axis')
+                .call(d3.axisLeft(yScale));
+
+            // Axis labels
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', 0 - margin.left + 15)
+                .attr('x', 0 - (height / 2))
+                .attr('dy', '-1em')
+                .style('text-anchor', 'middle')
+                .text('Number of Machines');
+
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', `translate(${width / 2}, ${height + margin.bottom - 10})`)
+                .style('text-anchor', 'middle')
+                .text('Trump Vote Percentage');
+        }
+
+        // Convergence animation
+        function animateConvergence() {
+            const container = d3.select('#convergenceChart');
+            container.selectAll('svg').remove();
+            
+            const margin = {top: 20, right: 40, bottom: 60, left: 70};
+            const width = 860 - margin.left - margin.right;
+            const height = 300 - margin.top - margin.bottom;
+            
+            const svg = container.append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom);
+
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            // Generate convergence data
+            const maxBallots = 5000;
+            const truePercentage = simulation.trumpSupport;
+            const convergenceData = [];
+            let runningTotal = 0;
+            
+            for (let i = 1; i <= maxBallots; i++) {
+                if (Math.random() < (truePercentage / 100)) {
+                    runningTotal++;
+                }
+                if (i % 10 === 0) { // Sample every 10 ballots
+                    convergenceData.push({
+                        ballots: i,
+                        percentage: (runningTotal / i) * 100
+                    });
+                }
+            }
+            
+            // Scales
+            const xScale = d3.scaleLinear()
+                .domain([0, maxBallots])
+                .range([0, width]);
+
+            const yScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([height, 0]);
+
+            // Axes
+            g.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale));
+
+            g.append('g')
+                .attr('class', 'axis')
+                .call(d3.axisLeft(yScale));
+
+            // Line generator
+            const line = d3.line()
+                .x(d => xScale(d.ballots))
+                .y(d => yScale(d.percentage));
+
+            // Add the line
+            const path = g.append('path')
+                .datum(convergenceData)
+                .attr('fill', 'none')
+                .attr('stroke', '#e74c3c')
+                .attr('stroke-width', 2)
+                .attr('d', line);
+
+            // Animate
+            const totalLength = path.node().getTotalLength();
+            
+            path
+                .attr('stroke-dasharray', totalLength + ' ' + totalLength)
+                .attr('stroke-dashoffset', totalLength)
+                .transition()
+                .duration(3000)
+                .ease(d3.easeLinear)
+                .attr('stroke-dashoffset', 0);
+
+            // Reference line
+            g.append('line')
+                .attr('x1', 0)
+                .attr('x2', width)
+                .attr('y1', yScale(truePercentage))
+                .attr('y2', yScale(truePercentage))
+                .style('stroke', 'black')
+                .style('stroke-dasharray', '5,5')
+                .style('opacity', 0.5);
+        }
+
+        // Event listeners
+        document.getElementById('runSimulation').addEventListener('click', () => {
+            const data = generateElectionData();
+            drawMainChart(data);
+            drawHistogram(data);
+        });
+        
+        document.getElementById('animateConvergence').addEventListener('click', animateConvergence);
+        
+        document.getElementById('runCoinFlips').addEventListener('click', runCoinFlipSimulation);
+        
+        document.getElementById('showRussianTail').addEventListener('click', drawRussianTailChart);
+        
+        // Initial draw
+        const initialData = generateElectionData();
+        drawMainChart(initialData);
+        drawHistogram(initialData);
+        
+        // Also draw initial coin flip and Russian tail visualizations
+        runCoinFlipSimulation();
+        drawRussianTailChart();
+    </script>
+</body>
+</html>
