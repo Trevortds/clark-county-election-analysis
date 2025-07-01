@@ -44,10 +44,10 @@ You are building an interactive data visualization about election statistics.
 - [x] Reverse the game history graph, counting backwards. Take only the machines that have more than 200 votes, and show how those vote counts accumulate starting from the latest ones and proceeding towards the earliest ones. 
     - [ ] Create a "If their interpretation was right" graph, that looks like the original game history graph but mirrored, where the votes all start out around 60% and then when the machines hit the 300 vote mark, they suddenly diverge into many different counts (I'll just do this by mirroring the image, because I don't want to make it look like it's generated from real data)
     - Expectation: they look basically the same as the orignial, because it's just convergence to the mean, law of large numbers. SUCCESS
-- [ ] Create "Smoking Gun" graph
-    - [ ] plot a moving average of votes on each machine over time. The X axis is number of votes counted, y axis is the moving average. Try a few different window sizes. 
-    - [ ] Create a "if their interpretation was right" graph, that shows a sudden jump in the moving average, from some lower pro-kamala number to a higher pro-trump number. It should be a very distinct leap, a discontinuity in the linear history
-    - Expectation: it shold look like a random walk, with no sudden jumps. 
+- [x] Create "Smoking Gun" graph
+    - [x] plot a moving average of votes on each machine over time. The X axis is number of votes counted, y axis is the moving average. Try a few different window sizes. 
+    - [x] Create a "if their interpretation was right" graph, that shows a sudden jump in the moving average, from some lower pro-kamala number to a higher pro-trump number. It should be a very distinct leap, a discontinuity in the linear history
+    - Expectation: it shold look like a random walk, with no sudden jumps. SUCCESS
 
 - [x] Simulate a real election that shows a real "Russian Tail"
 - [x] Simulate the clark county election with voting clusters and urban/rural voting divide. Provide sliders to manipulate the strength of the divide, number of machines per polling place, etc. 

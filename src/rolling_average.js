@@ -85,7 +85,8 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
         lineCount = '50', 
         selectionMethod = 'longest',
         windowSize = 10,
-        selectedRandomTabulators = null
+        selectedRandomTabulators = null,
+        fakeDataMode = false
     } = options;
     
     // Process the data using the vote_history arrays
@@ -147,9 +148,43 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
     }
     
     // Filter data to only include selected tabulators
-    const filteredData = rollingAverageData.filter(point => 
+    let filteredData = rollingAverageData.filter(point => 
         tabulatorsToDisplay.includes(point.tabulator)
     );
+    
+    // Apply fake data manipulation if the toggle is enabled
+    if (fakeDataMode) {
+        // Create a deep copy to avoid modifying the original data
+        filteredData = JSON.parse(JSON.stringify(filteredData));
+        
+        // Group data by tabulator
+        const tabulatorGroups = {};
+        filteredData.forEach(point => {
+            if (!tabulatorGroups[point.tabulator]) {
+                tabulatorGroups[point.tabulator] = [];
+            }
+            tabulatorGroups[point.tabulator].push(point);
+        });
+        
+        // Apply the manipulation: -20% for points below 250 votes
+        Object.keys(tabulatorGroups).forEach(tabulator => {
+            const points = tabulatorGroups[tabulator];
+            
+            // Sort by total votes to ensure we're manipulating in order
+            points.sort((a, b) => a.total_votes - b.total_votes);
+            
+            // Apply the manipulation to points below 250 votes
+            points.forEach(point => {
+                if (point.total_votes <= 250) {
+                    // Reduce the rolling average by 20 percentage points
+                    point.rolling_average = Math.max(0, point.rolling_average - 20);
+                }
+            });
+        });
+        
+        // Flatten the groups back to a single array
+        filteredData = Object.values(tabulatorGroups).flat();
+    }
     
     // Helper function to calculate maximum votes without using spread operator
     function calculateMaxVotes(data) {
@@ -201,8 +236,12 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
         height: 500,
         marginBottom: 50,
         marginLeft: 60,
-        title: `Rolling Average (Window Size: ${windowSize}) of Trump Votes by Tabulator`,
-        subtitle: `${filteredData.length} data points, ${tabulatorsToDisplay.length} machines`,
+        title: fakeDataMode ? 
+            `SIMULATED FRAUD SCENARIO - Rolling Average (Window Size: ${windowSize}) of Trump Votes` :
+            `Rolling Average (Window Size: ${windowSize}) of Trump Votes by Tabulator`,
+        subtitle: fakeDataMode ?
+            `FAKE DATA - NOT REAL - ${filteredData.length} data points, ${tabulatorsToDisplay.length} machines` :
+            `${filteredData.length} data points, ${tabulatorsToDisplay.length} machines`,
         color: colorConfig,
         x: {
             label: "Total Votes Counted",
