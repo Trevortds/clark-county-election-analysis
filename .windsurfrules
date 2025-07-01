@@ -51,10 +51,11 @@ You are building an interactive data visualization about election statistics.
 
 - [x] Simulate a real election that shows a real "Russian Tail"
 - [x] Simulate the clark county election with voting clusters and urban/rural voting divide. Provide sliders to manipulate the strength of the divide, number of machines per polling place, etc. 
+    - [ ] Add suburban votes to the simulation, and make it configurable with a slider, since the real data seems to be trimodal, with rural at around 80, urban at around 50, and suburban at around 60.
     - [ ] Tune the simulation so it looks like the real data, and save it to be what the app initializes with.
-- [ ] simulate the coin flip game, starting with 1 coin, then 4, then 10. Make the preference for heads or tails configurable.
-- [ ] After getting to 10 coins start doing many experiments simultaneously and make the number of coins per experiment configurable with a slider under the graph, so that as the user moves the slider, the graph populates from left to right. It should show a funneling effect. 
-    - [ ] potential optimization: have the games pre-played and stored in a file so we don't have to do so many actual generations and can just change the point at which the data cuts off before going to the plot. 
+- [x] simulate the coin flip game, starting with 1 coin, then 4, then 10. Make the preference for heads or tails configurable.
+- [x] After getting to 10 coins start doing many experiments simultaneously and make the number of coins per experiment configurable with a slider under the graph, so that as the user moves the slider, the graph populates from left to right. It should show a funneling effect. 
+    - [x] potential optimization: have the games pre-played and stored in a file so we don't have to do so many actual generations and can just change the point at which the data cuts off before going to the plot. 
     - [ ] Display the variance as a number, so the user can see how much it decreases as the number of coins per experiment increases
 
     

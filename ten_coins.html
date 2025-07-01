@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ten Coin Flip Visualization</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .coins-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-gap: 15px;
+            margin: 30px 0;
+            width: 100%;
+            max-width: 650px;
+        }
+        
+        .coin-container {
+            width: 100px;
+            height: 100px;
+            perspective: 1000px;
+            margin: 0 auto;
+        }
+        
+        .coin {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg);
+        }
+        
+        .coin-side {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border: 4px solid #b3841f;
+        }
+        
+        .heads {
+            background: radial-gradient(circle at 35% 25%, #ffd700 0%, #d4af37 70%);
+            transform: rotateX(0deg);
+        }
+        
+        .tails {
+            background: radial-gradient(circle at 35% 25%, #e6e6e6 0%, #c0c0c0 70%);
+            transform: rotateX(180deg);
+        }
+        
+        .coin-face {
+            position: absolute;
+            width: 70%;
+            height: 70%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .heads .coin-face {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="40" r="25" fill="none" stroke="%23333" stroke-width="2"/><circle cx="42" cy="34" r="4" fill="%23333"/><circle cx="58" cy="34" r="4" fill="%23333"/><path d="M 40 50 Q 50 60 60 50" fill="none" stroke="%23333" stroke-width="2"/><path d="M 30 20 Q 50 10 70 20" fill="none" stroke="%23333" stroke-width="2"/></svg>');
+        }
+        
+        .tails .coin-face {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M 25 25 L 75 25 L 75 75 L 25 75 Z" fill="none" stroke="%23333" stroke-width="2"/><path d="M 35 35 L 65 35 L 65 65 L 35 65 Z" fill="none" stroke="%23333" stroke-width="2"/><path d="M 50 25 L 50 35" fill="none" stroke="%23333" stroke-width="2"/><path d="M 50 65 L 50 75" fill="none" stroke="%23333" stroke-width="2"/><path d="M 25 50 L 35 50" fill="none" stroke="%23333" stroke-width="2"/><path d="M 65 50 L 75 50" fill="none" stroke="%23333" stroke-width="2"/></svg>');
+        }
+        
+        /* Coin edge */
+        .coin::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: rotateX(90deg) translateZ(0);
+            border-radius: 50%;
+            background: linear-gradient(#b3841f, #d4af37, #b3841f);
+            z-index: -1;
+        }
+        
+        @keyframes flip-to-heads {
+            0% { transform: rotateX(0); }
+            100% { transform: rotateX(calc(1800deg + 0deg)); }
+        }
+        
+        @keyframes flip-to-tails {
+            0% { transform: rotateX(0); }
+            100% { transform: rotateX(calc(1800deg + 180deg)); }
+        }
+        
+        .probability-control {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .probability-control label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .probability-control input[type="range"] {
+            width: 100%;
+            margin: 5px 0;
+        }
+        
+        .slider-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .guess-input {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .guess-input label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .guess-input input[type="number"] {
+            width: 100px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .guess-input .input-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .guess-input .input-suffix {
+            margin-left: 8px;
+            font-size: 16px;
+        }
+        
+        .guess-input .input-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            min-height: 60px;
+            text-align: center;
+        }
+        
+        .error {
+            color: #d9534f;
+        }
+        
+        .narrative {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        .prediction-result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ten Coin Flip Visualization</h1>
+        
+        <div class="narrative">
+            <p>Let's do ten coins now. How many will be heads? You only need to be correct within a 10% window.</p>
+        </div>
+        
+        <div class="probability-control">
+            <label for="ten-heads-probability">Heads Probability: <span id="ten-probability-display">50%</span></label>
+            <input type="range" id="ten-heads-probability" min="0" max="1" step="0.01" value="0.5">
+            <p class="slider-note">Adjust this slider to change the likelihood of each coin landing on heads.</p>
+        </div>
+        
+        <div class="guess-input">
+            <label for="heads-guess">Your Guess</label>
+            <div class="input-group">
+                <input type="number" id="heads-guess" min="0" max="100" value="50">
+                <span class="input-suffix">%</span>
+            </div>
+            <p class="input-note">Enter your prediction for the percentage of heads (0-100).</p>
+        </div>
+        
+        <div id="coins-grid" class="coins-grid">
+            <!-- Row 1 -->
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            
+            <!-- Row 2 -->
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+            <div class="coin-container">
+                <div class="coin">
+                    <div class="coin-side heads"><div class="coin-face"></div></div>
+                    <div class="coin-side tails"><div class="coin-face"></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <button id="flip-button">Flip the Coins!</button>
+        
+        <div id="result" class="result"></div>
+    </div>
+    
+    <script type="module">
+        import { initTenCoinFlip } from './src/ten_coin_flip.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize the coin flip game
+            initTenCoinFlip('coins-grid', 'flip-button', 'result', 'ten-heads-probability', 'heads-guess');
+        });
+    </script>
+</body>
+</html>

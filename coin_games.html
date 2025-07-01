@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Coin Flip Games</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+        }
+        
+        .controls {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .control-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        input[type="range"] {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        
+        .value-display {
+            min-width: 60px;
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .narrative {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-left: 4px solid #4CAF50;
+            border-radius: 3px;
+        }
+        
+        .plot-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+        }
+        
+        .key-insight {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            border-left: 4px solid #43a047;
+        }
+        
+        .key-insight h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Multiple Coin Flip Games</h1>
+        
+        <div class="narrative">
+            <p>This visualization demonstrates the <strong>Law of Large Numbers</strong> through 20 simultaneous coin flip games. 
+            As more flips occur, the percentage of heads in each game converges toward the theoretical probability.</p>
+            <p>Adjust the controls below to see how different settings affect the results.</p>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label class="control-label" for="flips-slider">Number of Flips: <span id="flips-display">100</span></label>
+                <div class="slider-container">
+                    <input type="range" id="flips-slider" min="10" max="400" step="10" value="100">
+                </div>
+                <div class="description">Slide to change how many flips are shown for each game.</div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="probability-slider">Heads Probability: <span id="probability-display">50%</span></label>
+                <div class="slider-container">
+                    <input type="range" id="probability-slider" min="0" max="1" step="0.01" value="0.5">
+                </div>
+                <div class="description">Adjust to see how different probabilities affect convergence. Use 0.5 for a fair coin.</div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="guess-lower-slider">Your Guess Range: <span id="guess-range-display">45% - 55%</span></label>
+                <div class="slider-container">
+                    <input type="range" id="guess-lower-slider" min="0" max="90" step="5" value="45">
+                    <input type="range" id="guess-upper-slider" min="10" max="100" step="5" value="55">
+                </div>
+                <div class="description">Set a range for your prediction. Points within this range will be highlighted.</div>
+            </div>
+        </div>
+        
+        <div id="coinGamesPlot" class="plot-container">
+            <!-- Plot will be rendered here -->
+        </div>
+        
+        <div class="key-insight">
+            <h3>Key Statistical Insights</h3>
+            <p>This visualization demonstrates several important statistical concepts:</p>
+            <ul>
+                <li><strong>Law of Large Numbers:</strong> As more coin flips occur, the percentage of heads approaches the theoretical probability.</li>
+                <li><strong>Variance Reduction:</strong> The spread of results narrows as the number of flips increases.</li>
+                <li><strong>Random Walks:</strong> Each line shows a random walk that gradually stabilizes over time.</li>
+            </ul>
+            <p>Notice how the lines start off very erratic with high variance when there are few flips, but gradually converge toward the expected value as the sample size increases.</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { pregenerateCoinGames, createCoinGamesPlot, updateCoinGamesPlot } from './src/coin_games.js';
+        
+        // DOM elements
+        const flipsSlider = document.getElementById('flips-slider');
+        const flipsDisplay = document.getElementById('flips-display');
+        const probabilitySlider = document.getElementById('probability-slider');
+        const probabilityDisplay = document.getElementById('probability-display');
+        const guessLowerSlider = document.getElementById('guess-lower-slider');
+        const guessUpperSlider = document.getElementById('guess-upper-slider');
+        const guessRangeDisplay = document.getElementById('guess-range-display');
+        
+        // State variables
+        let coinGames = [];
+        let currentHeadsProbability = 0.5;
+        let currentMaxFlips = 100;
+        let currentGuessLower = 45;
+        let currentGuessUpper = 55;
+        
+        // Initialize the visualization
+        function initVisualization() {
+            // Pre-generate all games
+            coinGames = pregenerateCoinGames(currentHeadsProbability);
+            
+            // Create initial plot
+            createCoinGamesPlot('coinGamesPlot', coinGames, {
+                maxFlips: currentMaxFlips,
+                guessLower: currentGuessLower,
+                guessUpper: currentGuessUpper,
+                title: "Multiple Coin Flip Games"
+            });
+            
+            // Set up event listeners
+            flipsSlider.addEventListener('input', handleFlipsChange);
+            probabilitySlider.addEventListener('input', handleProbabilityChange);
+            guessLowerSlider.addEventListener('input', handleGuessChange);
+            guessUpperSlider.addEventListener('input', handleGuessChange);
+        }
+        
+        // Handler for flips slider change
+        function handleFlipsChange() {
+            currentMaxFlips = parseInt(flipsSlider.value);
+            flipsDisplay.textContent = currentMaxFlips;
+            
+            updateVisualization();
+        }
+        
+        // Handler for probability slider change
+        function handleProbabilityChange() {
+            currentHeadsProbability = parseFloat(probabilitySlider.value);
+            probabilityDisplay.textContent = `${(currentHeadsProbability * 100).toFixed(0)}%`;
+            
+            // Regenerate games with new probability
+            coinGames = pregenerateCoinGames(currentHeadsProbability);
+            
+            updateVisualization();
+        }
+        
+        // Handler for guess range sliders
+        function handleGuessChange() {
+            currentGuessLower = parseInt(guessLowerSlider.value);
+            currentGuessUpper = parseInt(guessUpperSlider.value);
+            
+            // Ensure lower doesn't exceed upper
+            if (currentGuessLower >= currentGuessUpper) {
+                currentGuessLower = currentGuessUpper - 5;
+                guessLowerSlider.value = currentGuessLower;
+            }
+            
+            guessRangeDisplay.textContent = `${currentGuessLower}% - ${currentGuessUpper}%`;
+            
+            updateVisualization();
+        }
+        
+        // Update the visualization with current settings
+        function updateVisualization() {
+            updateCoinGamesPlot('coinGamesPlot', coinGames, {
+                maxFlips: currentMaxFlips,
+                guessLower: currentGuessLower,
+                guessUpper: currentGuessUpper,
+                title: "Multiple Coin Flip Games"
+            });
+        }
+        
+        // Initialize when the page loads
+        document.addEventListener('DOMContentLoaded', initVisualization);
+    </script>
+</body>
+</html>
