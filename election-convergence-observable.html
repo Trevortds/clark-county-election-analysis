@@ -139,29 +139,29 @@
         
         <div class="controls">
             <div class="control-group">
-                <label>True Trump Support:</label>
-                <input type="range" id="truePercentage" min="30" max="70" value="52" step="1">
-                <span id="truePercentageValue">52%</span>
+                <label>Democrat Support Base:</label>
+                <input type="range" id="demSupportBase" min="25" max="45" value="35" step="1">
+                <span id="demSupportBaseValue">35%</span>
             </div>
             <div class="control-group">
-                <label>Number of Locations:</label>
-                <input type="range" id="numLocations" min="5" max="500" value="20" step="1">
-                <span id="numLocationsValue">20</span>
+                <label>Republican Support Base:</label>
+                <input type="range" id="repSupportBase" min="55" max="75" value="65" step="1">
+                <span id="repSupportBaseValue">65%</span>
             </div>
             <div class="control-group">
-                <label>Machines per Location:</label>
-                <input type="range" id="machinesPerLocation" min="1" max="20" value="5" step="1">
-                <span id="machinesPerLocationValue">5</span>
+                <label>Dem/Urban Locations %:</label>
+                <input type="range" id="urbanPercentage" min="30" max="70" value="60" step="5">
+                <span id="urbanPercentageValue">60%</span>
             </div>
             <div class="control-group">
-                <label>Location Variability:</label>
-                <input type="range" id="locationVariability" min="1" max="20" value="8" step="1">
-                <span id="locationVariabilityValue">8%</span>
+                <label>Cluster Strength:</label>
+                <input type="range" id="clusterStrength" min="1" max="20" value="8" step="1">
+                <span id="clusterStrengthValue">8</span>
             </div>
             <div class="control-group">
-                <label>Machine Variability:</label>
-                <input type="range" id="machineVariability" min="1" max="10" value="3" step="1">
-                <span id="machineVariabilityValue">3%</span>
+                <label>Total Locations:</label>
+                <input type="range" id="numLocations" min="10" max="500" value="150" step="10">
+                <span id="numLocationsValue">150</span>
             </div>
             <button id="runSimulation">Run Simulation</button>
         </div>
@@ -171,11 +171,16 @@
         <div class="chart-container" id="histogramChart"></div>
         
         <div class="explanation">
-            <strong>What you're seeing:</strong> Each point represents a voting machine. Machines are grouped into voting locations (clusters), with each location having its own true support rate (sampled from a normal distribution). 
+            <strong>What you're seeing:</strong> Each point represents a voting machine. Machines are grouped into voting locations (clusters), with each location having its own true support rate.
             
-            Notice how machines with fewer votes (left side) show more variance from their location's true rate compared to machines with more votes (right side). The funnel shape demonstrates the Law of Large Numbers in action - as sample size increases, random sampling variation decreases.
+            <p>We're modeling several real-world patterns:</p>
+            <ul>
+                <li><strong>Urban-Rural Divide:</strong> Urban locations (more Democratic-leaning) tend to have more machines but fewer votes per machine. Rural locations (more Republican-leaning) have fewer machines but more votes per machine.</li>
+                <li><strong>Local Clustering:</strong> Machines in the same location have similar Trump support rates, creating clusters in the visualization.</li>
+                <li><strong>Sampling Variability:</strong> Machines with fewer votes show more scatter from their location's true rate due to the Law of Large Numbers.</li>
+            </ul>
             
-            Use the "Location Variability" slider to control how much locations differ from each other (thicker/thinner overall scatter), and the "True Trump Support" slider to shift the entire distribution.
+            <p>These patterns create a more realistic simulation that better matches actual election data distributions.</p>
         </div>
     </div>
     
@@ -234,11 +239,11 @@
         
         // State for simulations and generated data
         const simulation = {
-            truePercentage: 52,
-            numLocations: 20,
-            machinesPerLocation: 5,
-            locationVariability: 8,
-            machineVariability: 3,
+            demSupportBase: 35,
+            repSupportBase: 65,
+            urbanPercentage: 60,
+            clusterStrength: 8,
+            numLocations: 150,
             data: null
         };
         
@@ -254,44 +259,46 @@
         };
         
         // Update value displays and handle realtime changes
-        const truePercentageSlider = document.getElementById('truePercentage');
+        const demSupportBaseSlider = document.getElementById('demSupportBase');
+        const repSupportBaseSlider = document.getElementById('repSupportBase');
+        const urbanPercentageSlider = document.getElementById('urbanPercentage');
+        const clusterStrengthSlider = document.getElementById('clusterStrength');
         const numLocationsSlider = document.getElementById('numLocations');
-        const machinesPerLocationSlider = document.getElementById('machinesPerLocation');
-        const locationVariabilitySlider = document.getElementById('locationVariability');
-        const machineVariabilitySlider = document.getElementById('machineVariability');
         const coinsPerGroupSlider = document.getElementById('coinsPerGroup');
         const manipulationLevelSlider = document.getElementById('manipulationLevel');
         
         // Use both input (for realtime updates during drag) and change (for final value)
-        truePercentageSlider.addEventListener('input', (e) => {
-            simulation.truePercentage = parseInt(e.target.value);
-            document.getElementById('truePercentageValue').textContent = e.target.value + '%';
+        demSupportBaseSlider.addEventListener('input', (e) => {
+            simulation.demSupportBase = parseInt(e.target.value);
+            document.getElementById('demSupportBaseValue').textContent = e.target.value + '%';
             // Only redraw charts, don't regenerate data
             drawMainChart(simulation.data);
             drawHistogram(simulation.data);
         });
         
+        repSupportBaseSlider.addEventListener('input', (e) => {
+            simulation.repSupportBase = parseInt(e.target.value);
+            document.getElementById('repSupportBaseValue').textContent = e.target.value + '%';
+            // Only redraw charts, don't regenerate data
+            drawMainChart(simulation.data);
+            drawHistogram(simulation.data);
+        });
+        
+        urbanPercentageSlider.addEventListener('input', (e) => {
+            simulation.urbanPercentage = parseInt(e.target.value);
+            document.getElementById('urbanPercentageValue').textContent = e.target.value + '%';
+            // This affects data generation, so we don't redraw here
+        });
+        
+        clusterStrengthSlider.addEventListener('input', (e) => {
+            simulation.clusterStrength = parseInt(e.target.value);
+            document.getElementById('clusterStrengthValue').textContent = e.target.value;
+            // This affects data generation, so we don't redraw here
+        });
+        
         numLocationsSlider.addEventListener('input', (e) => {
             simulation.numLocations = parseInt(e.target.value);
             document.getElementById('numLocationsValue').textContent = e.target.value;
-            // This affects data generation, so we don't redraw here
-        });
-        
-        machinesPerLocationSlider.addEventListener('input', (e) => {
-            simulation.machinesPerLocation = parseInt(e.target.value);
-            document.getElementById('machinesPerLocationValue').textContent = e.target.value;
-            // This affects data generation, so we don't redraw here
-        });
-        
-        locationVariabilitySlider.addEventListener('input', (e) => {
-            simulation.locationVariability = parseInt(e.target.value);
-            document.getElementById('locationVariabilityValue').textContent = e.target.value + '%';
-            // This affects data generation, so we don't redraw here
-        });
-        
-        machineVariabilitySlider.addEventListener('input', (e) => {
-            simulation.machineVariability = parseInt(e.target.value);
-            document.getElementById('machineVariabilityValue').textContent = e.target.value + '%';
             // This affects data generation, so we don't redraw here
         });
         
@@ -321,10 +328,10 @@
         function generateElectionData() {
             const data = [];
             const locations = simulation.numLocations;
-            const machinesPerLocation = simulation.machinesPerLocation;
-            const truePercentage = simulation.truePercentage / 100;
-            const locationVariability = simulation.locationVariability / 100;
-            const machineVariability = simulation.machineVariability / 100;
+            const demSupportBase = simulation.demSupportBase / 100;
+            const repSupportBase = simulation.repSupportBase / 100;
+            const urbanPercentage = simulation.urbanPercentage / 100;
+            const clusterStrength = simulation.clusterStrength;
             
             // Box-Muller transform for normal distribution
             function normalRandom(mean, stdDev) {
@@ -335,31 +342,42 @@
             }
             
             // Generate vote count distribution - right-skewed with long tail
-            function generateVoteCount() {
-                // Using log-normal distribution for right-skewed data
-                // Adjusted parameters for skinnier tail with steeper falloff after 800
-                const mu = 5.7; // Increased from 5.5 to shift distribution slightly right
-                const sigma = 0.5; // Decreased from 0.9 to make the tail skinnier
-                
-                // Generate log-normal value (exp of normal)
-                let normalVal = normalRandom(mu, sigma);
-                let logNormalVal = Math.exp(normalVal);
-                
-                // No lower limit, just upper
-                while (logNormalVal > 1250) {
-                    normalVal = normalRandom(mu, sigma);
-                    logNormalVal = Math.exp(normalVal);
+            function generateVoteCount(locationType) {
+                // Log-normal with different mu, sigma for urban/rural
+                // These values create distributions matching observed data
+                if (locationType === "Urban") {
+                    const mu = 5.5;  // Mean of log
+                    const sigma = 0.4;  // Std dev of log
+                    return Math.min(1200, Math.round(Math.exp(normalRandom(mu, sigma))));
+                } else {
+                    const mu = 6.1;  // Higher mean for rural
+                    const sigma = 0.35;  // Different spread
+                    return Math.min(1200, Math.round(Math.exp(normalRandom(mu, sigma))));
                 }
-                return Math.max(1, Math.floor(logNormalVal)); // Ensure at least 1 vote
             }
             
             for (let location = 0; location < locations; location++) {
-                // Step 1: Determine the true support rate for this location
-                const locationSupportRate = normalRandom(truePercentage, locationVariability);
+                // Step 1: Determine if this is an urban or rural location
+                const locationType = Math.random() < urbanPercentage ? "Urban" : "Rural";
+                const supportRate = locationType === "Urban" ? demSupportBase : repSupportBase;
                 
-                for (let machine = 0; machine < machinesPerLocation; machine++) {
+                // Add cluster variation to the support rate
+                const clusterMean = supportRate;
+                const clusterStdDev = clusterStrength / 100;
+                const locationSupportRate = normalRandom(clusterMean, clusterStdDev);
+                
+                // Urban locations tend to have more machines but fewer votes per machine
+                // Rural locations tend to have fewer machines but more votes per machine
+                const machinesInLocation = locationType === "Urban" ? 
+                    Math.floor(normalRandom(7, 2)) : // More machines in urban areas
+                    Math.floor(normalRandom(3, 1));  // Fewer machines in rural areas
+                    
+                // Ensure at least 1 machine per location
+                const numMachines = Math.max(1, machinesInLocation);
+                
+                for (let machine = 0; machine < numMachines; machine++) {
                     // Step 2: Generate how many votes this machine will count
-                    const voteCount = generateVoteCount();
+                    const voteCount = generateVoteCount(locationType);
                     
                     // Step 3: Simulate individual votes using the SAME probability for every vote
                     // The Law of Large Numbers will naturally emerge from this
@@ -384,7 +402,8 @@
                         trumpPercentage: trumpPercentage,
                         trumpVotes: trumpVotes,
                         supportRate: locationSupportRate * 100, // The machine's true probability
-                        color: `hsl(${(location / locations) * 360}, 70%, 50%)` // Color coding for location
+                        locationType: locationType,
+                        color: locationType === "Urban" ? "#3498db" : "#e74c3c" // Color coding for urban/rural
                     });
                 }
             }
@@ -394,10 +413,14 @@
         
         // Draw main chart using Observable Plot
         function drawMainChart(data) {
+            if (!data || data.length === 0) return;
             const chart = Plot.plot({
                 width: 800,
                 height: 500,
-                margin: 50,
+                marginLeft: 50, 
+                marginRight: 100, 
+                marginTop: 20, 
+                marginBottom: 50,
                 x: {
                     label: "Total Votes per Machine →",
                     grid: true,
@@ -408,39 +431,65 @@
                     domain: [0, 100],
                     grid: true
                 },
+                color: {
+                    type: "categorical",
+                    domain: ["Urban", "Rural"],
+                    range: ["#3498db", "#e74c3c"],
+                    label: "Location Type",
+                    legend: true
+                },
                 marks: [
                     Plot.dot(data, {
                         x: "totalVotes",
                         y: "trumpPercentage",
-                        fill: "color",
-                        stroke: "maroon",
-                        strokeWidth: 1,
+                        fill: "locationType", // Use locationType for coloring
+                        stroke: "gray",
+                        strokeWidth: 0.5,
                         r: 3.5,
-                        opacity: 0.8
+                        opacity: 0.7,
+                        title: d => `Location ${d.location}, Machine ${d.machine}\nVotes: ${d.totalVotes}, Trump: ${d.trumpPercentage.toFixed(1)}%`
                     }),
-                    Plot.ruleX([simulation.truePercentage], {
-                        stroke: "black",
+                    Plot.ruleY([simulation.demSupportBase], {
+                        stroke: "blue",
                         strokeWidth: 2,
                         strokeDasharray: "5,5"
                     }),
-                    Plot.text([{x: 950, y: simulation.truePercentage + 3}], {
-                        text: ["True Trump Support: " + simulation.truePercentage + "%"],
-                        fill: "black",
-                        fontSize: 12
+                    Plot.ruleY([simulation.repSupportBase], {
+                        stroke: "red",
+                        strokeWidth: 2,
+                        strokeDasharray: "5,5"
+                    }),
+                    Plot.text([{x: 1150, y: simulation.demSupportBase || 35}], {
+                        text: ["Dem Base: " + (simulation.demSupportBase || 35) + "%"],
+                        fill: "blue",
+                        fontSize: 12,
+                        dx: 0
+                    }),
+                    Plot.text([{x: 1150, y: simulation.repSupportBase || 65}], {
+                        text: ["Rep Base: " + (simulation.repSupportBase || 65) + "%"],
+                        fill: "red",
+                        fontSize: 12,
+                        dx: 0
                     })
                 ]
             });
             
-            document.getElementById('mainChart').replaceChildren(chart);
+            document.getElementById('mainChart').innerHTML = '';
+            document.getElementById('mainChart').appendChild(chart);
         }
         
         // Draw histogram
         function drawHistogram(data) {
+            if (!data || data.length === 0) return;
+            console.log(data);
             const chart = Plot.plot({
                 title: "Distribution of Trump Vote % by Machine",
                 width: 800,
                 height: 400,
-                margin: 50,
+                marginLeft: 50, 
+                marginRight: 100, 
+                marginTop: 20, 
+                marginBottom: 50,
                 x: {
                     label: "Trump Percentage →",
                     domain: [0, 100]
@@ -452,17 +501,25 @@
                     Plot.rectY(data, Plot.binX({y: "count"}, {
                         x: "trumpPercentage",
                         fill: "#3498db",
+                        opacity: 0.8,
                         thresholds: 50
                     })),
-                    Plot.ruleX([simulation.truePercentage], {
-                        stroke: "black",
+                    Plot.ruleY([0]),
+                    Plot.ruleX([simulation.demSupportBase], {
+                        stroke: "blue",
+                        strokeWidth: 2,
+                        strokeDasharray: "5,5"
+                    }),
+                    Plot.ruleX([simulation.repSupportBase], {
+                        stroke: "red",
                         strokeWidth: 2,
                         strokeDasharray: "5,5"
                     })
                 ]
             });
             
-            document.getElementById('histogramChart').replaceChildren(chart);
+            document.getElementById('histogramChart').innerHTML = '';
+            document.getElementById('histogramChart').appendChild(chart);
         }
         
         // Coin flip simulation
@@ -525,8 +582,8 @@
         // Russian tail simulation
         function generateRussianTailData() {
             const districts = 2000;
+            const manipulations = Math.floor(districts * (russianTailSimulation.manipulationLevel / 100));
             const data = [];
-            const manipulatedCount = Math.floor(districts * (russianTailSimulation.manipulationLevel / 100));
             
             // Box-Muller transform for normal distribution
             function normalRandom(mean, stdDev) {
@@ -537,8 +594,8 @@
             }
             
             // Generate normal distributions for non-manipulated districts
-            const urbanCount = Math.floor((districts - manipulatedCount) * 0.4);
-            const ruralCount = (districts - manipulatedCount) - urbanCount;
+            const urbanCount = Math.floor((districts - manipulations) * 0.4);
+            const ruralCount = (districts - manipulations) - urbanCount;
             
             // Urban districts - normal distribution centered around 35%
             for (let i = 0; i < urbanCount; i++) {
@@ -563,16 +620,14 @@
             }
             
             // Add manipulated districts (gradually decreasing tail all the way to 100%)
-            for (let i = 0; i < manipulatedCount; i++) {
-                // Create a decreasing probability distribution from 80% to 100%
-                // Using inverse square function for rapid falloff toward 100%
+            for (let location = 0; location < manipulations; location++) {
                 const randomValue = Math.random();
                 let votePercentage;
                 
-                // Inverse transform sampling to create decreasing distribution
+                // Distributing values in specified ranges:
                 if (randomValue < 0.6) {
                     // 60% of manipulated districts between 80-90%
-                    votePercentage = 80 + (randomValue / 0.6) * 10;
+                    votePercentage = 80 + ((randomValue) / 0.6) * 10;
                 } else if (randomValue < 0.85) {
                     // 25% of manipulated districts between 90-95%
                     votePercentage = 90 + ((randomValue - 0.6) / 0.25) * 5;
@@ -585,7 +640,7 @@
                 }
                 
                 data.push({
-                    district: districts - manipulatedCount + i,
+                    district: districts - manipulations + location,
                     votePercentage: votePercentage,
                     type: 'Manipulated'
                 });
@@ -597,6 +652,7 @@
         // Draw Russian tail chart
         function drawRussianTailChart() {
             const data = russianTailSimulation.data;
+            if (!data || data.length === 0) return;
             
             // For overlapping mode, combine manipulated with rural
             const dataForOverlapping = russianTailSimulation.displayMode === 'overlapping' 
@@ -635,7 +691,10 @@
             const chart = Plot.plot({
                 width: 900,
                 height: 500,
-                margin: 60,
+                marginLeft: 50, 
+                marginRight: 100, 
+                marginTop: 20, 
+                marginBottom: 50,
                 x: {
                     label: "Vote Percentage for Candidate →",
                     domain: [0, 100]
@@ -681,7 +740,10 @@
                 const legendChart = Plot.plot({
                     width: 900,
                     height: 500,
-                    margin: 60,
+                    marginLeft: 50, 
+                    marginRight: 100, 
+                    marginTop: 20, 
+                    marginBottom: 50,
                     x: {
                         label: "Vote Percentage for Candidate →",
                         domain: [0, 100]
@@ -722,7 +784,7 @@
             drawHistogram(simulation.data);
         });
         
-        document.getElementById('runCoinFlip').addEventListener('click', runCoinFlipSimulation);
+        // document.getElementById('runCoinFlip').addEventListener('click', runCoinFlipSimulation);
         document.getElementById('generateRussianTail').addEventListener('click', () => {
             russianTailSimulation.data = generateRussianTailData();
             drawRussianTailChart();

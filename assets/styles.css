@@ -27,7 +27,45 @@ h1 {
     min-height: 600px;
     background-color: #f5f6fa;
     border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.plot-container {
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.visualization-description {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.error-message {
+    color: #d63031;
     padding: 1rem;
+    background-color: #ffebee;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Observable Plot styling */
+.plot {
+    font-family: inherit;
+}
+
+/* Override the Plot text style */
+.plot text {
+    fill: currentColor;
+    font-size: 0.9rem;
+}
+
+/* Make sure the plot is responsive */
+svg.plot {
+    max-width: 100%;
+    height: auto;
 }
 
 #controls {

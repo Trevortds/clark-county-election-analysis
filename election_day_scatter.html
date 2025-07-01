@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024 Election Day Voting in Clark County, NV for Trump</title>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #FFD700; /* Gold background for header */
+            color: #000;
+            padding: 15px;
+            margin-top: 0;
+            border-radius: 4px;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .plot-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footer {
+            text-align: right;
+            font-size: 0.8em;
+            font-style: italic;
+            margin-top: 20px;
+            color: #666;
+        }
+        /* Checkbox styling */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        input[type="checkbox"] {
+            cursor: pointer;
+        }
+        /* Loading indicator */
+        #loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2024 Election Day Voting in Clark County, NV for Trump</h1>
+        
+        <div class="controls">
+            <div class="radio-container">
+                <span>Color Mode: </span>
+                <label>
+                    <input type="radio" name="colorMode" value="none">
+                    None (Red)
+                </label>
+                <label>
+                    <input type="radio" name="colorMode" value="binary" checked>
+                    Binary Urban/Rural
+                </label>
+                <label>
+                    <input type="radio" name="colorMode" value="gradient">
+                    Urban % Gradient
+                </label>
+            </div>
+        </div>
+        
+        <div id="loading">Loading data...</div>
+        <div id="scatterPlot" class="plot-container"></div>
+        
+        <div class="footer">Based on Clark County election data</div>
+    </div>
+
+    <script type="module">
+        import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+        
+        // Show loading indicator
+        document.getElementById('loading').style.display = 'block';
+        
+        // Fetch the election day scatter data
+        fetch('data/processed_data/election_day_votes_scatter_data.json')
+            .then(response => response.json())
+            .then(scatterData => {
+                // Hide loading indicator
+                document.getElementById('loading').style.display = 'none';
+                
+                // Create the scatter plot
+                createScatterPlot(scatterData.data);
+                
+                // Add event listeners for radio buttons
+                document.querySelectorAll('input[name="colorMode"]').forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        createScatterPlot(scatterData.data);
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Error loading data:', error);
+                document.getElementById('loading').textContent = 'Error loading data. Please check console for details.';
+            });
+        
+        function createScatterPlot(data) {
+            // Get the selected color mode
+            const colorMode = document.querySelector('input[name="colorMode"]:checked').value;
+            
+            // Process data for the plot
+            const plotData = data.map(item => ({
+                tabulator: item.tabulator,
+                total_votes: item.total_votes,
+                trump_percentage: item.trump_percentage,
+                area_type: item.is_urban === true ? 'Urban' : 'Rural',
+                urban_percentage: item.urban_percentage || 0
+            }));
+            
+            // Create color scale configuration based on color mode
+            let colorConfig = {};
+            let dotConfig = {};
+            
+            if (colorMode === 'binary') {
+                // Binary Urban/Rural coloring
+                dotConfig = {
+                    fill: d => d.area_type === 'Urban' ? "blue" : "green",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%\nArea: ${d.area_type}`
+                };
+            } else if (colorMode === 'gradient') {
+                // Urban percentage gradient coloring
+                colorConfig = {
+                    scheme: "Cividis",
+                    legend: true,
+                    label: "Urban %",
+                    pivot: 50,
+                    domain: [0, 100]
+                };
+                dotConfig = {
+                    stroke: "urban_percentage",
+                    fill: "urban_percentage",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%\nUrban %: ${d.urban_percentage.toFixed(1)}%`
+                };
+            } else {
+                // No coloring (red dots)
+                dotConfig = {
+                    fill: "red",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%`
+                };
+            }
+            
+            // Create the scatter plot
+            const plot = Plot.plot({
+                width: 800,
+                height: 500,
+                marginBottom: 50,
+                marginLeft: 60,
+                grid: true,
+                color: colorMode === 'gradient' ? colorConfig : null,
+                x: {
+                    label: "Total Votes per Machine",
+                    nice: true,
+                    domain: [0, Math.max(...plotData.map(d => d.total_votes)) * 1.05]
+                },
+                y: {
+                    label: "Trump %",
+                    nice: true,
+                    domain: [0, 100],
+                    tickFormat: d => `${d.toFixed(0)}`,
+                    grid: true
+                },
+                marks: [
+                    Plot.dot(plotData, {
+                        x: "total_votes",
+                        y: "trump_percentage",
+                        r: 4,
+                        opacity: 0.7,
+                        ...dotConfig
+                    })
+                ]
+            });
+            
+            // Clear and append the plot to the container
+            const container = document.getElementById('scatterPlot');
+            container.innerHTML = '';
+            container.appendChild(plot);
+        }
+    </script>
+</body>
+</html>

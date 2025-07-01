@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Election Visualization</title>
     <link rel="stylesheet" href="assets/styles.css">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Observable Plot loaded as ES module -->
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
 </head>
 <body>
     <div class="container">
@@ -13,6 +14,6 @@
         <div id="visualization"></div>
         <div id="controls"></div>
     </div>
-    <script src="src/main.js"></script>
+    <script src="src/main.js" type="module"></script>
 </body>
 </html>

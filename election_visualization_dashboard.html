@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clark County, NV 2024 Election Visualization</title>    
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #FFD700; /* Gold background for header */
+            color: #000;
+            padding: 15px;
+            margin-top: 0;
+            border-radius: 4px;
+        }
+        h2 {
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .charts-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .chart-box {
+            flex: 1;
+            min-width: 800px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .plot-container {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footer {
+            text-align: right;
+            font-size: 0.8em;
+            font-style: italic;
+            margin-top: 20px;
+            color: #666;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        input[type="checkbox"] {
+            cursor: pointer;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid #FFD700;
+        }
+        #toggleColorView {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #toggleColorView:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clark County, NV 2024 Election Visualization</h1>
+        
+        <div class="controls">
+            <button id="toggleColorView">Toggle Urban/Rural Coloring</button>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-box">
+                <h2>2024 Early Voting in Clark County, NV for Trump</h2>
+                <div id="earlyVotingLoading" class="loading">Loading data...</div>
+                <div id="earlyVotingPlot" class="plot-container"></div>
+                <div class="explanation">
+                    <p>Early voting shows a funnel shape, with more spread out data points up to approximately 1250 votes per machine. 
+                    This pattern is consistent with larger voting locations having more diverse voting populations.</p>
+                </div>
+            </div>
+            
+            <div class="chart-box">
+                <h2>2024 Election Day Voting in Clark County, NV for Trump</h2>
+                <div id="electionDayLoading" class="loading">Loading data...</div>
+                <div id="electionDayPlot" class="plot-container"></div>
+                <div class="explanation">
+                    <p>Election Day voting forms a more concentrated blob, with most machines capping out around 140 votes per machine.
+                    This pattern is typical for Election Day, when voters are more evenly distributed across polling locations.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>Key Observations:</h3>
+            <p>These visualizations demonstrate the difference between early voting and Election Day voting patterns in Clark County, Nevada. 
+            The X-axis shows the total number of votes counted per machine, while the Y-axis shows the percentage of those votes that went to Trump.</p>
+            
+            <p>The toggle button allows you to color the points by their urban/rural classification, with urban areas shown in blue and rural areas in green. 
+            Notice how rural areas tend to have higher Trump percentages, while urban areas show more variation and generally lower Trump percentages.</p>
+            
+            <p>The early voting data shows a wider funnel shape because early voting sites process more voters per machine on average than Election Day sites. 
+            Early voting locations are typically centralized and high-capacity, leading to higher vote counts per machine.</p>
+        </div>
+        
+        <div class="footer">Based on Clark County election data</div>
+    </div>
+
+    <script type="module">
+        import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+        // Show loading indicators
+        document.getElementById('earlyVotingLoading').style.display = 'block';
+        document.getElementById('electionDayLoading').style.display = 'block';
+        
+        // Set up state for color toggle
+        let showUrbanRural = true;
+        
+        // Toggle button
+        document.getElementById('toggleColorView').addEventListener('click', function() {
+            showUrbanRural = !showUrbanRural;
+            this.textContent = showUrbanRural ? 'Hide Urban/Rural Coloring' : 'Show Urban/Rural Coloring';
+            
+            // Reload all plots with new setting
+            if (earlyVotingData) createScatterPlot(earlyVotingData, 'earlyVotingPlot', showUrbanRural);
+            if (electionDayData) createScatterPlot(electionDayData, 'electionDayPlot', showUrbanRural);
+        });
+        
+        // Data containers
+        let earlyVotingData = null;
+        let electionDayData = null;
+        
+        // Fetch the early voting scatter data
+        fetch('data/processed_data/early_votes_scatter_data.json')
+            .then(response => response.json())
+            .then(scatterData => {
+                document.getElementById('earlyVotingLoading').style.display = 'none';
+                earlyVotingData = scatterData.data;
+                createScatterPlot(earlyVotingData, 'earlyVotingPlot', showUrbanRural);
+            })
+            .catch(error => {
+                console.error('Error loading early voting data:', error);
+                document.getElementById('earlyVotingLoading').textContent = 'Error loading data.';
+            });
+        
+        // Fetch the election day scatter data
+        fetch('data/processed_data/election_day_votes_scatter_data.json')
+            .then(response => response.json())
+            .then(scatterData => {
+                document.getElementById('electionDayLoading').style.display = 'none';
+                electionDayData = scatterData.data;
+                createScatterPlot(electionDayData, 'electionDayPlot', showUrbanRural);
+            })
+            .catch(error => {
+                console.error('Error loading election day data:', error);
+                document.getElementById('electionDayLoading').textContent = 'Error loading data.';
+            });
+        
+        function createScatterPlot(data, containerId, showUrbanRuralColors) {
+            // Format the data for plotting
+            const plotData = data.map(item => ({
+                tabulator: item.tabulator,
+                total_votes: item.total_votes,
+                trump_percentage: item.trump_percentage,
+                area_type: item.is_urban === true ? 'Urban' : 
+                          item.is_urban === false ? 'Rural' : 'Unknown'
+            }));
+            
+            // Create the scatter plot
+            const plot = Plot.plot({
+                width: 750,
+                height: 500,
+                marginBottom: 50,
+                marginLeft: 60,
+                style: "overflow: visible;",
+                grid: true,
+                x: {
+                    label: "Total Votes per Machine",
+                    nice: true,
+                    domain: containerId === 'earlyVotingPlot' ? [0, 1300] : [0, 150]
+                },
+                y: {
+                    label: "Trump %",
+                    nice: true,
+                    domain: [0, 100],
+                    tickFormat: d => `${d.toFixed(0)}`,
+                    grid: true
+                },
+                marks: [
+                    // Background grid lines
+                    Plot.ruleY([0, 20, 40, 60, 80, 100], {stroke: "#e0e0e0", strokeWidth: 1}),
+                    Plot.ruleX(containerId === 'earlyVotingPlot' ? 
+                             [0, 200, 400, 600, 800, 1000, 1200] : 
+                             [0, 25, 50, 75, 100, 125, 150], 
+                             {stroke: "#e0e0e0", strokeWidth: 1}),
+                    
+                    // Points
+                    showUrbanRuralColors ? 
+                    Plot.dot(plotData, {
+                        x: "total_votes",
+                        y: "trump_percentage",
+                        fill: d => d.area_type === 'Urban' ? "#3b82f6" : // blue
+                                d.area_type === 'Rural' ? "#22c55e" : // green
+                                "#9ca3af", // gray
+                        r: 4,
+                        opacity: 0.7,
+                        title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%\nArea: ${d.area_type}`
+                    }) :
+                    Plot.dot(plotData, {
+                        x: "total_votes",
+                        y: "trump_percentage",
+                        fill: "#dc2626", // red
+                        r: 4,
+                        opacity: 0.7,
+                        title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%`
+                    })
+                ]
+            });
+            
+            // Clear and append the plot to the container
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            container.appendChild(plot);
+        }
+    </script>
+</body>
+</html>

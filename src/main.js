@@ -1,64 +1,146 @@
-// Main visualization file
-const margin = { top: 20, right: 20, bottom: 40, left: 50 };
-const width = 800 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
+// Election Visualization using Observable Plot
 
-// Create SVG container
-const svg = d3.select("#visualization")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+// Import Observable Plot as an ES module
+import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
 
-// Add axes
-const x = d3.scaleLinear()
-    .range([0, width]);
+// Initialize visualization as soon as the module is loaded
+initializeVisualization();
 
-const y = d3.scaleLinear()
-    .range([height, 0]);
-
-const xAxis = g => g
-    .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(x));
-
-const yAxis = g => g
-    .call(d3.axisLeft(y));
-
-svg.append("g")
-    .call(xAxis);
-
-svg.append("g")
-    .call(yAxis);
-
-// Add title
-svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", -10)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .text("Election Data Visualization");
-
-// Add tooltip
-const tooltip = d3.select("#visualization")
-    .append("div")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .style("background-color", "white")
-    .style("border", "1px solid #ccc")
-    .style("padding", "5px");
-
-// Load data and update visualization
-async function loadData() {
-    try {
-        // TODO: Load your election data here
-        // Example: const data = await d3.csv("data/election_data.csv");
-        console.log("Visualization initialized");
-    } catch (error) {
-        console.error("Error loading data:", error);
-    }
+/**
+ * Processes vote data to create candidate summaries
+ * @param {Array} voteData - Raw vote data from JSON
+ * @returns {Array} - Summary data for visualization
+ */
+function processVoteData(voteData) {
+    // Create a map to count votes for each candidate
+    const candidateVotes = {};
+    
+    // Process each vote record
+    voteData.forEach(record => {
+        // Check votes for Harris and Trump
+        if (record['Harris, Kamala D. (DEM)'] === 1) {
+            candidateVotes['Harris, Kamala D. (DEM)'] = (candidateVotes['Harris, Kamala D. (DEM)'] || 0) + 1;
+        }
+        
+        if (record['Trump, Donald J. (REP)'] === 1) {
+            candidateVotes['Trump, Donald J. (REP)'] = (candidateVotes['Trump, Donald J. (REP)'] || 0) + 1;
+        }
+    });
+    
+    // Convert to array format for Plot
+    return Object.entries(candidateVotes).map(([candidate, votes]) => {
+        // Extract party from candidate string
+        const party = candidate.includes('(DEM)') ? 'Democratic' : 
+                     candidate.includes('(REP)') ? 'Republican' : 'Other';
+        
+        // Extract just the name without party
+        const name = candidate.split(' (')[0];
+        
+        return {
+            candidate: name,
+            party: party,
+            votes: votes
+        };
+    });
 }
 
-// Initialize visualization
-loadData();
+/**
+ * Creates a bar chart visualization of vote counts by candidate
+ * @param {Array} data - Processed candidate vote data
+ */
+function createVoteCountVisualization(data) {
+    const vizContainer = document.getElementById('visualization');
+    
+    // Clear previous content
+    vizContainer.innerHTML = '';
+    
+    // Create title element
+    const titleElement = document.createElement('h2');
+    titleElement.textContent = 'Mail Votes by Candidate';
+    vizContainer.appendChild(titleElement);
+    
+    // Create a new div for the plot
+    const plotContainer = document.createElement('div');
+    plotContainer.className = 'plot-container';
+    vizContainer.appendChild(plotContainer);
+    
+    // Create the bar chart using Observable Plot
+    const chart = Plot.plot({
+        marginLeft: 60,
+        marginBottom: 40,
+        height: 400,
+        x: {
+            label: 'Votes'
+        },
+        y: {
+            label: 'Candidate',
+            domain: data.map(d => d.candidate)
+        },
+        color: {
+            domain: ['Democratic', 'Republican', 'Other'],
+            range: ['#2676E6', '#EC332A', '#808080']
+        },
+        marks: [
+            Plot.rectX(data, {
+                x: 'votes',
+                y: 'candidate',
+                fill: 'party',
+                sort: {y: '-x'}
+            }),
+            Plot.ruleX([0]),
+            Plot.textX(data, {
+                x: 'votes',
+                y: 'candidate',
+                text: d => d.votes.toLocaleString(),
+                dx: 5,
+                fill: 'currentColor',
+                fontWeight: 'bold'
+            })
+        ]
+    });
+    
+    // Add the chart to the container
+    plotContainer.appendChild(chart);
+    
+    // Add description
+    const descElement = document.createElement('p');
+    descElement.className = 'visualization-description';
+    descElement.textContent = 'This chart shows the distribution of mail-in votes between the major presidential candidates.';
+    vizContainer.appendChild(descElement);
+}
+
+/**
+ * Initialize the visualization by loading data and creating visualizations
+ */
+async function initializeVisualization() {
+    try {
+        // Load mail votes data
+        const response = await fetch('data/processed_data/mail_votes.json');
+        if (!response.ok) {
+            throw new Error(`Failed to load data: ${response.status}`);
+        }
+        
+        const mailVotes = await response.json();
+        console.log('Loaded mail votes data:', mailVotes.length, 'records');
+        
+        // Process the data for visualization
+        const processedData = processVoteData(mailVotes);
+        
+        // Create visualization
+        createVoteCountVisualization(processedData);
+        
+        console.log('Visualization created successfully');
+    } catch (error) {
+        console.error('Error loading or processing data:', error);
+        
+        // Show error message to user
+        const vizContainer = document.getElementById('visualization');
+        vizContainer.innerHTML = `
+            <div class="error-message">
+                <h3>Error Loading Data</h3>
+                <p>${error.message}</p>
+                <p>Make sure you have processed the election data and the JSON files are in the correct location.</p>
+            </div>
+        `;
+    }
+}
