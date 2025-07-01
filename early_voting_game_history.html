@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024 Early Voting in Clark County, NV - Game History</title>
+    <!-- Observable Plot loaded as ES module -->
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #FFD700; /* Gold background for header */
+            color: #000;
+            padding: 15px;
+            margin-top: 0;
+            border-radius: 4px;
+        }
+        .description {
+            margin: 20px 0;
+            line-height: 1.5;
+            color: #333;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .plot-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footer {
+            text-align: right;
+            font-size: 0.8em;
+            font-style: italic;
+            margin-top: 20px;
+            color: #666;
+        }
+        /* Checkbox styling */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        input[type="checkbox"] {
+            cursor: pointer;
+        }
+        /* Loading indicator */
+        #loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        /* Radio group styling */
+        .radio-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2024 Early Voting in Clark County, NV - Game History</h1>
+        
+        <div class="description">
+            This visualization shows the vote counting progression for each voting machine. Each line represents one tabulator,
+            showing how the Trump vote percentage changed as more votes were counted.
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>Color Mode:</label>
+                <div class="radio-group">
+                    <input type="radio" id="colorModeNone" name="colorMode" value="none">
+                    <label for="colorModeNone">None (Rainbow)</label>
+                    <input type="radio" id="colorModeBinary" name="colorMode" value="binary" checked>
+                    <label for="colorModeBinary">Urban/Rural</label>
+                    <input type="radio" id="colorModeGradient" name="colorMode" value="gradient">
+                    <label for="colorModeGradient">Urban % Gradient</label>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <span class="control-label">Line Count:</span>
+                <div class="radio-group">
+                    <label><input type="radio" name="lineCount" value="all"> All</label>
+                    <label><input type="radio" name="lineCount" value="100"> 100</label>
+                    <label><input type="radio" name="lineCount" value="50" checked> 50</label>
+                    <label><input type="radio" name="lineCount" value="20"> 20</label>
+                </div>
+                <div class="disclaimer" style="font-size: 0.8em; color: #666; margin-top: 4px;">
+                    <em>Note: The "All" option may take a long time to load and be difficult to read.</em>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label>Selection Method:</label>
+                <div class="radio-group">
+                    <input type="radio" id="selectionLongest" name="selectionMethod" value="longest" checked>
+                    <label for="selectionLongest">Longest</label>
+                    <input type="radio" id="selectionRandom" name="selectionMethod" value="random">
+                    <label for="selectionRandom">Random</label>
+                </div>
+            </div>
+        </div>
+        
+        <div id="loading">Loading data...</div>
+        <div id="gameHistoryPlot" class="plot-container"></div>
+        
+        <div class="footer">Based on Clark County early voting election data</div>
+    </div>
+
+    <script type="module">
+        import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+        import { createGameHistoryPlot } from "./src/game_history.js";
+
+        // Show loading indicator
+        document.getElementById('loading').style.display = 'block';
+        
+        // Fetch the scatter data which contains all we need
+        fetch('data/processed_data/early_votes_scatter_data.json')
+            .then(response => response.json())
+            .then(scatterData => {
+                /*
+                Example scatterdata
+                {
+                    "tabulator": "109243",
+                    "total_votes": 25,
+                    "trump_votes": 16,
+                    "trump_percentage": 64.0,
+                    "is_urban": true,
+                    "urban_percentage": 68.0,
+                    "precincts": [2352,2048,5513,...],
+                    "vote_history": [0,1,1,1,1,0,1,1,0,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,1],
+                    "urban_voter": [0,1,1,0,1,0,1,1,1,1,1,0,1,0,0,0,1,1,1,1,1,0,1,1,1],
+                }
+                */
+                // Hide loading indicator
+                document.getElementById('loading').style.display = 'none';
+                
+                // Create the game history plot
+                updatePlot(scatterData.data);
+                
+                // Add event listeners for radio buttons
+                document.querySelectorAll('input[name="colorMode"], input[name="lineCount"]').forEach(radio => {
+                    radio.addEventListener('change', () => updatePlot(scatterData.data));
+                });
+            })
+            .catch(error => {
+                console.error('Error loading data:', error);
+                document.getElementById('loading').textContent = 'Error loading data. Please check console for details.';
+            });
+        
+        function updatePlot(scatterData) {
+            // Get the selected options
+            const colorMode = document.querySelector('input[name="colorMode"]:checked').value;
+            const lineCount = document.querySelector('input[name="lineCount"]:checked').value;
+            const selectionMethod = document.querySelector('input[name="selectionMethod"]:checked').value;
+            
+            // Create the plot
+            createGameHistoryPlot('gameHistoryPlot', scatterData, {
+                colorMode,
+                lineCount,
+                selectionMethod
+            });
+        }
+    </script>
+</body>
+</html>

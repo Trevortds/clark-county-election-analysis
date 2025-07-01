@@ -6,7 +6,7 @@ You are building an interactive data visualization about election statistics.
 - Observable Plot for visualizations  
 - Vanilla JS (no frameworks)
 - GitHub Pages compatible (static only)
-- During development, a Live Server is kept running, so you don't need to start a web server at any time. 
+- During development, a Live Server is kept running on localhost:8900, so you don't need to start a web server at any time. 
 
 ## Coding Standards
 - Use const/let, never var
@@ -31,18 +31,19 @@ You are building an interactive data visualization about election statistics.
 
 - [x] Figure out if we can know which machines are urban and which are rural.
 - [x] Load data for early and election day voting separately
-- [ ] Reproduce ETA graphs:
+- [/] Reproduce ETA graphs:
     - [x] plot machine counts vs percentages for each x axis is total votes per machine, y axis is trump %. 
         - Expectation: looks like their charts, the election day data caps out around 140 votes per machine, and looks like a blob of data, early data is more spread out, up to 1250 per machine, looks like a funnel
         - [ ] Improve on the graphs by showing 1/sqrt(n) falloff that outlines the funnel.
         - [x] Color them by presinct, ideally with a color spectrum showing urban/rural 
             - [ ] Early experiments show that the urban/rural didn't quite behave as expected, but there might be other ways to color the data, such as by assembly district. Get all the assembly district presinct lists, and add that as color options. (probably not going to do this)
+            - [ ] Consider using a beeswarm graph where the bubble sizes are the number of votes a tabulator processed
     - [x] Plot histogram of machine vote percentages, with Trump % on x axis and number of machines on y axis, separate graphs for election day and early voting
         - [x] Try making separate overlapping histograms for urban/rural if possible
-- [ ] Create game history graph, same type as the machine counts vs percentages, but this time with a lineage of each machine as it counts up as a line.
-- [ ] Reverse the game history graph, counting backwards. Take only the machines that have more than 200 votes, and show how those vote counts accumulate starting from the latest ones and proceeding towards the earliest ones. 
-    - [ ] Create a "If their interpretation was right" graph, that looks like the original game history graph but mirrored, where the votes all start out around 60% and then when the machines hit the 300 vote mark, they suddenly diverge into many different counts
-    - Expectation: they look basically the same as the orignial, because it's just convergence to the mean, law of large numbers.
+- [x] Create game history graph, same type as the machine counts vs percentages, but this time with a lineage of each machine as it counts up as a line.
+- [x] Reverse the game history graph, counting backwards. Take only the machines that have more than 200 votes, and show how those vote counts accumulate starting from the latest ones and proceeding towards the earliest ones. 
+    - [ ] Create a "If their interpretation was right" graph, that looks like the original game history graph but mirrored, where the votes all start out around 60% and then when the machines hit the 300 vote mark, they suddenly diverge into many different counts (I'll just do this by mirroring the image, because I don't want to make it look like it's generated from real data)
+    - Expectation: they look basically the same as the orignial, because it's just convergence to the mean, law of large numbers. SUCCESS
 - [ ] Create "Smoking Gun" graph
     - [ ] plot a moving average of votes on each machine over time. The X axis is number of votes counted, y axis is the moving average. Try a few different window sizes. 
     - [ ] Create a "if their interpretation was right" graph, that shows a sudden jump in the moving average, from some lower pro-kamala number to a higher pro-trump number. It should be a very distinct leap, a discontinuity in the linear history

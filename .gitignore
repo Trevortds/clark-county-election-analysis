@@ -1,3 +1,5 @@
+data/**.zip
+
 # Dependencies
 node_modules/
 npm-debug.log*
