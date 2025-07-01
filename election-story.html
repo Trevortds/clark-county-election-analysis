@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Law of Large Numbers: Understanding Election Statistics</title>
+    
+    <!-- Dependencies -->
+    <script src="https://unpkg.com/scrollama@3.2.0/build/scrollama.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
+    
+    <style>
+        :root {
+            /* Color palette */
+            --olivine: #a1c489ff;
+            --cadet-gray: #96a3a6ff;
+            --dark-spring-green: #33774eff;
+            --gunmetal: #213231ff;
+            --auburn: #9e2a2bff;
+            
+            /* Derived colors */
+            --bg-dark: #26302d;
+            --bg-light: #fafafa;
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --text-light: #e0e0e0;
+            --accent: var(--dark-spring-green);
+            --highlight: var(--olivine);
+        }
+        
+        /* Coin Flip Animation Styles */
+        @keyframes flip-to-heads {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(1800deg); }
+        }
+        
+        @keyframes flip-to-tails {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(1980deg); }
+        }
+        
+        .coin-container {
+            width: 100px;
+            height: 100px;
+            perspective: 1000px;
+            margin: 20px auto;
+        }
+        
+        .coin {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        
+        .coin-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            backface-visibility: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .heads {
+            background: var(--olivine);
+            color: var(--gunmetal);
+        }
+        
+        .tails {
+            background: var(--dark-spring-green);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        /* Multi-coin grid */
+        .coins-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 240px;
+            margin: 20px auto;
+        }
+        
+        /* Multi-coin grid */
+        .ten-coins-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            max-width: 565px;
+            margin: 20px auto;
+        }
+        
+        .coins-grid .coin-container {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .coins-grid .coin-face {
+            font-size: 18px;
+        }
+        
+        /* Viz-specific buttons */
+        .viz-button {
+            background: var(--dark-spring-green);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .viz-button:hover {
+            background: var(--gunmetal);
+        }
+        
+        .viz-result {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(161, 196, 137, 0.2);
+            border-radius: 6px;
+            min-height: 50px;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Source Sans Pro', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+        
+        /* Main layout grid */
+        .main-container {
+            display: grid;
+            grid-template-columns: 170px 1fr 280px;
+            max-width: 1440px;
+            margin: 0 auto;
+            gap: 40px;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        /* Left navigation (table of contents) */
+        .toc-sidebar {
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+            padding: 0;
+        }
+        
+        .toc-sidebar h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin: 0 0 20px 0;
+            font-weight: 600;
+        }
+        
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .toc-sidebar li {
+            margin: 0;
+        }
+        
+        .toc-sidebar a {
+            display: block;
+            padding: 8px 16px 8px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            border-left: 3px solid transparent;
+            margin-left: -20px;
+            transition: all 0.2s ease;
+        }
+        
+        .toc-sidebar a:hover {
+            color: var(--text-primary);
+            background: rgba(0,0,0,0.02);
+        }
+        
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background: rgba(51, 119, 78, 0.05);
+            font-weight: 600;
+        }
+        
+        /* Main content area */
+        .article-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .article-content h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin: 0 0 16px 0;
+            font-weight: 700;
+            color: var(--gunmetal);
+        }
+        
+        .article-content .subtitle {
+            font-size: 22px;
+            color: var(--text-secondary);
+            margin: 0 0 60px 0;
+            font-weight: 400;
+        }
+        
+        .article-content p {
+            margin: 0 0 28px 0;
+            color: var(--text-primary);
+        }
+        
+        .article-content p.lead {
+            font-size: 21px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+        
+        /* Right sidebar */
+        .right-sidebar {
+            position: sticky;
+            top: 40px;
+            align-self: flex-start;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+            /* Hide scrollbar but keep functionality */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .right-sidebar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .controls-section {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .controls-section h4 {
+            margin: 0 0 16px 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+        
+        /* Footnotes container - flows below controls */
+        #footnotes-container {
+            /* Remove sticky positioning to prevent overlap */
+            margin-top: 24px;
+        }
+        
+        /* Footnotes in right sidebar */
+        .footnote {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            background: rgba(161, 196, 137, 0.08);
+            border-left: 3px solid var(--olivine);
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            padding: 0 16px;
+        }
+        
+        .footnote.visible {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 500px; /* Increased to accommodate longer footnotes */
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        /* Visualization containers */
+        .viz-container {
+            background: var(--bg-dark);
+            border-radius: 8px;
+            padding: 48px;
+            margin: 32px -20px;
+            position: relative;
+        }
+        
+        .viz-container .viz-placeholder {
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cadet-gray);
+            font-style: italic;
+            border: 2px dashed rgba(161, 196, 137, 0.3);
+            border-radius: 4px;
+        }
+
+        .plot-container {
+            width: 100%;
+            max-width: 100%;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+        }
+        
+        /* Light container for graph visualizations */
+        .viz-container-light {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 32px 0px;
+            margin: 32px -20px;
+            position: relative;
+        }
+        
+        .viz-container-light h3 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        /* Coin games specific slider styling */
+        .coin-games-controls {
+            width: 100%;
+            max-width: 100%;
+            margin: 20px auto 0;
+        }
+        
+        .coin-games-controls .slider-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0;
+        }
+        
+        .coin-games-controls label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        
+        .coin-games-controls input[type="range"] {
+            flex: 1;
+            margin: 0 16px;
+        }
+        
+        .coin-games-controls .value {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+            min-width: 40px;
+            text-align: right;
+        }
+        
+        /* Sliders and controls */
+        .slider-control {
+            margin-bottom: 24px;
+        }
+        
+        .slider-control label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .slider-control input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--dark-spring-green);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .slider-control .value {
+            float: right;
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        /* Mobile Controls Bubble */
+        .mobile-controls-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--auburn);
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-controls-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        .mobile-controls-toggle svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+        
+        /* Mobile overlay for sidebar */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-overlay.active {
+            opacity: 1;
+        }
+        
+        /* Close button for mobile */
+        .mobile-close {
+            display: none;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 968px) {
+            /* Adjust main grid for tablet/mobile */
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px 15px;
+            }
+            
+            /* Hide sidebars on mobile */
+            .toc-sidebar,
+            .right-sidebar {
+                display: none;
+            }
+            
+            /* Show mobile controls toggle */
+            .mobile-controls-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Transform right sidebar into mobile panel */
+            .right-sidebar.mobile-active {
+                display: block;
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                width: 300px;
+                max-width: 85vw;
+                background: white;
+                z-index: 1001;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: -4px 0 16px rgba(0,0,0,0.1);
+                padding: 60px 20px 20px;
+                overflow-y: auto;
+            }
+            
+            .right-sidebar.mobile-active.open {
+                transform: translateX(0);
+            }
+            
+            /* Show close button on mobile */
+            .mobile-close {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                width: 32px;
+                height: 32px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                z-index: 1002;
+            }
+            
+            .mobile-close svg {
+                width: 24px;
+                height: 24px;
+                fill: var(--text-secondary);
+            }
+            
+            /* Full width containers on mobile */
+            .viz-container,
+            .viz-container-light {
+                margin: 20px -15px;
+                border-radius: 0;
+                padding: 32px 15px;
+            }
+            
+            /* Adjust article content */
+            .article-content {
+                padding: 0;
+            }
+            
+            .article-content h1 {
+                font-size: 36px;
+            }
+            
+            .article-content h2 {
+                font-size: 28px;
+            }
+            
+            /* Show overlay on mobile */
+            .mobile-overlay {
+                display: block;
+            }
+            
+            /* Mobile-specific text */
+            .desktop-only {
+                display: none;
+            }
+            
+            .mobile-only {
+                display: block !important;
+            }
+        }
+        
+        /* Desktop-specific text */
+        @media screen and (min-width: 969px) {
+            .mobile-only {
+                display: none !important;
+            }
+            
+            .desktop-only {
+                display: block;
+            }
+        }
+    </style>
+    
+    <!-- Scrollama library -->
+    <script src="https://unpkg.com/scrollama"></script>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Left sidebar: Table of Contents -->
+        <nav class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#intro" class="active">Introduction</a></li>
+                <li><a href="#coin-flip">The Coin Flip Game</a></li>
+                <li><a href="#law-of-large">Law of Large Numbers</a></li>
+                <li><a href="#election-data">Election Data Analysis</a></li>
+                <li><a href="#smoking-gun">The "Smoking Gun"</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Main content area -->
+        <article class="article-content">
+            <h1>The Fraud Behind 2024 Election Fraud Claims</h1>
+            <p class="subtitle">How the Election Truth Alliance misunderstood Stats 101, decieved themselves, and created a new conspiracy subculture</p>
+            
+            <section id="coin-flip">
+                <h2> Let's play a game </h2>
+                <p> You flip a coin, I'll call it. </p>
+            </section>  
+          
+            <!-- First Visualization: Single Coin -->
+            <div class="viz-container" id="single-coin-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Single Coin Flip</h3>
+                <div class="coin-container" data-viz="single">
+                    <div class="coin">
+                        <div class="coin-face heads">H</div>
+                        <div class="coin-face tails">T</div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="single">Flip the Coin!</button>
+                    <div class="viz-result" data-viz="single"></div>
+                </div>
+            </div>
+            
+            <section id="four-coins">
+                <p>
+                    Now let's make things more interesting. Instead of flipping one coin, let's flip four coins 
+                    at once. Can you predict what percentage will be heads?
+                </p>
+                
+                <p>
+                    With more coins, we start to see patterns emerge. The results become more predictable, 
+                    even though each individual coin flip is still random. This is the beginning of understanding 
+                    the Law of Large Numbers.
+                </p>
+            </section>
+            
+            <!-- Second Visualization: Four Coins -->
+            <div class="viz-container step" id="four-coins-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Four Coins</h3>
+                <div class="coins-grid" data-viz="four">
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="four">Flip All Four!</button>
+                    <div class="viz-result" data-viz="four"></div>
+                </div>
+            </div>
+
+            <section id="ten-coins">
+                <p>
+                    Let's do ten coins now. How many will be heads. Put in your guess:
+                </p>
+            </section>
+
+            <!-- Third Visualization: Ten Coins -->
+            <div class="viz-container step" id="ten-coins-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Ten Coins</h3>
+                <div class="ten-coins-grid" data-viz="ten">
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="ten">Flip All Ten!</button>
+                    <div class="viz-result" data-viz="ten"></div>
+                </div>
+            </div>
+            <section id="coin-games">
+                <p>
+                    I get the feeling you feel like you can win more often than you have, so 
+                    I'll make it easy for you. 
+                </p>
+                <p>
+                    I'll run 20 games at once, and put them on a chart for you, 
+                    and this time you get to pick how many coins are tossed. You only need to be correct within a 10% window.
+                </p>
+            </section>
+
+            <!-- Fourth Visualization: Coin Games -->
+            <div class="viz-container-light step" id="coin-games-viz">
+                <div id="coin-games-plot" class="plot-container"></div>
+                <div class="coin-games-controls">
+                    <div class="slider-control">
+                        <label>Number of Flips:</label>
+                        <input type="range" id="flips-slider" min="10" max="1000" value="0" step="10">
+                        <span class="value" id="flips-display">10</span>
+                    </div>
+                    <p style="text-align: center; font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Slide to change how many flips are done for each game</p>
+                    <p id="win-percentage" style="text-align: center; font-size: 18px; color: var(--dark-spring-green); font-weight: 600; margin-top: 12px; opacity: 0; transition: opacity 0.3s ease-in;">Your win rate: <span id="win-rate-value">0%</span></p>
+                    <p id="convergence-notice" style="text-align: center; font-size: 28px; color: var(--auburn); font-weight: bold; margin-top: 20px; display: none; opacity: 0; transition: opacity 0.5s ease-in;">Hey, wait a minute...</p>
+                </div>
+            </div>
+            
+            
+            <section id="coin-game-explanation">
+                <p class="lead">
+                    I forgot to mention, the coins that we've been flipping prefer to land on tails. Here, you can make them fair if you want, or bias them towards you.
+                </p>
+            </section>            
+
+            <section id="law-of-large-numbers-explanation">
+                <p class="lead">
+                    I did not lie to you about the outcomes of any of our prediction games, I just withheld the underlying preferences of the coins. You were able to detect those preferences by playing a large number of games with a large number of flips each. The more flips in a game, the closer the average result was to the true value of the coin. 
+                </p>
+                <h3>
+                    What you've just experienced is the Law of Large Numbers <sup>2</sup> and it is a centerpiece of statistics. Arguably, it is why we even do statistics <strong><em>at all</em></strong>.
+                </h3>
+                <p>
+                    The fact that variance around the mean is guaranteed to decrease as more samples are taken is critical for decision making using statistics. This is why scientists look for the largest test groups they can get their hands on for running experiments. [ maybe remove the casino thing, casinos are associated with unfairness and that's not the point. ] This is also why casinos are never afraid for their profits: even though the outcome of any individual game can be very hard to predict, and the house may frequently lose several games in a row, over the long run, the average outcome of thousands of games will converge to the "house edge", their initial likelihood of winning. 
+                </p>
+                <p>
+                    The Law of Large Numbers tells us that the more samples we take from some hard-to-predict source, the closer the average will be to the true value we are sampling from. More samples, more consistent and accurate results. 
+                </p>
+            </section>
+            
+            <!-- More content sections will go here -->
+            <section id="intro">
+                <p class="lead">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p>
+                
+                <p>
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p> 
+            </section>
+            <!-- this is just lorem ipsum, delete later -->
+            <section id="intro-2">
+                <p class="lead">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p>
+                
+                <p>
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p>  
+            </section>
+            <!-- this is just lorem ipsum, delete later -->
+            <section id="intro-3">
+                <p class="lead">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p>
+                
+                <p>
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p> 
+            </section>
+            <!-- this is just lorem ipsum, delete later -->
+            <section id="intro-4">
+                <p class="lead">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p>
+                
+                <p>
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p> 
+            </section>
+            
+        </article>
+        
+        <!-- Right sidebar: Controls and footnotes -->
+        <aside class="right-sidebar" id="controls-sidebar">
+            <!-- Close button for mobile -->
+            <button class="mobile-close" id="mobile-close-btn" aria-label="Close controls">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                </svg>
+            </button>
+            <div class="controls-section">
+                <h4 class="desktop-only">Controls</h4>
+                <h4 class="mobile-only" style="display: none;">Game Controls</h4>
+                
+                <!-- Prediction slider - hidden initially -->
+                <div class="slider-control" id="predictionControl" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <label>
+                        Your Prediction
+                        <span class="value">50%</span>
+                    </label>
+                    <input type="range" min="0" max="100" value="50" id="userPrediction">
+                    <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">
+                        What percentage of heads do you expect?
+                    </div>
+                </div>
+                
+                <!-- Coin bias slider, hidden initially -->
+                <div class="slider-control">
+                    <label>
+                        Coin Bias
+                        <span class="value">40%</span>
+                    </label>
+                    <input type="range" min="0" max="100" value="40" id="coinBias">
+                </div>
+            </div>
+            
+            <!-- Footnotes will appear here dynamically -->
+            <div id="footnotes-container">
+                <div class="footnote" data-section="intro">
+                    <strong>Note:</strong> The Election Truth Alliance's analysis 
+                    focused on the convergence of vote percentages as more votes 
+                    were counted—a phenomenon we'll explore through simple probability.
+                </div>
+                <div class="footnote" data-section="single-coin-viz">
+                    <strong><sup>1</sup></strong>: Don't worry, it's truly random—the best quality random numbers your computer can generate. I do not know what you are seeing right now.
+                </div>
+                <div class="footnote" data-section="law-of-large-numbers-explanation">
+                    <strong><sup>2</sup></strong>: The Law of Large Numbers is related to but not quite the same as the Central Limit Theorem, put a pin in that.
+                    It is also related to but not the same as the confusingly named Law of Very Large Numbers, 
+                    which states that unlikely events do still happen sometimes, especially when given enough trials.
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- Mobile controls toggle button -->
+    <button class="mobile-controls-toggle" id="mobile-controls-toggle" aria-label="Open controls">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/>
+        </svg>
+    </button>
+    
+    <!-- Mobile overlay -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+    
+    <script type="module">
+        // TODOS
+        // - Hide coin bias slider by default
+        // - Add the bias slider after the reveal
+        // - Hide all the coin related sliders once you've scrolled past the coin flip section
+        // - maybe have different controls sections and switch which one is active depending on
+        //  the direction of the user scroll past the switching point
+        // - Download the libs I am reliant on and use them either primarily or as a fallback
+        // - automatically highlight the active table of contents item
+        
+        // Import our visualization modules
+        import { animateCoinFlip } from './src/coin_flip.js';
+        import { animateCoins, calculateStats, formatStats } from './src/multi_coin_flip.js';
+        import { pregenerateCoinGames, createCoinGamesPlot, updateCoinGamesPlot } from './src/coin_games.js';
+        
+        // Create separate state for each visualization to avoid conflicts
+        const vizStates = {
+            global: {
+                headsProbability: 0.4
+            },
+            single: {
+                isAnimating: false,
+            },
+            four: {
+                isAnimating: false,
+            },
+            ten: {
+                isAnimating: false,
+            },
+            coinGames: {
+                isAnimating: false,
+                coinGames: [],
+                maxFlips: 10,
+            },
+            userPrediction: 50
+        };
+        
+        // Handle single coin flip
+        document.querySelector('button[data-viz="single"]').addEventListener('click', async function() {
+            if (vizStates.single.isAnimating) return;
+            
+            vizStates.single.isAnimating = true;
+            const coin = document.querySelector('.coin-container[data-viz="single"] .coin');
+            const resultDiv = document.querySelector('.viz-result[data-viz="single"]');
+            
+            // Clear previous result
+            resultDiv.innerHTML = '<p style="color: var(--text-secondary);">Tails! (Don\'t worry, I always choose tails)</p>';
+            
+            // Create a modified version of animateCoinFlip that uses our local state
+            coin.style.animation = 'none';
+            coin.offsetHeight; // Trigger reflow
+            
+            // Determine result
+            const result = Math.random() < vizStates.global.headsProbability ? 'heads' : 'tails';
+            const animationName = result === 'heads' ? 'flip-to-heads' : 'flip-to-tails';
+            coin.style.animation = `${animationName} 2000ms ease-out forwards`;
+            const extra_text = result === 'heads' ? 'You Win! 🎉' : 'You Lose! 😔';
+            
+            setTimeout(() => {
+                resultDiv.innerHTML = `<p style="color: var(--text-light);">Result: <strong>${result.toUpperCase()}</strong></p><p style="color: var(--olivine); font-weight: 600; font-size: 18px; margin-top: 10px;">${extra_text}</p>`;
+                vizStates.single.isAnimating = false;
+            }, 2000);
+        });
+        
+        // Handle four coins flip
+        document.querySelector('button[data-viz="four"]').addEventListener('click', async function() {
+            if (vizStates.four.isAnimating) return;
+            
+            vizStates.four.isAnimating = true;
+            const coins = document.querySelectorAll('.coins-grid[data-viz="four"] .coin');
+            const resultDiv = document.querySelector('.viz-result[data-viz="four"]');
+            
+            // Clear previous result
+            resultDiv.innerHTML = '<p style="color: var(--text-secondary);">Flipping all coins...</p>';
+            
+            // Animate all coins
+            const results = [];
+            const promises = Array.from(coins).map((coin, index) => {
+                return new Promise((resolve) => {
+                    // Clear animation
+                    coin.style.animation = 'none';
+                    coin.offsetHeight;
+                    const resultDiv = 
+                    
+                    // Random delay for staggered effect
+                    setTimeout(() => {
+                        const result = Math.random() < vizStates.global.headsProbability ? 'heads' : 'tails';
+                        const animationName = result === 'heads' ? 'flip-to-heads' : 'flip-to-tails';
+                        const duration = 2000 + Math.random() * 500;
+                        
+                        coin.style.animation = `${animationName} ${duration}ms ease-out forwards`;
+                        
+                        setTimeout(() => {
+                            results.push(result);
+                            resolve(result);
+                        }, duration);
+                    }, index * 100); // Stagger by 100ms
+                });
+            });
+            
+            // Wait for all coins to finish
+            await Promise.all(promises);
+            
+            // Calculate and display stats
+            const stats = calculateStats(results);
+            const userPredictionNum = parseInt(vizStates.userPrediction ?? 50);
+            const extra_text = (Math.abs(stats.headsPercentage - userPredictionNum) <= 5) ? 'You Win! 🎉' : 'You Lose! 😔';
+            resultDiv.innerHTML = formatStats(stats) + `<p style="color: var(--olivine); font-weight: 600; font-size: 18px; margin-top: 10px;">${extra_text}</p>`;
+            vizStates.four.isAnimating = false;
+        });
+
+        // Handle ten coins flip
+        document.querySelector('button[data-viz="ten"]').addEventListener('click', async function() {
+            if (vizStates.ten.isAnimating) return;
+            
+            vizStates.ten.isAnimating = true;
+            const coins = document.querySelectorAll('.ten-coins-grid[data-viz="ten"] .coin');
+            const resultDiv = document.querySelector('.viz-result[data-viz="ten"]');
+            
+            // Clear previous result
+            resultDiv.innerHTML = '<p style="color: var(--text-secondary);">Flipping all coins...</p>';
+            
+            // Animate all coins
+            const results = [];
+            const promises = Array.from(coins).map((coin, index) => {
+                return new Promise((resolve) => {
+                    // Clear animation
+                    coin.style.animation = 'none';
+                    coin.offsetHeight;
+                    const resultDiv = 
+                    
+                    // Random delay for staggered effect
+                    setTimeout(() => {
+                        const result = Math.random() < vizStates.global.headsProbability ? 'heads' : 'tails';
+                        const animationName = result === 'heads' ? 'flip-to-heads' : 'flip-to-tails';
+                        const duration = 2000 + Math.random() * 500;
+                        
+                        coin.style.animation = `${animationName} ${duration}ms ease-out forwards`;
+                        
+                        setTimeout(() => {
+                            results.push(result);
+                            resolve(result);
+                        }, duration);
+                    }, index * 100); // Stagger by 100ms
+                });
+            });
+            
+            // Wait for all coins to finish
+            await Promise.all(promises);
+            
+            // Calculate and display stats
+            const stats = calculateStats(results);
+            const userPredictionNum = parseInt(vizStates.userPrediction ?? 50);
+            const extra_text = (Math.abs(stats.headsPercentage - userPredictionNum) <= 10) ? 'You Win! 🎉' : 'You Lose! 😔';
+            resultDiv.innerHTML = formatStats(stats) + `<p style="color: var(--olivine); font-weight: 600; font-size: 18px; margin-top: 10px;">${extra_text}</p>`;
+            vizStates.ten.isAnimating = false;
+        });
+        
+
+        // Coin Games logic
+        // Initialize the visualization
+        function initCoinGamesVisualization() {
+            // Pre-generate all games
+            vizStates.coinGames.coinGames = pregenerateCoinGames(vizStates.global.headsProbability);
+            
+            // Create initial plot
+            createCoinGamesPlot('coin-games-plot', vizStates.coinGames.coinGames, {
+                maxFlips: vizStates.coinGames.maxFlips,
+                guessLower: vizStates.userPrediction - 5,
+                guessUpper: vizStates.userPrediction + 5,
+                title: "Multiple Coin Flip Games"
+            });
+            
+            // Calculate initial win percentage
+            calculateAndDisplayWinPercentage();
+            
+            // Set up event listeners
+            document.getElementById('flips-slider').addEventListener('input', handleFlipsChange);
+            document.getElementById('coinBias').addEventListener('input', handleProbabilityChange);
+            document.getElementById('userPrediction').addEventListener('input', handleGuessChange);
+        }
+
+        // Handler for flips slider change
+        function handleFlipsChange(e) {
+            const flipsSlider = e.target;
+            const flipsDisplay = document.getElementById('flips-display');
+            const convergenceNotice = document.getElementById('convergence-notice');
+            vizStates.coinGames.maxFlips = parseInt(flipsSlider.value);
+            flipsDisplay.textContent = vizStates.coinGames.maxFlips;
+            
+            // Show/hide convergence notice
+            if (vizStates.coinGames.maxFlips > 250) {
+                convergenceNotice.style.display = 'block';
+                // Trigger opacity transition
+                setTimeout(() => {
+                    convergenceNotice.style.opacity = '1';
+                }, 10);
+            } else {
+                convergenceNotice.style.opacity = '0';
+                setTimeout(() => {
+                    convergenceNotice.style.display = 'none';
+                }, 500); // Wait for transition to complete
+            }
+            
+            updateVisualization();
+        }
+
+        // Handler for probability slider change
+        function handleProbabilityChange(e) {
+            const probabilitySlider = e.target;
+            
+            // Regenerate games with new probability
+            vizStates.coinGames.coinGames = pregenerateCoinGames(vizStates.global.headsProbability);
+            
+            updateVisualization();
+        }
+        
+        // Handler for guess range sliders
+        function handleGuessChange(e) {
+            const userPrediction = e.target;
+            vizStates.userPrediction = parseInt(userPrediction.value);
+            
+            // Update display
+            e.target.previousElementSibling.querySelector('.value').textContent = e.target.value + '%';
+            
+            updateVisualization();
+        }
+        function updateVisualization() {
+            updateCoinGamesPlot('coin-games-plot', vizStates.coinGames.coinGames, {
+                maxFlips: vizStates.coinGames.maxFlips,
+                guessLower: vizStates.userPrediction - 5,
+                guessUpper: vizStates.userPrediction + 5,
+                title: "Multiple Coin Flip Games"
+            });
+            
+            // Calculate and display win percentage
+            calculateAndDisplayWinPercentage();
+        }
+        
+        function calculateAndDisplayWinPercentage() {
+            const games = vizStates.coinGames.coinGames;
+            const maxFlips = vizStates.coinGames.maxFlips;
+            const lowerBound = vizStates.userPrediction - 5;
+            const upperBound = vizStates.userPrediction + 5;
+            
+            // Count games within the prediction window
+            let wins = 0;
+            const totalGames = games.length;
+            
+            games.forEach(game => {
+                if (maxFlips <= game.flips.length) {
+                    const headsCount = game.flips.slice(0, maxFlips).filter(f => f).length;
+                    const headsPercentage = (headsCount / maxFlips) * 100;
+                    if (headsPercentage >= lowerBound && headsPercentage <= upperBound) {
+                        wins++;
+                    }
+                }
+            });
+            
+            const winPercentage = totalGames > 0 ? Math.round((wins / totalGames) * 100) : 0;
+            const winRateElement = document.getElementById('win-rate-value');
+            const winPercentageElement = document.getElementById('win-percentage');
+            
+            if (winRateElement && winPercentageElement) {
+                winRateElement.textContent = `${winPercentage}%`;
+                
+                // Show win percentage after a short delay
+                setTimeout(() => {
+                    winPercentageElement.style.opacity = '1';
+                }, 300);
+                
+                // Update color based on win rate
+                if (winPercentage >= 70) {
+                    winPercentageElement.style.color = 'var(--dark-spring-green)';
+                } else if (winPercentage >= 40) {
+                    winPercentageElement.style.color = 'var(--olivine)';
+                } else {
+                    winPercentageElement.style.color = 'var(--auburn)';
+                }
+            }
+        }
+
+        // Initialize when the page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCoinGamesVisualization);
+        } else {
+            // DOM is already loaded
+            initCoinGamesVisualization();
+        }
+
+
+        // Connect sliders to both visualizations
+        document.getElementById('coinBias').addEventListener('input', function(e) {
+            const value = e.target.value / 100;
+            vizStates.global.headsProbability = value;
+            e.target.previousElementSibling.querySelector('.value').textContent = e.target.value + '%';
+        });
+        
+
+        
+        
+        // Handle prediction slider
+        document.getElementById('userPrediction').addEventListener('input', function(e) {
+            e.target.previousElementSibling.querySelector('.value').textContent = e.target.value + '%';
+            // Store the prediction for later use
+            vizStates.userPrediction = e.target.value;
+        });
+        
+        // Initialize Scrollama instances
+        const predictionControl = document.getElementById('predictionControl');
+        
+        // Set up prediction control visibility using Scrollama
+        const predictionScroller = scrollama();
+        
+        predictionScroller
+            .setup({
+                step: '#four-coins-viz',
+                offset: 0.1, // Trigger when section is 90% up the viewport
+                once: true // Only trigger once
+            })
+            .onStepEnter(response => {
+                // Show prediction control when entering four-coins section
+                predictionControl.style.display = 'block';
+                setTimeout(() => {
+                    predictionControl.style.opacity = '1';
+                }, 50);
+            });
+        
+        // Set up dynamic footnote system using Scrollama
+        const setupFootnotes = () => {
+            const footnotes = document.querySelectorAll('.footnote[data-section]');
+            const sectionsToFootnotes = new Map();
+            
+            // Map sections to their footnotes (handle multiple footnotes per section)
+            footnotes.forEach(footnote => {
+                const sectionId = footnote.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    if (!sectionsToFootnotes.has(section)) {
+                        sectionsToFootnotes.set(section, []);
+                    }
+                    sectionsToFootnotes.get(section).push(footnote);
+                }
+            });
+            
+            // Create Scrollama instance for footnotes
+            const footnoteScroller = scrollama();
+            
+            // Get all sections that have footnotes
+            const sectionsWithFootnotes = Array.from(sectionsToFootnotes.keys());
+            
+            footnoteScroller
+                .setup({
+                    step: sectionsWithFootnotes,
+                    offset: 0.6, // Trigger when section is 40% down from top
+                    debug: false
+                })
+                .onStepEnter(response => {
+                    const sectionFootnotes = sectionsToFootnotes.get(response.element);
+                    if (sectionFootnotes) {
+                        // Show footnotes for this section
+                        sectionFootnotes.forEach(f => f.classList.add('visible'));
+                    }
+                })
+                .onStepExit(response => {
+                    const sectionFootnotes = sectionsToFootnotes.get(response.element);
+                    if (sectionFootnotes) {
+                        // Hide footnotes for this section when it leaves
+                        sectionFootnotes.forEach(f => f.classList.remove('visible'));
+                    }
+                });
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                footnoteScroller.resize();
+                predictionScroller.resize();
+            });
+        };
+        
+        // Initialize footnotes after DOM is ready
+        setupFootnotes();
+        
+        // Mobile controls functionality
+        const setupMobileControls = () => {
+            const toggleBtn = document.getElementById('mobile-controls-toggle');
+            const closeBtn = document.getElementById('mobile-close-btn');
+            const sidebar = document.getElementById('controls-sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            
+            const openSidebar = () => {
+                sidebar.classList.add('mobile-active', 'open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent body scroll
+            };
+            
+            const closeSidebar = () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // Restore body scroll
+                
+                // Remove mobile-active class after transition
+                setTimeout(() => {
+                    sidebar.classList.remove('mobile-active');
+                }, 300);
+            };
+            
+            // Toggle button click
+            toggleBtn.addEventListener('click', openSidebar);
+            
+            // Close button click
+            closeBtn.addEventListener('click', closeSidebar);
+            
+            // Overlay click
+            overlay.addEventListener('click', closeSidebar);
+            
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+        };
+        
+        // Initialize mobile controls
+        setupMobileControls();
+    </script>
+</body>
+</html>

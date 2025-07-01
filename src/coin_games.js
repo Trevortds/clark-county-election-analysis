@@ -6,7 +6,7 @@ import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm"
 
 // Constants
 const TOTAL_GAMES = 20;
-const MAX_FLIPS = 400;
+const MAX_FLIPS = 2000;
 
 /**
  * Generate random coin flip games

@@ -86,7 +86,7 @@ function calculateStats(results) {
  */
 function formatStats(stats) {
   return `
-    <p>Results: ${stats.headsCount} Heads (${stats.headsPercentage.toFixed(0)}%), ${stats.tailsCount} Tails (${(100 - stats.headsPercentage).toFixed(0)}%)</p>
+    <p style="color: var(--text-light, #e0e0e0);">Results: ${stats.headsCount} Heads (${stats.headsPercentage.toFixed(0)}%), ${stats.tailsCount} Tails (${(100 - stats.headsPercentage).toFixed(0)}%)</p>
   `;
 }
 
@@ -142,4 +142,4 @@ function initMultiCoinFlip(coinsContainerId, buttonElementId, resultElementId, s
 }
 
 // Export functions
-export { initMultiCoinFlip, animateCoins, calculateStats };
+export { initMultiCoinFlip, animateCoins, calculateStats, formatStats };
