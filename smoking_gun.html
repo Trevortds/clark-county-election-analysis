@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024 Early Voting in Clark County, NV - Smoking Gun Analysis</title>
+    <!-- D3.js for line highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <!-- Observable Plot loaded as ES module -->
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #FFD700; /* Gold background for header */
+            color: #000;
+            padding: 15px;
+            margin-top: 0;
+            border-radius: 4px;
+        }
+        .description {
+            margin: 20px 0;
+            line-height: 1.5;
+            color: #333;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .plot-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footer {
+            text-align: right;
+            font-size: 0.8em;
+            font-style: italic;
+            margin-top: 20px;
+            color: #666;
+        }
+        /* Checkbox styling */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        input[type="checkbox"] {
+            cursor: pointer;
+        }
+        /* Loading indicator */
+        #loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        /* Radio group styling */
+        .radio-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        /* Slider styling */
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px 0;
+        }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .slider-value {
+            font-weight: bold;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2024 Early Voting in Clark County, NV - "Smoking Gun" Analysis</h1>
+        
+        <div class="description">
+            <p>This visualization shows the rolling average of Trump votes for each voting machine. 
+            Unlike the game history view that shows cumulative percentages, this displays the average 
+            of the most recent K votes at each point, where K is the window size you can adjust with the slider.</p>
+            
+            <p>A legitimate election would show random variations in the rolling average as votes are counted, 
+            following a pattern consistent with statistical noise. A manipulated election might show sudden jumps 
+            or systematic shifts in the rolling average beyond what would be expected from natural variation.</p>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>Color Mode:</label>
+                <div class="radio-group">
+                    <input type="radio" id="colorModeNone" name="colorMode" value="none">
+                    <label for="colorModeNone">None (Rainbow)</label>
+                    <input type="radio" id="colorModeBinary" name="colorMode" value="binary" checked>
+                    <label for="colorModeBinary">Urban/Rural</label>
+                    <input type="radio" id="colorModeGradient" name="colorMode" value="gradient">
+                    <label for="colorModeGradient">Urban % Gradient</label>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <span class="control-label">Line Count:</span>
+                <div class="radio-group">
+                    <label><input type="radio" name="lineCount" value="all"> All</label>
+                    <label><input type="radio" name="lineCount" value="100"> 100</label>
+                    <label><input type="radio" name="lineCount" value="50" checked> 50</label>
+                    <label><input type="radio" name="lineCount" value="20"> 20</label>
+                </div>
+                <div class="disclaimer" style="font-size: 0.8em; color: #666; margin-top: 4px;">
+                    <em>Note: The "All" option may take a long time to load and be difficult to read.</em>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label>Selection Method:</label>
+                <div class="radio-group">
+                    <input type="radio" id="selectionLongest" name="selectionMethod" value="longest" checked>
+                    <label for="selectionLongest">Longest</label>
+                    <input type="radio" id="selectionRandom" name="selectionMethod" value="random">
+                    <label for="selectionRandom">Random</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slider-container">
+            <div class="slider-label">
+                <span>Window Size:</span>
+                <span class="slider-value" id="windowSizeValue">30</span>
+            </div>
+            <input type="range" id="windowSizeSlider" min="5" max="50" value="30" step="1">
+            <div class="slider-explanation" style="font-size: 0.8em; color: #666; margin-top: 4px;">
+                <em>The window size determines how many votes are included in the rolling average calculation.</em>
+            </div>
+        </div>
+        
+        <div id="loading">Loading data...</div>
+        <div id="rollingAveragePlot" class="plot-container"></div>
+        
+        <div class="footer">Based on Clark County early voting election data</div>
+    </div>
+
+    <script type="module">
+        import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+        import { createRollingAveragePlot } from "./src/rolling_average.js";
+
+        // Variable to store selected random tabulators
+        let selectedRandomTabulators = null;
+
+        // Show loading indicator
+        document.getElementById('loading').style.display = 'block';
+        
+        // Fetch the scatter data which contains all we need
+        fetch('data/processed_data/early_votes_scatter_data.json')
+            .then(response => response.json())
+            .then(scatterData => {
+                // Hide loading indicator
+                document.getElementById('loading').style.display = 'none';
+                
+                // Create the rolling average plot
+                updatePlot(scatterData.data);
+                
+                // Add event listeners for radio buttons that should reset the random selection
+                document.querySelectorAll('input[name="colorMode"], input[name="lineCount"], input[name="selectionMethod"]').forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        // Clear stored random tabulators when these controls change
+                        selectedRandomTabulators = null;
+                        updatePlot(scatterData.data, selectedRandomTabulators);
+                    });
+                });
+                
+                // Set up window size slider
+                const windowSizeSlider = document.getElementById('windowSizeSlider');
+                const windowSizeValue = document.getElementById('windowSizeValue');
+                
+                windowSizeSlider.addEventListener('input', () => {
+                    const value = windowSizeSlider.value;
+                    windowSizeValue.textContent = value;
+                });
+                
+                // Window size changes should preserve the random selection
+                windowSizeSlider.addEventListener('change', () => {
+                    updatePlot(scatterData.data, selectedRandomTabulators);
+                });
+                
+                // Function to update selected random tabulators
+                window.setSelectedRandomTabulators = (tabulators) => {
+                    selectedRandomTabulators = tabulators;
+                };
+            })
+            .catch(error => {
+                console.error('Error loading data:', error);
+                document.getElementById('loading').textContent = 'Error loading data. Please check console for details.';
+            });
+        
+        function updatePlot(scatterData, currentRandomTabulators = null) {
+            // Get the selected options
+            const colorMode = document.querySelector('input[name="colorMode"]:checked').value;
+            const lineCount = document.querySelector('input[name="lineCount"]:checked').value;
+            const selectionMethod = document.querySelector('input[name="selectionMethod"]:checked').value;
+            const windowSize = parseInt(document.getElementById('windowSizeSlider').value);
+            
+            // Create the plot
+            createRollingAveragePlot('rollingAveragePlot', scatterData, {
+                colorMode,
+                lineCount,
+                selectionMethod,
+                windowSize,
+                selectedRandomTabulators: currentRandomTabulators
+            });
+        }
+    </script>
+</body>
+</html>
