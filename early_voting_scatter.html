@@ -83,6 +83,14 @@
                     <input type="radio" name="colorMode" value="gradient">
                     Urban % Gradient
                 </label>
+                <label>
+                    <input type="radio" name="colorMode" value="cutoff800">
+                    Cut off at 800
+                </label>
+                <label>
+                    <input type="radio" name="colorMode" value="cutoff125">
+                    Cut off at 125
+                </label>
             </div>
         </div>
         
@@ -157,7 +165,121 @@
                     fill: "urban_percentage",
                     title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%\nUrban %: ${d.urban_percentage.toFixed(1)}%`
                 };
-            } else {
+            } else if (colorMode === 'cutoff800') {
+                // To reproduce the weird way they did their data
+                dotConfig = {
+                    fill: "red",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%`
+                };
+                const kDotConfig = {
+                    fill: "blue",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\Kamala %: ${(100-d.trump_percentage).toFixed(2)}%`
+                }
+                for (let i = 0; i < plotData.length; i++) {
+                    plotData[i].kamala_percentage = 100 - plotData[i].trump_percentage;
+                }
+                const filteredPlotData = plotData.filter(d => d.total_votes < 800);
+                // Create the scatter plot
+                const plot = Plot.plot({
+                    width: 800,
+                    height: 500,
+                    marginBottom: 50,
+                    marginLeft: 60,
+                    grid: true,
+                    color: colorMode === 'gradient' ? colorConfig : null,
+                    x: {
+                        label: "Total Votes per Machine",
+                        nice: true,
+                        domain: [0, Math.max(...filteredPlotData.map(d => d.total_votes)) * 1.05]
+                    },
+                    y: {
+                        label: "Trump %",
+                        nice: true,
+                        domain: [0, 100],
+                        tickFormat: d => `${d.toFixed(0)}`,
+                        grid: true
+                    },
+                    marks: [
+                        Plot.dot(filteredPlotData, {
+                            x: "total_votes",
+                            y: "trump_percentage",
+                            r: 4,
+                            opacity: 0.7,
+                            ...dotConfig
+                        }),
+                        Plot.dot(filteredPlotData, {
+                            x: "total_votes",
+                            y: "kamala_percentage",
+                            r: 4,
+                            opacity: 0.7,
+                            ...kDotConfig
+                        })
+                    ]
+                });
+                
+                // Clear and append the plot to the container
+                const container = document.getElementById('scatterPlot');
+                container.innerHTML = '';
+                container.appendChild(plot);
+                return;
+            }  else if (colorMode === 'cutoff125') {
+                // To reproduce the weird way they did their data
+                dotConfig = {
+                    fill: "red",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%`
+                };
+                const kDotConfig = {
+                    fill: "blue",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\Kamala %: ${(100-d.trump_percentage).toFixed(2)}%`
+                }
+                for (let i = 0; i < plotData.length; i++) {
+                    plotData[i].kamala_percentage = 100 - plotData[i].trump_percentage;
+                }
+                const filteredPlotData = plotData.filter(d => d.total_votes < 125);
+                // Create the scatter plot
+                const plot = Plot.plot({
+                    width: 800,
+                    height: 500,
+                    marginBottom: 50,
+                    marginLeft: 60,
+                    grid: true,
+                    color: colorMode === 'gradient' ? colorConfig : null,
+                    x: {
+                        label: "Total Votes per Machine",
+                        nice: true,
+                        domain: [0, Math.max(...filteredPlotData.map(d => d.total_votes)) * 1.05]
+                    },
+                    y: {
+                        label: "Trump %",
+                        nice: true,
+                        domain: [0, 100],
+                        tickFormat: d => `${d.toFixed(0)}`,
+                        grid: true
+                    },
+                    marks: [
+                        Plot.dot(filteredPlotData, {
+                            x: "total_votes",
+                            y: "trump_percentage",
+                            r: 4,
+                            opacity: 0.7,
+                            ...dotConfig
+                        }),
+                        Plot.dot(filteredPlotData, {
+                            x: "total_votes",
+                            y: "kamala_percentage",
+                            r: 4,
+                            opacity: 0.7,
+                            ...kDotConfig
+                        })
+                    ]
+                });
+                
+                // Clear and append the plot to the container
+                const container = document.getElementById('scatterPlot');
+                container.innerHTML = '';
+                container.appendChild(plot);
+                return;
+            }else {
                 // No coloring (red dots)
                 dotConfig = {
                     fill: "red",

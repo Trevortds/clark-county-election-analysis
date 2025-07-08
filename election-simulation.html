@@ -7,37 +7,55 @@
     <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            margin: 0;
             padding: 20px;
-            color: #333;
-            line-height: 1.6;
+            background-color: #f5f5f5;
         }
-        h1, h2 {
-            color: #2c3e50;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
         }
         h1 {
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
+            text-align: center;
+            background-color: #FFD700; /* Gold background for header */
+            color: #000;
+            padding: 15px;
+            margin-top: 0;
+            border-radius: 4px;
+        }
+        h2 {
+            color: #2c3e50;
         }
         .section {
-            margin: 40px 0;
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            border-radius: 5px;
+        }
+        .description {
+            margin: 20px 0;
+            line-height: 1.5;
+            color: #333;
         }
         .controls {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         .control-group {
-            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        label {
+        .control-group label {
             display: inline-block;
             width: 200px;
             font-weight: 600;
@@ -59,7 +77,7 @@
             appearance: none;
             width: 18px;
             height: 18px;
-            background: #3498db;
+            background: #4682B4;
             border-radius: 50%;
             cursor: pointer;
             transition: background 0.2s;
@@ -68,18 +86,18 @@
         input[type="range"]::-moz-range-thumb {
             width: 18px;
             height: 18px;
-            background: #3498db;
+            background: #4682B4;
             border-radius: 50%;
             cursor: pointer;
             transition: background 0.2s;
         }
         
         input[type="range"]:active::-webkit-slider-thumb {
-            background: #2980b9;
+            background: #5A8FCC;
         }
         
         input[type="range"]:active::-moz-range-thumb {
-            background: #2980b9;
+            background: #5A8FCC;
         }
         
         input[type="range"]:hover {
@@ -90,17 +108,32 @@
             width: 60px;
         }
         button {
-            background: #3498db;
+            padding: 10px 20px;
+            background: #4682B4;
             color: white;
             border: none;
-            padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            transition: background 0.2s;
             margin-top: 10px;
+            align-self: center;
         }
+        
         button:hover {
-            background: #2980b9;
+            background: #5A8FCC;
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        span {
+            font-weight: 400;
+            color: #555;
+            width: 60px;
+            display: inline-block;
+            text-align: right;
         }
         .chart-container {
             background: white;
@@ -131,42 +164,100 @@
     </style>
 </head>
 <body>
-    <h1>Election Data Convergence: What Does "Normal" Look Like?</h1>
-    
-    <div class="section">
-        <h2>Understanding Vote Percentage Convergence</h2>
-        <p>When votes are counted sequentially, the running vote percentage naturally converges toward the true value. This is a fundamental property of statistics, not evidence of manipulation. Let's explore why.</p>
+    <div class="container">
+        <h1>Election Data Convergence: What Does "Normal" Look Like?</h1>
+        
+        <div class="description">
+            <h2>Understanding Vote Percentage Convergence</h2>
+            <p>When votes are counted sequentially, the running vote percentage naturally converges toward the true value. This is a fundamental property of statistics, not evidence of manipulation. Let's explore why.</p>
+        </div>
+        
+        <div class="election-results" style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #002051;">
+            <h3 style="margin: 0 0 10px 0; color: #002051;">Actual Early Voting Results (Clark County)</h3>
+            <div style="display: flex; gap: 30px; align-items: center;">
+                <div><strong>Total Votes:</strong> 390,936</div>
+                <div><strong>Trump:</strong> 60.0%</div>
+                <div><strong>Harris:</strong> 40.0%</div>
+                <div style="margin-left: auto; font-size: 12px; color: #666;">
+                    Turnout: 51.9% Republicans | 27.8% Democrats | 20.3% Independents
+                </div>
+            </div>
+        </div>
         
         <div class="controls">
             <div class="control-group">
-                <label>Democrat Support Base:</label>
-                <input type="range" id="demSupportBase" min="25" max="45" value="35" step="1">
-                <span id="demSupportBaseValue">35%</span>
+                <label>Urban Support Base:</label>
+                <input type="range" id="urbanSupportBase" min="0" max="100" value="45" step="1">
+                <span id="urbanSupportBaseValue">45%</span>
             </div>
             <div class="control-group">
-                <label>Republican Support Base:</label>
-                <input type="range" id="repSupportBase" min="55" max="75" value="65" step="1">
-                <span id="repSupportBaseValue">65%</span>
+                <label>Rural Support Base:</label>
+                <input type="range" id="ruralSupportBase" min="0" max="100" value="73" step="1">
+                <span id="ruralSupportBaseValue">73%</span>
             </div>
             <div class="control-group">
-                <label>Dem/Urban Locations %:</label>
-                <input type="range" id="urbanPercentage" min="30" max="70" value="60" step="5">
-                <span id="urbanPercentageValue">60%</span>
+                <label>Suburban Support Base:</label>
+                <input type="range" id="suburbanSupportBase" min="0" max="100" value="60" step="1">
+                <span id="suburbanSupportBaseValue">60%</span>
             </div>
             <div class="control-group">
-                <label>Cluster Strength:</label>
-                <input type="range" id="clusterStrength" min="1" max="20" value="8" step="1">
-                <span id="clusterStrengthValue">8</span>
+                <label>Rural Machines:</label>
+                <input type="range" id="ruralMachines" min="0" max="500" value="250" step="10">
+                <span id="ruralMachinesValue">250</span>
+                <span style="font-size: 12px; color: #666; display: block;">Total: 964 | Non-rural: <span id="nonRuralCount">714</span></span>
             </div>
             <div class="control-group">
-                <label>Total Locations:</label>
-                <input type="range" id="numLocations" min="10" max="500" value="150" step="10">
-                <span id="numLocationsValue">150</span>
+                <label>Urban % of Non-Rural Machines:</label>
+                <input type="range" id="urbanPercentage" min="0" max="100" value="35" step="5">
+                <span id="urbanPercentageValue">35%</span>
+                <span style="font-size: 12px; color: #666; display: block;">Urban: <span id="urbanCount">214</span> | Suburban: <span id="suburbanCount">500</span> | Rural: <span id="ruralCountDisplay">250</span></span>
+            </div>
+            <div class="control-group">
+                <label>Urban Cluster Variance:</label>
+                <input type="range" id="urbanClusterStrength" min="1" max="20" value="10" step="1">
+                <span id="urbanClusterStrengthValue">10</span>
+            </div>
+            <div class="control-group">
+                <label>Suburban Cluster Variance:</label>
+                <input type="range" id="suburbanClusterStrength" min="1" max="20" value="4" step="1">
+                <span id="suburbanClusterStrengthValue">4</span>
+            </div>
+            <div class="control-group">
+                <label>Rural Cluster Variance:</label>
+                <input type="range" id="ruralClusterStrength" min="1" max="20" value="8" step="1">
+                <span id="ruralClusterStrengthValue">8</span>
             </div>
             <button id="runSimulation">Run Simulation</button>
         </div>
         
+        <div class="simulation-results" style="background: #e8f5e8; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #27ae60; max-width: 300px;">
+            <h3 style="margin: 0 0 10px 0; color: #27ae60;">Simulation Results</h3>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <div><strong>Total Votes:</strong> <span id="simTotalVotes">0</span></div>
+                <div><strong>Trump:</strong> <span id="simTrumpPercent">0.0%</span></div>
+                <div><strong>Harris:</strong> <span id="simHarrisPercent">0.0%</span></div>
+            </div>
+        </div>
+        
         <div class="chart-container" id="mainChart"></div>
+        
+        <div class="controls" style="margin: 20px 0;">
+            <div class="control-group">
+                <label>Histogram Display Mode:</label>
+                <div class="radio-group" style="display: inline-flex; gap: 15px;">
+                    <label><input type="radio" name="histogramDisplayMode" value="stacked" checked> Stacked</label>
+                    <label><input type="radio" name="histogramDisplayMode" value="overlapping"> Overlapping</label>
+                </div>
+            </div>
+            <div class="control-group" style="margin-left: 20px;">
+                <label>Color Mode:</label>
+                <div class="radio-group" style="display: inline-flex; gap: 15px;">
+                    <label><input type="radio" name="histogramColorMode" value="ternary" checked> Urban/Suburban/Rural</label>
+                    <label><input type="radio" name="histogramColorMode" value="binary"> Urban/Rural Combined</label>
+                    <label><input type="radio" name="histogramColorMode" value="unary"> All Combined (Red)</label>
+                </div>
+            </div>
+        </div>
         
         <div class="chart-container" id="histogramChart"></div>
         
@@ -181,27 +272,6 @@
             </ul>
             
             <p>These patterns create a more realistic simulation that better matches actual election data distributions.</p>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>Coin Flip Demonstration</h2>
-        <p>To understand why convergence is normal, let's look at a simpler example: coin flips.</p>
-        
-        <div class="controls">
-            <div class="control-group">
-                <label>Coins per Group:</label>
-                <input type="range" id="coinsPerGroup" min="10" max="1000" value="100" step="10">
-                <span id="coinsPerGroupValue">100</span>
-            </div>
-            <button id="runCoinFlip">Flip Coins</button>
-        </div>
-        
-        <div class="chart-container" id="coinFlipChart"></div>
-        <div id="coinFlipVariance" style="text-align: center; font-size: 18px; margin: 10px;"></div>
-        
-        <div class="key-point">
-            Small samples have high variance. Large samples converge to the true value. This is why early vote counts can seem "wild" but later counts are more stable.
         </div>
     </div>
     
@@ -236,19 +306,37 @@
     
     <script type="module">
         import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+        import { createHistogram } from './src/histogram.js';
+        // TODO
+        // - Consider making an option to run the simulation as a full election, using 3115 total machines, each one topping out at most 125 votes, comparable turnout for D and R. 
+        // - Add suburban as a population type. Let the mean for urban be 45%, suburban be 60%, and rural be 80%. 
+        // - Add population effects. In early voting, Republicans were more likely to vote than democrats, democrats mostly voted on electino day or by mail. 
+
+        /*
+        Settings that produced a very similar image:
+        urban base: 45
+        rural base: 73
+        suburban base: 60
+        rural machines 250
+        urban% of non rural machines 55 (so slightly more urban than suburbal)
+        urban cluster variance: 11
+        suburban cluster variance: 3
+        rural cluster variance: 9
+        */
         
         // State for simulations and generated data
         const simulation = {
-            demSupportBase: 35,
-            repSupportBase: 65,
-            urbanPercentage: 60,
-            clusterStrength: 8,
-            numLocations: 150,
-            data: null
-        };
-        
-        const coinFlipSimulation = {
-            coinsPerGroup: 100,
+            urbanSupportBase: 45,
+            ruralSupportBase: 73,
+            suburbanSupportBase: 60,
+            urbanPercentage: 55,  // Percentage of non-rural machines that are urban
+            urbanClusterStrength: 11,
+            suburbanClusterStrength: 3,
+            ruralClusterStrength: 9,
+            // Fixed machine counts based on real election data
+            ruralMachines: 250,
+            nonRuralMachines: 714,
+            totalMachines: 964,
             data: null
         };
         
@@ -259,52 +347,83 @@
         };
         
         // Update value displays and handle realtime changes
-        const demSupportBaseSlider = document.getElementById('demSupportBase');
-        const repSupportBaseSlider = document.getElementById('repSupportBase');
+        const urbanSupportBaseSlider = document.getElementById('urbanSupportBase');
+        const ruralSupportBaseSlider = document.getElementById('ruralSupportBase');
+        const suburbanSupportBaseSlider = document.getElementById('suburbanSupportBase');
+        const ruralMachinesSlider = document.getElementById('ruralMachines');
         const urbanPercentageSlider = document.getElementById('urbanPercentage');
-        const clusterStrengthSlider = document.getElementById('clusterStrength');
-        const numLocationsSlider = document.getElementById('numLocations');
-        const coinsPerGroupSlider = document.getElementById('coinsPerGroup');
+        const urbanClusterStrengthSlider = document.getElementById('urbanClusterStrength');
+        const suburbanClusterStrengthSlider = document.getElementById('suburbanClusterStrength');
+        const ruralClusterStrengthSlider = document.getElementById('ruralClusterStrength');
         const manipulationLevelSlider = document.getElementById('manipulationLevel');
         
         // Use both input (for realtime updates during drag) and change (for final value)
-        demSupportBaseSlider.addEventListener('input', (e) => {
-            simulation.demSupportBase = parseInt(e.target.value);
-            document.getElementById('demSupportBaseValue').textContent = e.target.value + '%';
+        urbanSupportBaseSlider.addEventListener('input', (e) => {
+            simulation.urbanSupportBase = parseInt(e.target.value);
+            document.getElementById('urbanSupportBaseValue').textContent = e.target.value + '%';
             // Only redraw charts, don't regenerate data
             drawMainChart(simulation.data);
             drawHistogram(simulation.data);
         });
         
-        repSupportBaseSlider.addEventListener('input', (e) => {
-            simulation.repSupportBase = parseInt(e.target.value);
-            document.getElementById('repSupportBaseValue').textContent = e.target.value + '%';
+        ruralSupportBaseSlider.addEventListener('input', (e) => {
+            simulation.ruralSupportBase = parseInt(e.target.value);
+            document.getElementById('ruralSupportBaseValue').textContent = e.target.value + '%';
             // Only redraw charts, don't regenerate data
             drawMainChart(simulation.data);
             drawHistogram(simulation.data);
+        });
+        
+        suburbanSupportBaseSlider.addEventListener('input', (e) => {
+            simulation.suburbanSupportBase = parseInt(e.target.value);
+            document.getElementById('suburbanSupportBaseValue').textContent = e.target.value + '%';
+            // Only redraw charts, don't regenerate data
+            drawMainChart(simulation.data);
+            drawHistogram(simulation.data);
+        });
+        
+        ruralMachinesSlider.addEventListener('input', (e) => {
+            simulation.ruralMachines = parseInt(e.target.value);
+            simulation.nonRuralMachines = simulation.totalMachines - simulation.ruralMachines;
+            document.getElementById('ruralMachinesValue').textContent = e.target.value;
+            document.getElementById('nonRuralCount').textContent = simulation.nonRuralMachines;
+            document.getElementById('ruralCountDisplay').textContent = simulation.ruralMachines;
+            
+            // Recalculate urban/suburban split
+            const urbanMachines = Math.round(simulation.nonRuralMachines * (simulation.urbanPercentage / 100));
+            const suburbanMachines = simulation.nonRuralMachines - urbanMachines;
+            document.getElementById('urbanCount').textContent = urbanMachines;
+            document.getElementById('suburbanCount').textContent = suburbanMachines;
+            // This affects data generation, so we don't redraw here
         });
         
         urbanPercentageSlider.addEventListener('input', (e) => {
             simulation.urbanPercentage = parseInt(e.target.value);
             document.getElementById('urbanPercentageValue').textContent = e.target.value + '%';
+            
+            // Calculate and display machine counts
+            const urbanMachines = Math.round(simulation.nonRuralMachines * (simulation.urbanPercentage / 100));
+            const suburbanMachines = simulation.nonRuralMachines - urbanMachines;
+            document.getElementById('urbanCount').textContent = urbanMachines;
+            document.getElementById('suburbanCount').textContent = suburbanMachines;
             // This affects data generation, so we don't redraw here
         });
         
-        clusterStrengthSlider.addEventListener('input', (e) => {
-            simulation.clusterStrength = parseInt(e.target.value);
-            document.getElementById('clusterStrengthValue').textContent = e.target.value;
+        urbanClusterStrengthSlider.addEventListener('input', (e) => {
+            simulation.urbanClusterStrength = parseInt(e.target.value);
+            document.getElementById('urbanClusterStrengthValue').textContent = e.target.value;
             // This affects data generation, so we don't redraw here
         });
         
-        numLocationsSlider.addEventListener('input', (e) => {
-            simulation.numLocations = parseInt(e.target.value);
-            document.getElementById('numLocationsValue').textContent = e.target.value;
+        suburbanClusterStrengthSlider.addEventListener('input', (e) => {
+            simulation.suburbanClusterStrength = parseInt(e.target.value);
+            document.getElementById('suburbanClusterStrengthValue').textContent = e.target.value;
             // This affects data generation, so we don't redraw here
         });
         
-        coinsPerGroupSlider.addEventListener('input', (e) => {
-            coinFlipSimulation.coinsPerGroup = parseInt(e.target.value);
-            document.getElementById('coinsPerGroupValue').textContent = e.target.value;
+        ruralClusterStrengthSlider.addEventListener('input', (e) => {
+            simulation.ruralClusterStrength = parseInt(e.target.value);
+            document.getElementById('ruralClusterStrengthValue').textContent = e.target.value;
             // This affects data generation, so we don't redraw here
         });
         
@@ -324,14 +443,26 @@
             });
         });
         
+        // Add event listeners for histogram controls
+        document.querySelectorAll('input[name="histogramDisplayMode"], input[name="histogramColorMode"]').forEach(input => {
+            input.addEventListener('change', () => {
+                if (simulation.data) {
+                    drawHistogram(simulation.data);
+                }
+            });
+        });
+        
         // Generate election data
         function generateElectionData() {
             const data = [];
-            const locations = simulation.numLocations;
-            const demSupportBase = simulation.demSupportBase / 100;
-            const repSupportBase = simulation.repSupportBase / 100;
-            const urbanPercentage = simulation.urbanPercentage / 100;
-            const clusterStrength = simulation.clusterStrength;
+            const urbanSupportBase = simulation.urbanSupportBase / 100;
+            const ruralSupportBase = simulation.ruralSupportBase / 100;
+            const suburbanSupportBase = simulation.suburbanSupportBase / 100;
+            
+            // Calculate actual machine counts
+            const urbanMachines = Math.round(simulation.nonRuralMachines * (simulation.urbanPercentage / 100));
+            const suburbanMachines = simulation.nonRuralMachines - urbanMachines;
+            const ruralMachines = simulation.ruralMachines;
             
             // Box-Muller transform for normal distribution
             function normalRandom(mean, stdDev) {
@@ -349,6 +480,10 @@
                     const mu = 5.5;  // Mean of log
                     const sigma = 0.4;  // Std dev of log
                     return Math.min(1200, Math.round(Math.exp(normalRandom(mu, sigma))));
+                } else if (locationType === "Suburban") {
+                    const mu = 5.85;  // Mean of log
+                    const sigma = 0.45;  // Std dev of log
+                    return Math.min(1200, Math.round(Math.exp(normalRandom(mu, sigma))));
                 } else {
                     const mu = 6.1;  // Higher mean for rural
                     const sigma = 0.35;  // Different spread
@@ -356,57 +491,62 @@
                 }
             }
             
-            for (let location = 0; location < locations; location++) {
-                // Step 1: Determine if this is an urban or rural location
-                const locationType = Math.random() < urbanPercentage ? "Urban" : "Rural";
-                const supportRate = locationType === "Urban" ? demSupportBase : repSupportBase;
+            // Group machines by polling locations (3-5 machines per location)
+            function generateMachinesForLocationType(numMachines, locationType, supportBase, clusterStrength, startIndex) {
+                const machines = [];
+                let machineIndex = 0;
                 
-                // Add cluster variation to the support rate
-                const clusterMean = supportRate;
-                const clusterStdDev = clusterStrength / 100;
-                const locationSupportRate = normalRandom(clusterMean, clusterStdDev);
-                
-                // Urban locations tend to have more machines but fewer votes per machine
-                // Rural locations tend to have fewer machines but more votes per machine
-                const machinesInLocation = locationType === "Urban" ? 
-                    Math.floor(normalRandom(7, 2)) : // More machines in urban areas
-                    Math.floor(normalRandom(3, 1));  // Fewer machines in rural areas
+                while (machineIndex < numMachines) {
+                    // Determine number of machines at this polling location (3-5)
+                    const machinesAtLocation = Math.min(numMachines - machineIndex, 
+                        Math.floor(Math.random() * 3) + 3);
                     
-                // Ensure at least 1 machine per location
-                const numMachines = Math.max(1, machinesInLocation);
-                
-                for (let machine = 0; machine < numMachines; machine++) {
-                    // Step 2: Generate how many votes this machine will count
-                    const voteCount = generateVoteCount(locationType);
+                    // Generate base vote count for this polling location
+                    const baseVoteCount = generateVoteCount(locationType);
                     
-                    // Step 3: Simulate individual votes using the SAME probability for every vote
-                    // The Law of Large Numbers will naturally emerge from this
-                    let trumpVotes = 0;
+                    // Generate cluster support rate for this location
+                    const clusterMean = supportBase;
+                    const clusterStdDev = clusterStrength / 100;
+                    const locationSupportRate = normalRandom(clusterMean, clusterStdDev);
                     
-                    for (let voter = 0; voter < voteCount; voter++) {
-                        // Every voter at this machine has exactly the same probability
-                        // This lets the variance naturally decrease with sample size
-                        if (Math.random() < locationSupportRate) {
-                            trumpVotes++;
+                    // Generate machines at this location with similar vote counts
+                    for (let j = 0; j < machinesAtLocation; j++) {
+                        // Vary vote count by ±10% from base
+                        const voteVariation = 0.9 + Math.random() * 0.2;
+                        const voteCount = Math.round(baseVoteCount * voteVariation);
+                        
+                        let trumpVotes = 0;
+                        for (let voter = 0; voter < voteCount; voter++) {
+                            if (Math.random() < locationSupportRate) {
+                                trumpVotes++;
+                            }
                         }
+                        
+                        const trumpPercentage = voteCount > 0 ? (trumpVotes / voteCount) * 100 : 0;
+                        
+                        machines.push({
+                            location: startIndex + machineIndex + j,
+                            totalVotes: voteCount,
+                            trumpPercentage: trumpPercentage,
+                            trumpVotes: trumpVotes,
+                            supportRate: locationSupportRate * 100,
+                            locationType: locationType
+                        });
                     }
                     
-                    // Calculate final percentage (avoid division by zero)
-                    const trumpPercentage = voteCount > 0 ? (trumpVotes / voteCount) * 100 : 0;
-                    
-                    // Record the result for this machine
-                    data.push({
-                        location: location,
-                        machine: machine,
-                        totalVotes: voteCount,
-                        trumpPercentage: trumpPercentage,
-                        trumpVotes: trumpVotes,
-                        supportRate: locationSupportRate * 100, // The machine's true probability
-                        locationType: locationType,
-                        color: locationType === "Urban" ? "#3498db" : "#e74c3c" // Color coding for urban/rural
-                    });
+                    machineIndex += machinesAtLocation;
                 }
+                
+                return machines;
             }
+            
+            // Generate machines for each location type
+            const urbanData = generateMachinesForLocationType(urbanMachines, "Urban", urbanSupportBase, simulation.urbanClusterStrength, 0);
+            const suburbanData = generateMachinesForLocationType(suburbanMachines, "Suburban", suburbanSupportBase, simulation.suburbanClusterStrength, urbanMachines);
+            const ruralData = generateMachinesForLocationType(ruralMachines, "Rural", ruralSupportBase, simulation.ruralClusterStrength, urbanMachines + suburbanMachines);
+            
+            // Combine all data
+            data.push(...urbanData, ...suburbanData, ...ruralData);
             
             return data;
         }
@@ -433,8 +573,8 @@
                 },
                 color: {
                     type: "categorical",
-                    domain: ["Urban", "Rural"],
-                    range: ["#3498db", "#e74c3c"],
+                    domain: ["Urban", "Suburban", "Rural"],
+                    range: ["#FDEA45", "#808080", "#002051"],
                     label: "Location Type",
                     legend: true
                 },
@@ -449,25 +589,36 @@
                         opacity: 0.7,
                         title: d => `Location ${d.location}, Machine ${d.machine}\nVotes: ${d.totalVotes}, Trump: ${d.trumpPercentage.toFixed(1)}%`
                     }),
-                    Plot.ruleY([simulation.demSupportBase], {
-                        stroke: "blue",
+                    Plot.ruleY([simulation.urbanSupportBase], {
+                        stroke: "#FDEA45",
                         strokeWidth: 2,
                         strokeDasharray: "5,5"
                     }),
-                    Plot.ruleY([simulation.repSupportBase], {
-                        stroke: "red",
+                    Plot.ruleY([simulation.suburbanSupportBase], {
+                        stroke: "#808080",
                         strokeWidth: 2,
                         strokeDasharray: "5,5"
                     }),
-                    Plot.text([{x: 1150, y: simulation.demSupportBase || 35}], {
-                        text: ["Dem Base: " + (simulation.demSupportBase || 35) + "%"],
-                        fill: "blue",
+                    Plot.ruleY([simulation.ruralSupportBase], {
+                        stroke: "#002051",
+                        strokeWidth: 2,
+                        strokeDasharray: "5,5"
+                    }),
+                    Plot.text([{x: 1150, y: simulation.urbanSupportBase || 45}], {
+                        text: ["Urban: " + (simulation.urbanSupportBase || 45) + "%"],
+                        fill: "#FDEA45",
                         fontSize: 12,
                         dx: 0
                     }),
-                    Plot.text([{x: 1150, y: simulation.repSupportBase || 65}], {
-                        text: ["Rep Base: " + (simulation.repSupportBase || 65) + "%"],
-                        fill: "red",
+                    Plot.text([{x: 1150, y: simulation.suburbanSupportBase || 60}], {
+                        text: ["Suburban: " + (simulation.suburbanSupportBase || 60) + "%"],
+                        fill: "#808080",
+                        fontSize: 12,
+                        dx: 0
+                    }),
+                    Plot.text([{x: 1150, y: simulation.ruralSupportBase || 80}], {
+                        text: ["Rural: " + (simulation.ruralSupportBase || 80) + "%"],
+                        fill: "#002051",
                         fontSize: 12,
                         dx: 0
                     })
@@ -481,103 +632,37 @@
         // Draw histogram
         function drawHistogram(data) {
             if (!data || data.length === 0) return;
-            console.log(data);
-            const chart = Plot.plot({
-                title: "Distribution of Trump Vote % by Machine",
-                width: 800,
-                height: 400,
-                marginLeft: 50, 
-                marginRight: 100, 
-                marginTop: 20, 
-                marginBottom: 50,
-                x: {
-                    label: "Trump Percentage →",
-                    domain: [0, 100]
-                },
-                y: {
-                    label: "↑ Number of Machines"
-                },
-                marks: [
-                    Plot.rectY(data, Plot.binX({y: "count"}, {
-                        x: "trumpPercentage",
-                        fill: "#3498db",
-                        opacity: 0.8,
-                        thresholds: 50
-                    })),
-                    Plot.ruleY([0]),
-                    Plot.ruleX([simulation.demSupportBase], {
-                        stroke: "blue",
-                        strokeWidth: 2,
-                        strokeDasharray: "5,5"
-                    }),
-                    Plot.ruleX([simulation.repSupportBase], {
-                        stroke: "red",
-                        strokeWidth: 2,
-                        strokeDasharray: "5,5"
-                    })
-                ]
+            
+            // Get current settings
+            const displayMode = document.querySelector('input[name="histogramDisplayMode"]:checked')?.value || 'stacked';
+            const colorMode = document.querySelector('input[name="histogramColorMode"]:checked')?.value || 'ternary';
+            
+            // Transform data to match expected format
+            const transformedData = data.map(d => ({
+                trumpPercentage: d.trumpPercentage,
+                trump_percentage: d.trumpPercentage,
+                locationType: d.locationType,
+                urban_percentage: d.locationType === 'Urban' ? 100 : (d.locationType === 'Suburban' ? 50 : 0)
+            }));
+            
+            // Prepare reference lines for the simulation's support bases
+            const referenceLines = [
+                { value: simulation.urbanSupportBase, color: '#FDEA45' },
+                { value: simulation.suburbanSupportBase, color: '#808080' },
+                { value: simulation.ruralSupportBase, color: '#002051' }
+            ];
+            
+            // Use the histogram module
+            const container = document.getElementById('histogramChart');
+            container.innerHTML = '';
+            createHistogram(container, transformedData, {
+                displayMode,
+                colorMode,
+                title: 'Distribution of Trump Vote % by Machine',
+                referenceLines: colorMode === 'ternary' ? referenceLines : null
             });
-            
-            document.getElementById('histogramChart').innerHTML = '';
-            document.getElementById('histogramChart').appendChild(chart);
         }
-        
-        // Coin flip simulation
-        function runCoinFlipSimulation() {
-            const groups = 100;
-            const coinsPerGroup = coinFlipSimulation.coinsPerGroup;
-            const data = [];
-            
-            for (let i = 0; i < groups; i++) {
-                let heads = 0;
-                for (let j = 0; j < coinsPerGroup; j++) {
-                    if (Math.random() < 0.5) heads++;
-                }
-                data.push({
-                    group: i,
-                    headsPercentage: (heads / coinsPerGroup) * 100
-                });
-            }
-            
-            // Store the generated data
-            coinFlipSimulation.data = data;
-            
-            const chart = Plot.plot({
-                width: 800,
-                height: 400,
-                margin: 60,
-                x: {
-                    label: "Heads Percentage →",
-                    domain: [0, 100]
-                },
-                y: {
-                    label: "↑ Number of Groups"
-                },
-                marks: [
-                    Plot.rectY(data, Plot.binX({y: "count"}, {
-                        x: "headsPercentage",
-                        fill: "#e74c3c",
-                        thresholds: 20
-                    })),
-                    Plot.ruleY([0]),
-                    Plot.ruleX([50], {
-                        stroke: "black",
-                        strokeWidth: 2,
-                        strokeDasharray: "5,5"
-                    })
-                ]
-            });
-            
-            document.getElementById('coinFlipChart').replaceChildren(chart);
-            
-            // Calculate and display variance
-            const mean = data.reduce((sum, d) => sum + d.headsPercentage, 0) / groups;
-            const variance = data.reduce((sum, d) => sum + Math.pow(d.headsPercentage - mean, 2), 0) / groups;
-            const stdDev = Math.sqrt(variance);
-            
-            document.getElementById('coinFlipVariance').innerHTML = 
-                `Standard Deviation: ${stdDev.toFixed(2)}% (smaller groups = more variance)`;
-        }
+
         
         // Russian tail simulation
         function generateRussianTailData() {
@@ -675,13 +760,13 @@
                 : [
                     Plot.rectY(dataForOverlapping.filter(d => d.type === 'Urban'), Plot.binX({y2: "count"}, {
                         x: "votePercentage",
-                        fill: "#3498db",
+                        fill: "#FDEA45",
                         fillOpacity: 0.5,
                         thresholds: 50
                     })),
                     Plot.rectY(dataForOverlapping.filter(d => d.type === 'Rural'), Plot.binX({y2: "count"}, {
                         x: "votePercentage",
-                        fill: "#27ae60",
+                        fill: "#002051",
                         fillOpacity: 0.5,
                         thresholds: 50
                     })),
@@ -705,7 +790,7 @@
                 color: russianTailSimulation.displayMode === 'stacked' ? {
                     legend: true,
                     domain: ["Urban", "Rural", "Manipulated"],
-                    range: ["#3498db", "#27ae60", "#e74c3c"]
+                    range: ["#FDEA45", "#002051", "#e74c3c"]
                 } : undefined,
                 marks: marks
             });
@@ -713,8 +798,8 @@
             // Add legend and annotation for overlapping mode
             if (russianTailSimulation.displayMode === 'overlapping') {
                 const legendData = [
-                    {x: 780, y: 30, label: "Urban", color: "#3498db"},
-                    {x: 780, y: 50, label: "Rural + Manipulated", color: "#27ae60"}
+                    {x: 780, y: 30, label: "Urban", color: "#FDEA45"},
+                    {x: 780, y: 50, label: "Rural + Manipulated", color: "#002051"}
                 ];
                 
                 const annotationMarks = russianTailSimulation.manipulationLevel > 0 ? [
@@ -777,9 +862,22 @@
             document.getElementById('russianTailChart').replaceChildren(chart);
         }
         
+        // Update simulation results display
+        function updateSimulationResults(data) {
+            const totalVotes = data.reduce((sum, d) => sum + d.totalVotes, 0);
+            const totalTrumpVotes = data.reduce((sum, d) => sum + d.trumpVotes, 0);
+            const trumpPercent = totalVotes > 0 ? (totalTrumpVotes / totalVotes * 100) : 0;
+            const harrisPercent = 100 - trumpPercent;
+            
+            document.getElementById('simTotalVotes').textContent = totalVotes.toLocaleString();
+            document.getElementById('simTrumpPercent').textContent = trumpPercent.toFixed(1) + '%';
+            document.getElementById('simHarrisPercent').textContent = harrisPercent.toFixed(1) + '%';
+        }
+        
         // Event listeners
         document.getElementById('runSimulation').addEventListener('click', () => {
             simulation.data = generateElectionData();
+            updateSimulationResults(simulation.data);
             drawMainChart(simulation.data);
             drawHistogram(simulation.data);
         });
@@ -790,11 +888,19 @@
             drawRussianTailChart();
         });
         
+        // Initialize machine count display
+        const initialUrbanMachines = Math.round(simulation.nonRuralMachines * (simulation.urbanPercentage / 100));
+        const initialSuburbanMachines = simulation.nonRuralMachines - initialUrbanMachines;
+        document.getElementById('urbanCount').textContent = initialUrbanMachines;
+        document.getElementById('suburbanCount').textContent = initialSuburbanMachines;
+        document.getElementById('nonRuralCount').textContent = simulation.nonRuralMachines;
+        document.getElementById('ruralCountDisplay').textContent = simulation.ruralMachines;
+        
         // Initial draw
         simulation.data = generateElectionData();
+        updateSimulationResults(simulation.data);
         drawMainChart(simulation.data);
         drawHistogram(simulation.data);
-        runCoinFlipSimulation();
         russianTailSimulation.data = generateRussianTailData();
         drawRussianTailChart();
     </script>

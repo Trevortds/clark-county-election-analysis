@@ -347,6 +347,55 @@
             margin-bottom: 30px;
         }
         
+        /* Image container styling */
+        .image-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 32px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .image-grid .image-container {
+            max-width: 100%;
+        }
+        
+        .image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: auto;
+            padding: 10px;
+            display: block;
+        }
+        
+        /* Image grid for side-by-side display */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 32px -40px;
+            max-width: 900px;
+            width: calc(100% + 80px);
+        }
+        
+        .image-grid .image-container {
+            margin: 0;
+        }
+        
+        /* Responsive adjustment for small screens */
+        @media (max-width: 600px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         /* Coin games specific slider styling */
         .coin-games-controls {
             width: 100%;
@@ -400,10 +449,12 @@
             border-radius: 3px;
             outline: none;
             -webkit-appearance: none;
+            appearance: none;
         }
         
         .slider-control input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
+            appearance: none;
             width: 18px;
             height: 18px;
             background: var(--dark-spring-green);
@@ -780,8 +831,8 @@
                 <p class="lead">
                     I forgot to mention, the coins that we've been flipping prefer to land on tails. Here, you can make them fair if you want, or bias them towards you.
                 </p>
-            </section>            
-
+                
+            </section>   
             <section id="law-of-large-numbers-explanation">
                 <p class="lead">
                     I did not lie to you about the outcomes of any of our prediction games, I just withheld the underlying preferences of the coins. You were able to detect those preferences by playing a large number of games with a large number of flips each. The more flips in a game, the closer the average result was to the true value of the coin. 
@@ -797,45 +848,489 @@
                 </p>
             </section>
             
-            <!-- More content sections will go here -->
-            <section id="intro">
+            
+            <section id="eta-introduction-lead-in">
                 <p class="lead">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    Now we are ready to talk about Election Truth Alliance
                 </p>
-                
-                <p>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                </p> 
             </section>
-            <!-- this is just lorem ipsum, delete later -->
-            <section id="intro-2">
-                <p class="lead">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            
+            <section id="eta-introduction">
+                <h2>Introduction</h2>
+                
+                <p>
+                    Election Truth Alliance is self-declared Election Watchdog incorporated on January 13 2025, three-person team composed of Lilli McGregor (Canadian civil servant), Nathan Taylor ("cybersecurity specialist", works as a 25B tech support for the US Army, job description includes "connecting printers" and "resetting passwords"), and "Jive", the anonymous executive director who "envisioned and articulated the need for our organization", the only detail we know is that they are an "auditor and accountant". 
+                </p>
+
+                <p>
+                    This group coalesced very shortly after the 2024 US Federal election, as early as November 13, and began preparing to publish arguments that the election was rigged at that point in time, even before much of the data that they would later be basing their work on was released. 
                 </p>
                 
                 <p>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                </p>  
+                    In March 2025, Election Truth Alliance debuted their proof that the 2024 US Presidential election was stolen by means of electronic vote flipping. This post will be focused on their original analysis of Clark County Nevada. 
+                </p>
+                
+                <p>
+                    Election Truth Alliance claims that Nevada vote records show that voting machines were altered to start flipping Presidential votes in favor of Trump after 250 or so votes were cast. 
+                </p>
+                
+                <p>
+                    I have reproduced their charts to confirm their methodology, and I will explain how that methodology does not show what they claim it does. I will show you what Election Truth Alliance found in the Clark County Cast Vote Records, why it looks suspicious to them, and why it is exactly what we'd expect to see.
+                </p>
+                
+                <h3>Who am I?</h3>
+                
+                <p>
+                    I am a person who cares deeply about election integrity, which is why misleading statistical claims concern me regardless of their source and in support of which candidate. 
+                </p>
             </section>
-            <!-- this is just lorem ipsum, delete later -->
-            <section id="intro-3">
-                <p class="lead">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                </p>
+            
+            <section id="main-chart">
+                <h2>The Main Chart</h2>
                 
                 <p>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                </p> 
+                    Election Truth Alliance's analysis focus on this chart, which they claim is anomalous. To understand how to read this chart, keep in mind that each point is not a vote, but an entire voting machine. The numbers on the X axis are the number of votes each machine has counted, and the Y axis is Trump preference.                 </p>
+
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702074913.png" alt="ETA main analysis chart showing voting machines" class="content-image">
+                </div>
+
+                <p>
+                    Here's what Election Truth Alliance has to say about this chart: 
+                </p>
+
+                <p>
+                    <!-- TODO pop this out into a quote block -->
+                    > Expected randomness in the Early Voting results are observed **until approximately 250 ballots have been processed. Beyond that range, a visible shift is observed** once the number of ballots processed exceeds the threshold, resulting in a **high degree of clustering and unusual uniformity**, a departure from expected human voting behavior. The pattern is more distinct (closer to 60% votes for Trump, closer to 40% votes for Harris) with more ballots processed by a given voting machine.
+
+                    > Rather than an expected distribution of votes, similar to Election Day votes, the Early Voting data suggests there may be a correlation between the quantity of ballots processed and the overall candidate vote percentage. 
+                </p>
+
+                <p>
+                So, are they right? Is this data anomalous? 
+                </p>
+                <p>
+                Clearly the machines tend to converge at around 60% Pro-Trump as the number of votes counted by each machine increases, as they say. But **is that proof of tampering**? 
+                </p>
+                <p>
+                    To answer that for yourself, think back to the coin game we played above. If I said, "rather than showing an expected distribution of coin flips, the coin flipping games showed a correlation between the number of coin flips and the overall heads percentage", does that describe a manipulation affecting the results, or does that describe what the game naturally does when you increase the number of flips per game?
+                </p>
+                <p>
+                    Let's go back to Election Truth Alliance for a second, because they say that these graphs are "abnormal" compared to Election Day votes. So what do Election Day votes look like? 
+                </p>
+                <p>
+                    I have to preface this by pointing out that for some reason ETA often vertically mirrors their graphs back on themselves, switching the color to blue. They are showing the exact same data in both colors, just for the red dots, the top of the graph is Trump preference and the bottom is Harris preference, and in the blue graph it's vice-versa. It's the same data. 
+                </p>
+                <p>
+                    So, our point of comparison is this:
+                </p>
+            
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702080329.png" alt="ETA mirrored chart showing the same data in different colors" class="content-image">
+                </div>
+
+                <p>
+                    And here is what Election Truth Alliance claims is a "normal" Election Day chart:
+                </p>
+                <div class="image-grid">
+                    <div class="image-container">
+                        <img src="images/Pasted image 20250702080345.png" alt="ETA normal early-voting election chart" class="content-image">
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="images/Pasted image 20250702075428.png" alt="ETA General election chart" class="content-image">
+                    </div>
+                </div>
+                
+                <p>
+                    If you don't immediately see the problem here, I don't blame you, it's one of the oldest tricks in the bad-statistics book.                 </p>
             </section>
-            <!-- this is just lorem ipsum, delete later -->
-            <section id="intro-4">
-                <p class="lead">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            
+            <section id="x-axis-analysis">
+                <h3>The X Axis</h3>
+                
+                <p>
+                    Take a look at the X axis in these graphs. The "normal" elections max out at 800 or 100 votes per machine, but the 2024 Early Voting election has as many as 1200 votes per machine! We can't tell what the election day machines would have done if they had 1200 votes, because none of them cracked 125!                 </p>
+                
+                <p>
+                    If we truncate the Early Voting chart so that we have an apples-to-apples comparison along the same width of X axis as the 2020 early votes...
+                </p>
+                <div class="image-grid">
+                    <div class="image-container">
+                        <img src="images/Pasted image 20250702080345.png" alt="ETA normal early-voting election chart" class="content-image">
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="images/Pasted image 20250702081653.png" alt="Truncated early voting chart for fair comparison" class="content-image">
+                    </div>
+                </div>
+
+                <p>
+                    They look identical! Note how both of the graphs do very clearly show a tendency to start converging in the same way.                 
                 </p>
                 
                 <p>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                </p> 
+                    Either the 2020 election was manipulated in the exact same way as ETA is claiming that 2024 was manipulated, or comparing these charts to each other does not prove manipulation. 
+                </p>
+
+                <p>
+If you want to peruse the data further, here are some interactive visualizations of the 2024 Cast Vote Records, both for Early Voting and Election Day voting                </p>
+            </section>
+            
+            <!-- Early Voting Scatterplot Visualization -->
+            <div class="viz-container-light step" id="early-voting-scatterplot-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Early Voting Scatterplot</h3>
+                <div id="early-voting-scatterplot" class="plot-container"></div>
+            </div>
+            
+            <!-- Election Day Scatterplot Visualization -->
+            <div class="viz-container-light step" id="election-day-scatterplot-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Day Scatterplot</h3>
+                <div id="election-day-scatterplot" class="plot-container"></div>
+            </div>
+            
+            <section id="machine-history">
+                <h3>The Machine History</h3>
+                
+                <p>
+                    Remember, the dots in the graphs above are <em>machines</em> not <em>votes</em>. Each dot is a machine tabulator. The analysis provided by Election Truth Alliance is not based on a time-wise analysis of the votes as they went in, but rather a guess based on the tallies that came out of machines with more or less total votes. 
+                </p>
+
+                <p>
+                    However, we <em>do</em> have access to the vote data, on each machine, in the order the votes were cast. 
+                </p>
+                
+                <p>
+                    This means that we can play a history game, just like we did with the coin flips above, showing each machine's average vote as each new vote is added to it. We can watch the election play out on each machine over time, and see the running tallies as the ballots go in!                 </p>
+                
+                <p>
+                    I have also given you the option to color the machines by their location, urban or rural. Nevada allows voters to vote at any location, so each machine at each voting site will get a mix of voters from many places, but if most of the people who used a machine live in rural precincts, we can surmise that the machine was in a rural location. Similarly if most of the votes on a machine came from voters who live in urban precincts, that machine was probably in an urban area. Machines with an even split were likely placed on the urban periphery, (perhaps near suburban shopping centers that attract people from inside and outside the city).                </p>
+            </section>
+            
+            <!-- Machine History Visualization -->
+            <div class="viz-container-light step" id="machine-history-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Machine Vote History</h3>
+                <div id="machine-history-plot" class="plot-container"></div>
+            </div>
+            <section id="machine-history-analysis">
+                <p>
+                    As you can see, every machine quickly finds its way to a stable average, and that average correlates not with the number of votes total on the machine (they don't progress upwards as the graph continues right), they level out. We know from the coin flip game above that the point they level out at is the true opinion of the group they are sampling from, which is why the vertical axis does correlate so strongly to color. Rural people were more likely to support Trump, urban people more likely to support Kamala, and suburban people, whose voting sites got a mix of both in large numbers, leaned towards Trump.                 </p>
+                
+                <p>
+                    Okay, so what? The machines all converge to various numbers. What does this mean for our analysis?                 
+                </p>
+                <p>
+                    Well, Election Truth Alliance's allegation is that the machines started flipping votes to maintain a certain level of Trump support starting at 200 or so votes.
+                </p>
+                <p>
+                    So let's see if that's true. Let's run time backwards. 
+                </p>
+                
+                <p>
+                    The next visualization will show the voting history of each machine *as if* the ballots were inserted in the opposite order, from last to first.                 </p>
+                
+                <p>
+                    If Election Truth Alliance is correct, we would see something like this, where starting from the last vote cast and working backwards in time to the first vote, each machine will show a solid line of "manipulated" votes, and then when they hit the magical 250-votes-left threshold when they suddenly bloom out to a variety of "true" vote counts.                 </p>
+                
+                <div class="image-container">
+                    <img src="images/Reversed_voting_game_history.png" alt="Hypothetical reversed voting history if ETA was correct" class="content-image">
+                </div>
+                
+                <p>
+                    Instead what we see is this:
+                </p>
+            </section>
+            
+            <!-- Reversed Game History Visualization -->
+            <div class="viz-container-light step" id="reversed-game-history-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Reversed Voting History</h3>
+                <div id="reversed-game-history-plot" class="plot-container"></div>
+            </div>
+            
+            <section id="reversed-game-analysis">
+                <p>
+                    It looks the same!
+                </p>
+
+                <p class="lead">
+                    <!-- TODO emphasize this more -->
+                    Because this isn't what fraud looks like, this is what counting looks like.
+                </p>
+            </section>
+            
+            <section id="smoking-gun">
+                <h3>Smoking Gun, The Complete Absence of a</h3>
+                
+                <p>
+                    We have the vote history data (Election Truth Alliance does too). We can plot the votes for a particular machine over time.                 </p>
+                
+                <p>
+                    This means that there is a very simple graph we can make for our machines. It would actually take *less* effort to produce this next graph than any of the graphs above, and this one has the indisputable power to prove definitively and unambiguously whether the election was manipulated in the way ETA claims or not.                 </p>
+                
+                <p>
+                    Let's take the running average of votes as they come in. If Election Truth Alliance was correct, we would see a huge noticable step in the running average, where before the 250th ballot was inserted, the ballots averaged a certain value, and then after the 250th ballot, they all began trending towards a different value. It would look like this:                 </p>
+                
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702085553.png" alt="Hypothetical step function if vote flipping occurred" class="content-image">
+                </div>
+                
+                <p>
+                    This is what it looks like when tabulators suddenly start flipping votes for Trump after 250. If the hackers were sneaky, they might have made it a little less dis-continuous and gradually sloped the cheating up to hide the effect in this style of visualization, but the effect would be the same: at the left edge of the graph we would see all of the lines hovering around some value, and then on the right edge they would be hovering around a different value.                 </p>
+                
+                <p>
+                    However, what we actually find is a normal random walk for each box.
+                </p>
+            </section>
+            
+            <!-- Smoking Gun Visualization -->
+            <div class="viz-container-light step" id="smoking-gun-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Running Average of Votes</h3>
+                <div id="smoking-gun-plot" class="plot-container"></div>
+            </div>
+
+            <section id="smoking-gun-conclusion">
+                <p>
+                    I can only imagine <sup id="fnref3"><a href="#fn3">[3]</a></sup> why ETA didn't do this visualization, because it is easier than all of the graphs above which required additional vote data accumulation and processing, and it would have proved them right.
+                </p>
+                
+                <p>
+                    Election Truth Alliance made one other argument though, that many online have found convincing, we should look at The Russian Tail.                </p>
+            </section>
+            
+            <section id="russian-tail">
+                <h2>The "Russian Tail"</h2>
+                
+                <p>
+                    Election Truth Alliance posts the following histogram, graphing the number of machines that report a given Trump percentage. 
+                </p>
+                
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702091015.png" alt="ETA histogram showing alleged Russian Tail" class="content-image">
+                </div>
+                
+                <p>
+                    ETA states that the pattern above is "Inexplicable", "Statistically unlikely based on typical human voting behavior", and it represents a "Russian Tail", which is a deviation from a normal distribution that can be an indicator of unfair elections.                 
+                </p>
+                
+                <div class="note-box">
+                    <h4>Note</h4>
+                    <p>
+                        Before moving on, we should discuss why we are drawing a normal distribution here. Pull out that pin from earlier, the Law of Large Numbers states that when you take a bigger sample from a population, your mean sample is closer to the true mean value of the population. There is a similar idea known as the Central Limit Theorem. The Central Limit Theorem states that the distribution of unique samples of uniform size from a certain population, whatever the distribution of the underlying data may be, will approximate a normal distribution.
+                    </p>
+                    <p>
+                        ETA glosses over some of that definition in a deceptive manner. In order for the Central Limit Theorem to hold true, sample populations need to be of <strong>Uniform Size</strong>, but in the Clark County machine data, they span from 10 to 1000 samples. They also need to be pulled from the <strong>same population</strong>. The combined plots of repeated 50/50 coin flip games and 70/30 coin flip games mixed together should <strong>not be expected to be a normal distribution</strong>.
+                    </p>
+                    <p>
+                        Do you expect a sample of votes from your local downtown to have the <em>exact same average result</em> as a sample of votes from a random suburb or outlying village? If the answer is "no" (which it is), then you should not be trying to map geographical voting patterns onto a normal distribution.
+                    </p>
+                </div>
+                
+                <h3>What is a Russian Tail?</h3>
+
+                <p>
+                    The term "Russian Tail" was coined by data analyst and former political prisoner Roman Udot, to describe a pattern that was noticed in Georgia's Georgian 2020 Constitutional Referendum.                 </p>
+                
+                <p>
+                    Udot noticed that when Georgian precincts were separated out into urban and rural groups, an interesting pattern emerged, where the histogram showing the distribution of precincts and the support proportion they reported deviates from the normal distribution by "growing a tail".                 </p>
+                
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702091704.png" alt="Original Russian Tail example from Georgian referendum" class="content-image">
+                </div>
+                
+                <p>
+                    The tail indicates that there are a suspiciously large number of districts that are unanimously or near-unanimously pro-GD, which Udot claims to be evidence of ballot stuffing. The logic is that each of the se precincts would normally be somewhere closer to the center of the normal distribution, but Georgian Dream ballots were stuffed into them after the fact, pushing them rightwards on the graph.                 </p>
+                
+                <p>
+                    Here is a simulation of a Russian Tail that you can play with yourself:
+                </p>
+            </section>
+            
+            <!-- Russian Tail Simulation Visualization -->
+            <div class="viz-container-light step" id="russian-tail-sim-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Russian Tail Simulation</h3>
+                <div id="russian-tail-sim-plot" class="plot-container"></div>
+            </div>
+            
+            <section id="clark-county-russian-tail">
+                <h3>Does Clark County have a Russian Tail?</h3>
+                
+                <p>
+                    So, how do we apply this lesson from Roman Udot to Clark County? A hint is in how the original graph from Georgia is presented, with two groups forming two distinct lines, because...                </p>
+                
+                <p class="lead">
+                    <!-- TODO emphasize this more -->
+                    Election Precincts do not obey normal distributions, they are multimodal.
+                </p>
+
+                <p>
+                    "Multimodal" means that there are multiple peaks in the histogram, which makes sense, because all of the machines and all of the precincts do not sample from the same population. They sample from the population of people who live nearby that machine, and the people who live by a voting center are more likely to have more similar opinions to each other than they are to the general population.                 </p>
+                
+                <p>
+                    In Georgia, there were two major populations, Urban and Rural.
+                </p>
+                
+                <p>
+                    In Nevada, there are three major populations, Urban, Rural, and Suburban. You may have noticed in some of the charts above that the most-used election machines tended to land on one of three numbers, 75% pro-Trump (Rural), 60% pro-Trump (suburban), and 47% pro-Trump (Urban). 
+                </p>
+                
+                <p>
+                    Here's where it gets tricky: where do you draw a line between "urban" and "suburban" Las Vegas? Vegas is one of the most sprawling cities in the world, with an exurban second downtown in Henderson ("The Strip" which is not technically part of the city). Rather than take a stand, I have left "urban" and "suburban" as a single color in these visualizations.                
+                </p>
+            </section>
+            
+            <!-- Early Voting Histogram Visualization -->
+            <div class="viz-container-light step" id="early-voting-histogram-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Early Voting Histogram</h3>
+                <div id="early-voting-histogram-plot" class="plot-container"></div>
+            </div>
+            
+            <section id="histogram-analysis">
+                <p>
+                    Compare this view to the Georgian Dream histogram above. There is clearly no "Russian Tail". None of the distributions have a weird shoulder off to the right, like Georgian Dream did.                 </p>
+                
+                <p>
+                    And the election day data, for good measure:
+                </p>
+            </section>
+            
+            <!-- Election Day Histogram Visualization -->
+            <div class="viz-container-light step" id="election-day-histogram-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Day Histogram</h3>
+                <div id="election-day-histogram-plot" class="plot-container"></div>
+            </div>
+            
+            <section id="population-analysis">
+                <p>
+                    The fact that we have three populations, not two, but I can only mark two in color, is kind of throwing things off, but we can fix that with some simulation. 
+                </p>
+                
+                <p>
+                    In 2024, Republicans made an appeal to their base to vote early, and rural precincts in Nevada saw higher Early Voting turnout overall, Registered Republicans were 51.9% of early voters Registered Democrats were only 27.8% of early voters. This means that <em>there were more Republicans out voting than Democrats, so a pro-Trump result overall is expected*. </em>
+                </p>
+
+                <p>
+                    There are more early voting locations in urban areas than rural areas, but the same number of tabulator machines at each. This means that the urban mode, especially in early voting, will be smaller overall and more spread out than the rural mode. 
+                </p>
+                
+                <p>
+                    So here is our simulation:
+                </p>
+                <p>
+                Urban polling sites are more frequent, and get less votes each, because Democrats were less likely to vote early (they mostly voted by mail). We also assign high variance to urban polling locations, because the average opinion at a polling site in a city can vary based on proximity to job centers or universities. 
+                </p>
+                <p>
+                Suburban polling sites tend to be more homogenous because of the culture of the suburbs, and because they exist at a "crossroads" of urban and rural culture, where they recieve a large number of voters visiting from inside the city and outside. Many of these polling sites were at shopping malls, for example. So they tend to attract more voters and a denser mix. 
+                </p>
+                <p>
+                Rural polling sites are few in number and have few machines each. They will be used by people who come from a broad area around, so they have relatively high total vote counts but a relatively tight distribution, since rural voters broke consistently for Trump. 
+                </p>
+                <p>
+                We plug in these values to our simulation, and we find:
+                </p>
+            </section>
+            
+            <!-- Election Simulation Visualization -->
+            <div class="viz-container-light step" id="election-simulation-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Distribution Simulation</h3>
+                <div id="election-simulation-plot" class="plot-container"></div>
+            </div>
+            
+            <section id="simulation-analysis">
+                <div class="image-container">
+                    <img src="images/Pasted image 20250703145415.png" alt="Simulation results showing three distinct modes" class="content-image">
+                </div>
+                
+                <p>
+                    Tadaa! It looks exactly like the real data. No after-vote manipulation happening here, just the exact same population effects we would expect to see in the real world, spelled out in a simulated election.                 
+                </p>
+                <p>
+                    Here, I added the control sliders for this simulation to your control panel, you can see how manipulating the real-world parameters that govern the election impacts the resulting chart. 
+                </p>
+            </section>
+            
+            <section id="pattern-of-deception">
+                <h2>The Pattern of Deception</h2>
+                
+                <h3>Manipulative data visualizations</h3>
+                
+                <p>
+                    As pointed out above, Election Truth Alliance visually compares data that is numerically very different by hiding the difference on the X axis legend. Sharing one chart that is compressed in this way against another that includes much larger sample is not an honest comparison.                 </p>
+                
+                <p>
+                    ETA also mirrors their data vertically and superimposes it on itself. There isn't any additional value in doing this, it really baffles me because it just makes the data less readable.                 </p>
+                
+
+                <p>
+                    The only reason I can imagine to do this is to imply a diverging pattern that does not exist. In reality this is one pattern that converges, but by showing the same graph twice, flipped, ETA implies that there are two trends that *diverge*, which is intuitively less realistic, and therefore stokes the reader's suspicions unless they read closely.
+                </p>
+                <h3>Just straight up lies</h3>
+
+                <p>
+                    A Russian Tail is not a "deviation from a normal distribution", it is a particular kind of deviation, and the kind of it is implicit in the name: it's a tail. A spike is not a tail. 
+                </p>
+                
+                <h3>Cherrypicking</h3>
+                
+                <p>
+                    Election Truth Alliance began crafting their case that the election was stolen within *days* of the election, before the first data set they released was even available. This is a classic telltale of dishonest investigation: the determination was made, the people committed to proving it, <em>even though they didn't look at any evidence yet</em>.                 
+                </p>
+                
+                <p>
+                    So the Clark County data eventually came out, and they found a way to make it show the trend that they were already committed to finding before they saw the data, and then they stopped. In the following nine months, they only released two other examples of the supposed manipulations. Why not more? The analysis isn't hard. The visualizations in this post took only about two days to make, the bulk of my time on this project was building the website. 
+                </p>
+                
+                <p>
+                    So why did ETA not release any more analyses? Why not any of the other counties in Nevada? 
+                </p>
+
+                <p>
+                    Could it be that some of the notable visuals seen here is a statistical blip? 
+                </p>
+                
+                <p>
+                    Could it be that they don't actually care how right they are, they are just searching through all of the counties in America trying to find examples that confirm their their pre-determined conclusion, and burying all the evidence that disproves them? The answer is yes.                 </p>
+                
+                
+                <h3>About those Audits they are calling for...</h3>
+                
+                <p class="lead">
+                    <!-- TODO emphasize this way more -->
+                    There have been audits!
+                </p>
+                
+                <p>
+                    <a href="https://elections.wi.gov/sites/default/files/documents/2024%20Post-Election%20Voting%20Equipment%20Audit%20Final%20Report.pdf" target="_blank">Wisconsin performed the largest and most thorough post-election audit in its history</a>, hand-counting more ballots than the total that were recorded in Clark County, and found <em>zero</em> incorrectly tabulated ballots.
+                </p>
+                <p>
+                    When the Wisconsin audit occurred, it fell out of the news cycle fast, because the lack of fraud is normal, it's not newsworthy. That quick news cycle is handy for election conspiracy grifters who can lie, "there have been no audits", and be confident that their audience has forgotten about the audits that have occurred. 
+                </p>
+            </section>
+
+            <section id="conclusion">
+                <p>
+                Here's what makes this so frustrating to me, why I spent so much effort on this website: Liberals and leftists take pride in crafting rigorously thought out, scientificaly grounded policies. 
+                </p>
+                <p>
+                The classic Colbert joke that "Reality has a liberal bias" works because the opposite is generally true: liberals orient their beliefs based on the scientific truth, rather than deciding what they want to believe and then making up "alternative facts" about it. 
+                </p>
+                <p>
+                But that's not what's happening here. Election Truth Alliance is bad statistics, bad math, bad science, incurious policy, that exists because the conclusion was fixed before the evidence was seen, and that's not what I want to see my side of the political spectrum doing. 
+                </p>
+                <p>
+                I don't know if Election Truth Alliance are mislead or malicious, but it doesn't matter. They are wrong. Their analysis is fundamentally flawed. The responsible thing to do would be to acknowledge these errors, retract their claims, and apologize for misleading the public. Publications like [Newsweek](https://www.newsweek.com/2024-election-rigged-donald-trump-elon-musk-2019482) that have repeated these claims uncritically should retract their articles and issue corrections. 
+                </p>
+                <p>
+                Bad statistics don't become good just because you want to believe them, and skepticism needs to be applied even when someone is telling you what you want to hear. 
+                </p>
+            </section>
+            
+            <!-- Footnotes Section -->
+            <section id="footnotes">
+                <h3>Footnotes</h3>
+                
+                <ol>
+                    <li id="fn3">I can imagine, actually. It's because they didn't do the analysis properly and were more interested in confirming their pre-existing bias than finding the truth. <a href="#fnref3">↩</a></li>
+                </ol>
             </section>
             
         </article>
@@ -888,6 +1383,10 @@
                     <strong><sup>2</sup></strong>: The Law of Large Numbers is related to but not quite the same as the Central Limit Theorem, put a pin in that.
                     It is also related to but not the same as the confusingly named Law of Very Large Numbers, 
                     which states that unlikely events do still happen sometimes, especially when given enough trials.
+                </div>
+                <div class="footnote" data-section="smoking-gun-conclusion">
+                    <strong><sup>3</sup></strong>: I can imagine, actually. It's because they didn't do the analysis properly and were more 
+                    interested in confirming their pre-existing bias than finding the truth. 
                 </div>
             </div>
         </aside>

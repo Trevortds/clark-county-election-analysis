@@ -1,16 +1,36 @@
 /**
- * histogram.js - Reusable histogram visualization functions for election data
- * Uses Observable Plot for visualization
+ * histogram.js - Unified histogram visualization module for election data
+ * Supports unary, binary, and ternary color modes with Observable Plot
  */
 import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
 
-// Function to process election data and add type information
-export function processData(data) {
-    return data.map(d => ({
-        ...d,
-        trump_percentage: +d.trump_percentage,
-        type: d.urban_percentage >= 50 ? 'Urban' : 'Rural' // Classify as Urban if urban_percent >= 50
-    }));
+// Function to process election data based on the color mode
+export function processData(data, colorMode = 'binary') {
+    if (colorMode === 'ternary' || colorMode === 'unary') {
+        // For ternary/unary modes, keep the original location types if present
+        return data.map(d => ({
+            ...d,
+            trump_percentage: d.trumpPercentage !== undefined ? +d.trumpPercentage : +d.trump_percentage,
+            type: d.locationType || (d.urban_percentage >= 50 ? 'Urban' : 'Rural')
+        }));
+    } else {
+        // For binary mode
+        return data.map(d => {
+            let type;
+            if (d.locationType) {
+                // If we have location type, use it to determine binary classification
+                type = (d.locationType === 'Rural') ? 'Rural' : 'Urban';
+            } else {
+                // Otherwise use urban_percentage
+                type = d.urban_percentage >= 50 ? 'Urban' : 'Rural';
+            }
+            return {
+                ...d,
+                trump_percentage: d.trumpPercentage !== undefined ? +d.trumpPercentage : +d.trump_percentage,
+                type
+            };
+        });
+    }
 }
 
 // Create a normal curve that correctly predicts bin counts based on probability density function
@@ -55,6 +75,60 @@ export function calculateStdDev(data, mean) {
     );
 }
 
+// Create normal curve marks for visualization
+function createNormalCurveMarks(data, types, colors, binSize) {
+    const marks = [];
+    const stats = {};
+    
+    types.forEach((type, i) => {
+        const typeData = type === 'All' ? data : data.filter(d => d.type === type);
+        if (typeData.length === 0) return;
+        
+        const mean = calculateMean(typeData);
+        const stdDev = calculateStdDev(typeData, mean);
+        const curvePoints = createPredictiveCurve(typeData, mean, stdDev, binSize);
+        
+        stats[type] = { mean, stdDev, count: typeData.length };
+        
+        marks.push(Plot.line(curvePoints, {
+            x: "x",
+            y: "y",
+            stroke: colors[i],
+            strokeWidth: 2
+        }));
+    });
+    
+    return { marks, stats };
+}
+
+// Create statistics text marks
+function createStatsTextMarks(stats, types, colors, maxBinCount) {
+    const marks = [];
+    
+    types.forEach((type, i) => {
+        if (!stats[type]) return;
+        const { mean, stdDev, count } = stats[type];
+        const textY = maxBinCount * (0.7 - i * 0.1);
+        
+        marks.push(
+            Plot.text(
+                [{x: 10, y: textY, text: `${type} Mean = ${mean.toFixed(2)}`}],
+                {x: "x", y: "y", text: "text", fill: colors[i], textAnchor: "start"}
+            ),
+            Plot.text(
+                [{x: 10, y: textY * 0.9, text: `Std. Dev. = ${stdDev.toFixed(2)}`}],
+                {x: "x", y: "y", text: "text", fill: colors[i], textAnchor: "start"}
+            ),
+            Plot.text(
+                [{x: 10, y: textY * 0.8, text: `N = ${count}`}],
+                {x: "x", y: "y", text: "text", fill: colors[i], textAnchor: "start"}
+            )
+        );
+    });
+    
+    return marks;
+}
+
 // Create a histogram using Observable Plot
 export function createHistogram(
     container, 
@@ -62,255 +136,254 @@ export function createHistogram(
     { 
         displayMode = 'stacked', 
         colorMode = 'binary',
-        title = 'Election Results Histogram' 
+        title = 'Election Results Histogram',
+        referenceLines = null
     } = {}
 ) {
     console.log('Creating histogram with:', { displayMode, colorMode, dataLength: data.length });
-    console.log("data sample", data.slice(0, 3));
     
-    // Process data - classify as Urban or Rural
-    const processedData = processData(data);
+    // Process data based on color mode
+    const processedData = processData(data, colorMode);
     
-    // Separate urban and rural data
-    const urbanData = processedData.filter(d => d.type === 'Urban');
-    const ruralData = processedData.filter(d => d.type === 'Rural');
+    // For binning
+    const binSize = 2; // 2% bins
     
-    // Calculate statistics
-    const mean = calculateMean(processedData);
-    const stdDev = calculateStdDev(processedData, mean);
-    
-    const urbanMean = calculateMean(urbanData);
-    const urbanStdDev = calculateStdDev(urbanData, urbanMean);
-    
-    const ruralMean = calculateMean(ruralData);
-    const ruralStdDev = calculateStdDev(ruralData, ruralMean);
-    
-    // Log statistics
-    console.log('Overall stats:', { mean, stdDev, count: processedData.length });
-    console.log('Urban stats:', { mean: urbanMean, stdDev: urbanStdDev, count: urbanData.length });
-    console.log('Rural stats:', { mean: ruralMean, stdDev: ruralStdDev, count: ruralData.length });
-    
-    // For binning and curve estimation
-    const binSize = 2; // 2% bins (since we're using 50 thresholds for 0-100)
-    const thresholds = 50;
-    
-    // Count bins for scaling
-    const allBinCounts = countBins(processedData, binSize);
-    const urbanBinCounts = countBins(urbanData, binSize);
-    const ruralBinCounts = countBins(ruralData, binSize);
-    
-    const maxBinCount = Math.max(...Object.values(allBinCounts));
-    const maxUrbanBinCount = Math.max(...Object.values(urbanBinCounts));
-    const maxRuralBinCount = Math.max(...Object.values(ruralBinCounts));
-    
-    // Create normal distribution curves
-    const allCurvePoints = createPredictiveCurve(processedData, mean, stdDev, binSize);
-    const urbanCurvePoints = createPredictiveCurve(urbanData, urbanMean, urbanStdDev, binSize);
-    const ruralCurvePoints = createPredictiveCurve(ruralData, ruralMean, ruralStdDev, binSize);
-    
-    // Create marks based on display mode
+    // Initialize marks array
     let marks = [];
+    let stats = {};
+    let maxBinCount = 0;
     
-    if (displayMode === 'stacked') {
-        // For stacked mode
-        if (colorMode === 'none') {
-            // Single color histogram (red)
-            marks = [
-                Plot.rectY(processedData, Plot.binX({y: "count"}, {
+    // Configure based on color mode
+    if (colorMode === 'unary' || colorMode === 'none') {
+        // Single color mode (red)
+        const allBinCounts = countBins(processedData, binSize);
+        maxBinCount = Math.max(...Object.values(allBinCounts));
+        
+        marks.push(
+            Plot.rectY(processedData, Plot.binX({y: "count"}, {
+                x: "trump_percentage",
+                fill: "red",
+                stroke: "#a00000",
+                interval: binSize
+            }))
+        );
+        
+        // Add normal curve and stats
+        const { marks: curveMarks, stats: curveStats } = createNormalCurveMarks(
+            processedData, ['All'], ['black'], binSize
+        );
+        marks.push(...curveMarks);
+        stats = curveStats;
+        
+    } else if (colorMode === 'binary') {
+        // Urban/Rural mode
+        const urbanData = processedData.filter(d => d.type === 'Urban');
+        const ruralData = processedData.filter(d => d.type === 'Rural');
+        
+        if (displayMode === 'stacked') {
+            // Stack using Observable Plot's stack transform
+            const stackData = processedData.map(d => ({
+                ...d,
+                category: d.type
+            }));
+            
+            marks.push(
+                Plot.rectY(stackData, 
+                    Plot.stackY(
+                        Plot.binX({y: "count"}, {
+                            x: "trump_percentage",
+                            fill: "category",
+                            interval: binSize
+                        })
+                    )
+                )
+            );
+        } else {
+            // Overlapping
+            marks.push(
+                Plot.rectY(urbanData, Plot.binX({y: "count"}, {
                     x: "trump_percentage",
-                    fill: "red",
-                    stroke: "#a00000",
-                    thresholds: thresholds
-                })),
-                Plot.line(allCurvePoints, {
-                    x: "x",
-                    y: "y",
-                    stroke: "black",
-                    strokeWidth: 2
-                }),
-                Plot.text([{
-                    x: 80, 
-                    y: maxBinCount * 0.8, 
-                    text: `Mean = ${mean.toFixed(2)}\nStd. Dev. = ${stdDev.toFixed(3)}\nN = ${processedData.length}`
-                }], {
-                    x: "x",
-                    y: "y",
-                    text: "text",
-                    textAnchor: "end"
-                }),
-                Plot.ruleY([0])
-            ];
-        } else if (colorMode === 'binary') {
-            // Urban/Rural stacked histogram
-            marks = [
-                Plot.rectY(processedData, Plot.binX({y: "count"}, {
-                    x: "trump_percentage",
-                    fill: "type", // Use the type field (Urban/Rural)
+                    fill: "steelblue",
+                    opacity: 0.7,
                     interval: binSize
                 })),
-                // Urban normal curve
-                Plot.line(urbanCurvePoints, {
-                    x: "x",
-                    y: "y",
-                    stroke: "#3498db", // Blue for urban
-                    strokeWidth: 2
-                }),
-                // Rural normal curve
-                Plot.line(ruralCurvePoints, {
-                    x: "x",
-                    y: "y",
-                    stroke: "#27ae60", // Green for rural
-                    strokeWidth: 2
-                }),
-                // Add urban statistics text
-                Plot.text([{
-                    x: 25, 
-                    y: maxBinCount * 0.8, 
-                    text: `Urban Mean = ${urbanMean.toFixed(2)}\nStd. Dev. = ${urbanStdDev.toFixed(3)}\nN = ${urbanData.length}`
-                }], {
-                    x: "x",
-                    y: "y",
-                    text: "text",
-                    textAnchor: "start",
-                    fill: "#3498db"
-                }),
-                // Add rural statistics text
-                Plot.text([{
-                    x: 80, 
-                    y: maxBinCount * 0.8, 
-                    text: `Rural Mean = ${ruralMean.toFixed(2)}\nStd. Dev. = ${ruralStdDev.toFixed(3)}\nN = ${ruralData.length}`
-                }], {
-                    x: "x",
-                    y: "y",
-                    text: "text",
-                    textAnchor: "end",
-                    fill: "#27ae60"
-                }),
-                Plot.ruleY([0])
-            ];
+                Plot.rectY(ruralData, Plot.binX({y: "count"}, {
+                    x: "trump_percentage",
+                    fill: "green",
+                    opacity: 0.7,
+                    interval: binSize
+                }))
+            );
         }
-    } else {
-        // Overlapping mode - show urban and rural as separate, semi-transparent histograms
-        marks = [
-            // Urban histogram (blue)
-            Plot.rectY(urbanData, Plot.binX({y: "count"}, {
-                x: "trump_percentage",
-                fill: "#3498db", // Blue for urban
-                fillOpacity: 0.6,
-                interval: binSize
-            })),
-            // Rural histogram (green)
-            Plot.rectY(ruralData, Plot.binX({y: "count"}, {
-                x: "trump_percentage",
-                fill: "#27ae60", // Green for rural
-                fillOpacity: 0.6,
-                interval: binSize
-            })),
-            // Urban normal curve
-            Plot.line(urbanCurvePoints, {
-                x: "x",
-                y: "y",
-                stroke: "#3498db", // Blue for urban
-                strokeWidth: 2
-            }),
-            // Rural normal curve
-            Plot.line(ruralCurvePoints, {
-                x: "x",
-                y: "y",
-                stroke: "#27ae60", // Green for rural
-                strokeWidth: 2
-            }),
-            // Add urban statistics text
-            Plot.text([{
-                x: 25, 
-                y: maxBinCount * 0.8, 
-                text: `Urban Mean = ${urbanMean.toFixed(2)}\nStd. Dev. = ${urbanStdDev.toFixed(3)}\nN = ${urbanData.length}`
-            }], {
-                x: "x",
-                y: "y",
-                text: "text",
-                textAnchor: "start",
-                fill: "#3498db"
-            }),
-            // Add rural statistics text
-            Plot.text([{
-                x: 80, 
-                y: maxBinCount * 0.8, 
-                text: `Rural Mean = ${ruralMean.toFixed(2)}\nStd. Dev. = ${ruralStdDev.toFixed(3)}\nN = ${ruralData.length}`
-            }], {
-                x: "x",
-                y: "y",
-                text: "text",
-                textAnchor: "end",
-                fill: "#27ae60"
-            }),
-            // Legend
-            Plot.dot([
-                {x: 10, y: maxBinCount * 0.95, type: "Urban"},
-                {x: 10, y: maxBinCount * 0.9, type: "Rural"}
-            ], {
-                x: "x",
-                y: "y",
-                fill: "type",
-                r: 5
-            }),
-            Plot.text([
-                {x: 12, y: maxBinCount * 0.95, text: `Urban (${urbanData.length})`},
-                {x: 12, y: maxBinCount * 0.9, text: `Rural (${ruralData.length})`}
-            ], {
-                x: "x",
-                y: "y",
-                text: "text",
-                textAnchor: "start",
-                dx: 5
-            }),
-            Plot.ruleY([0])
-        ];
+        
+        // Calculate max bin count for positioning
+        const urbanBinCounts = countBins(urbanData, binSize);
+        const ruralBinCounts = countBins(ruralData, binSize);
+        maxBinCount = displayMode === 'stacked' 
+            ? Math.max(...Object.keys({...urbanBinCounts, ...ruralBinCounts}).map(bin => 
+                (urbanBinCounts[bin] || 0) + (ruralBinCounts[bin] || 0)
+              ))
+            : Math.max(...Object.values(urbanBinCounts), ...Object.values(ruralBinCounts));
+        
+        // Add curves and stats
+        const { marks: curveMarks, stats: curveStats } = createNormalCurveMarks(
+            processedData, ['Urban', 'Rural'], ['steelblue', 'green'], binSize
+        );
+        marks.push(...curveMarks);
+        stats = curveStats;
+        
+    } else if (colorMode === 'ternary') {
+        // Urban/Suburban/Rural mode
+        const urbanData = processedData.filter(d => d.type === 'Urban');
+        const suburbanData = processedData.filter(d => d.type === 'Suburban');
+        const ruralData = processedData.filter(d => d.type === 'Rural');
+        
+        const ternaryColors = {
+            'Urban': '#FDEA45',
+            'Suburban': '#808080',
+            'Rural': '#002051'
+        };
+        
+        if (displayMode === 'stacked') {
+            // Stack using Observable Plot's stack transform
+            const stackData = processedData.map(d => ({
+                ...d,
+                category: d.type
+            }));
+            
+            marks.push(
+                Plot.rectY(stackData, 
+                    Plot.stackY(
+                        Plot.binX({y: "count"}, {
+                            x: "trump_percentage",
+                            fill: "category",
+                            interval: binSize
+                        })
+                    )
+                )
+            );
+        } else {
+            // Overlapping
+            marks.push(
+                Plot.rectY(urbanData, Plot.binX({y: "count"}, {
+                    x: "trump_percentage",
+                    fill: ternaryColors['Urban'],
+                    opacity: 0.6,
+                    interval: binSize
+                })),
+                Plot.rectY(suburbanData, Plot.binX({y: "count"}, {
+                    x: "trump_percentage",
+                    fill: ternaryColors['Suburban'],
+                    opacity: 0.6,
+                    interval: binSize
+                })),
+                Plot.rectY(ruralData, Plot.binX({y: "count"}, {
+                    x: "trump_percentage",
+                    fill: ternaryColors['Rural'],
+                    opacity: 0.6,
+                    interval: binSize
+                }))
+            );
+        }
+        
+        // Calculate max bin count
+        const urbanBinCounts = countBins(urbanData, binSize);
+        const suburbanBinCounts = countBins(suburbanData, binSize);
+        const ruralBinCounts = countBins(ruralData, binSize);
+        
+        if (displayMode === 'stacked') {
+            // For stacked, sum the counts per bin
+            const allBins = new Set([...Object.keys(urbanBinCounts), ...Object.keys(suburbanBinCounts), ...Object.keys(ruralBinCounts)]);
+            maxBinCount = Math.max(...Array.from(allBins).map(bin => 
+                (urbanBinCounts[bin] || 0) + (suburbanBinCounts[bin] || 0) + (ruralBinCounts[bin] || 0)
+            ));
+        } else {
+            maxBinCount = Math.max(
+                ...Object.values(urbanBinCounts),
+                ...Object.values(suburbanBinCounts),
+                ...Object.values(ruralBinCounts)
+            );
+        }
+        
+        // Add curves and stats
+        const { marks: curveMarks, stats: curveStats } = createNormalCurveMarks(
+            processedData, 
+            ['Urban', 'Suburban', 'Rural'], 
+            [ternaryColors['Urban'], ternaryColors['Suburban'], ternaryColors['Rural']], 
+            binSize
+        );
+        marks.push(...curveMarks);
+        stats = curveStats;
     }
-
-    // Set color scale
-    const color = Plot.scale({
-        color: {
+    
+    // Add reference lines if provided
+    if (referenceLines && referenceLines.length > 0) {
+        referenceLines.forEach(line => {
+            marks.push(
+                Plot.ruleX([line.value], {
+                    stroke: line.color || "black",
+                    strokeWidth: 2,
+                    strokeDasharray: "5,5"
+                })
+            );
+        });
+    }
+    
+    // Add baseline
+    marks.push(Plot.ruleY([0]));
+    
+    // Add statistics text
+    if (colorMode !== 'none' && colorMode !== 'unary') {
+        const types = colorMode === 'binary' ? ['Urban', 'Rural'] : ['Urban', 'Suburban', 'Rural'];
+        const colors = colorMode === 'binary' 
+            ? ['steelblue', 'green'] 
+            : ['#FDEA45', '#808080', '#002051'];
+        
+        marks.push(...createStatsTextMarks(stats, types, colors, maxBinCount));
+    } else {
+        // For unary mode, show overall stats
+        marks.push(...createStatsTextMarks(stats, ['All'], ['red'], maxBinCount));
+    }
+    
+    // Create color configuration
+    let colorConfig = {};
+    if (colorMode === 'ternary') {
+        colorConfig = {
+            type: "categorical",
+            domain: ["Urban", "Suburban", "Rural"],
+            range: ["#FDEA45", "#808080", "#002051"],
+            legend: displayMode === 'stacked' || displayMode === 'overlapping'
+        };
+    } else if (colorMode === 'binary') {
+        colorConfig = {
+            type: "categorical",
             domain: ["Urban", "Rural"],
-            range: ["#3498db", "#27ae60"] // Blue for urban, green for rural
-        }
-    });
+            range: ["steelblue", "green"],
+            legend: displayMode === 'stacked' || displayMode === 'overlapping'
+        };
+    }
     
     // Create the plot
-    try {
-        // Create the plot with all marks
-        const plot = Plot.plot({
-            title: title,
-            width: 800,
-            height: 500,
-            marginLeft: 60,
-            y: {
-                grid: true,
-                label: "↑ Number of Machines"
-            },
-            x: {
-                domain: [0, 100],
-                label: "Trump % →"
-            },
-            color,
-            marks
-        });
-        
-        // Clear the container and add the plot
-        container.innerHTML = '';
-        container.appendChild(plot);
-        
-        return plot;
-    } catch (error) {
-        console.error('Error creating plot:', error);
-        const errorDiv = document.createElement('div');
-        errorDiv.textContent = `Error: ${error.message}`;
-        errorDiv.style.color = 'red';
-        errorDiv.style.padding = '20px';
-        
-        container.innerHTML = '';
-        container.appendChild(errorDiv);
-        
-        return errorDiv;
-    }
+    const plot = Plot.plot({
+        title,
+        width: 800,
+        height: 400,
+        marginLeft: 50,
+        marginRight: 50,
+        marginTop: 20,
+        marginBottom: 50,
+        x: {
+            label: "Trump Percentage →",
+            domain: [0, 100]
+        },
+        y: {
+            label: "↑ Number of Machines"
+        },
+        color: Object.keys(colorConfig).length > 0 ? colorConfig : undefined,
+        marks
+    });
+    
+    // Clear container and add plot
+    container.innerHTML = '';
+    container.appendChild(plot);
 }
