@@ -1012,6 +1012,24 @@
             <!-- Election Day Scatterplot Visualization -->
             <div class="viz-container-light step" id="election-day-scatterplot-viz">
                 <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Day Scatterplot</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="radio-container" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; margin-right: 8px; white-space: nowrap;">Color Mode:</span>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="electionDayColorMode" value="none" style="margin-right: 4px;">
+                            None
+                        </label>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="electionDayColorMode" value="binary" checked style="margin-right: 4px;">
+                            Urban/Rural
+                        </label>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="electionDayColorMode" value="gradient" style="margin-right: 4px;">
+                            Urban %
+                        </label>
+                    </div>
+                </div>
+                <div id="election-day-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
                 <div id="election-day-scatterplot" class="plot-container"></div>
             </div>
             
@@ -1036,6 +1054,47 @@
             <!-- Machine History Visualization -->
             <div class="viz-container-light step" id="machine-history-viz">
                 <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Machine Vote History</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Line Count:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistoryLineCount" value="all" style="margin-right: 4px;">
+                                All
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistoryLineCount" value="100" style="margin-right: 4px;">
+                                100
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistoryLineCount" value="50" checked style="margin-right: 4px;">
+                                50
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistoryLineCount" value="20" style="margin-right: 4px;">
+                                20
+                            </label>
+                        </div>
+                        <div style="font-size: 0.8em; color: #666; text-align: center; max-width: 200px;">
+                            <em>Note: "All" may take time to load</em>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Selection Method:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistorySelectionMethod" value="longest" checked style="margin-right: 4px;">
+                                Longest
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistorySelectionMethod" value="random" style="margin-right: 4px;">
+                                Random
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="machine-history-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
                 <div id="machine-history-plot" class="plot-container"></div>
             </div>
             <section id="machine-history-analysis">
@@ -1392,6 +1451,25 @@
                         <span class="value">40%</span>
                     </label>
                     <input type="range" min="0" max="100" value="40" id="coinBias">
+                </div>
+                
+                <!-- Global Color Mode Controls -->
+                <div class="control-group" id="globalColorControls" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <h5 style="margin-bottom: 10px; color: var(--text-primary);">Color Mode</h5>
+                    <div class="radio-group" style="display: flex; flex-direction: column; gap: 8px;">
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="none" style="margin-right: 8px;">
+                            None
+                        </label>
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="binary" checked style="margin-right: 8px;">
+                            Urban/Rural
+                        </label>
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="gradient" style="margin-right: 8px;">
+                            Urban %
+                        </label>
+                    </div>
                 </div>
             </div>
             
@@ -1905,6 +1983,9 @@
                     // Hide loading indicator
                     document.getElementById('early-voting-loading').style.display = 'none';
                     
+                    // Store data in global state
+                    globalVisualizationData.earlyVotingData = scatterData.data;
+                    
                     // Create the scatter plot
                     createEarlyVotingScatterPlot(scatterData.data);
                     
@@ -1922,8 +2003,18 @@
         }
         
         function createEarlyVotingScatterPlot(data) {
-            // Get the selected color mode
-            const colorMode = document.querySelector('input[name="earlyVotingColorMode"]:checked').value;
+            // Get the selected color mode - try global first, then fallback to local
+            let colorMode;
+            const globalColorModeElement = document.querySelector('input[name="globalColorMode"]:checked');
+            const localColorModeElement = document.querySelector('input[name="earlyVotingColorMode"]:checked');
+            
+            if (globalColorModeElement) {
+                colorMode = globalColorModeElement.value;
+            } else if (localColorModeElement) {
+                colorMode = localColorModeElement.value;
+            } else {
+                colorMode = 'binary'; // default fallback
+            }
             
             // Process data for the plot
             const plotData = data.map(item => ({
@@ -2137,6 +2228,246 @@
                     initEarlyVotingScatterplot();
                 }
             });
+
+        // Election Day Scatterplot Functionality
+        function initElectionDayScatterplot() {
+            // Show loading indicator
+            document.getElementById('election-day-loading').style.display = 'block';
+            
+            // Fetch the election day scatter data
+            fetch('data/processed_data/election_day_votes_scatter_data.json')
+                .then(response => response.json())
+                .then(scatterData => {
+                    // Hide loading indicator
+                    document.getElementById('election-day-loading').style.display = 'none';
+                    
+                    // Store data in global state
+                    globalVisualizationData.electionDayData = scatterData.data;
+                    
+                    // Create the scatter plot
+                    createElectionDayScatterPlot(scatterData.data);
+                    
+                    // Add event listeners for radio buttons
+                    document.querySelectorAll('input[name="electionDayColorMode"]').forEach(radio => {
+                        radio.addEventListener('change', function() {
+                            createElectionDayScatterPlot(scatterData.data);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading election day data:', error);
+                    document.getElementById('election-day-loading').textContent = 'Error loading data. Please check console for details.';
+                });
+        }
+        
+        function createElectionDayScatterPlot(data) {
+            // Get the selected color mode - try global first, then fallback to local
+            let colorMode;
+            const globalColorModeElement = document.querySelector('input[name="globalColorMode"]:checked');
+            const localColorModeElement = document.querySelector('input[name="electionDayColorMode"]:checked');
+            
+            if (globalColorModeElement) {
+                colorMode = globalColorModeElement.value;
+            } else if (localColorModeElement) {
+                colorMode = localColorModeElement.value;
+            } else {
+                colorMode = 'binary'; // default fallback
+            }
+            
+            // Process data for the plot
+            const plotData = data.map(item => ({
+                tabulator: item.tabulator,
+                total_votes: item.total_votes,
+                trump_percentage: item.trump_percentage,
+                area_type: item.is_urban === true ? 'Urban' : 'Rural',
+                urban_percentage: item.urban_percentage || 0
+            }));
+            
+            // Create color scale configuration based on color mode
+            let colorConfig = {};
+            let dotConfig = {};
+            
+            if (colorMode === 'binary') {
+                // Binary Urban/Rural coloring
+                dotConfig = {
+                    fill: d => d.area_type === 'Urban' ? "blue" : "green",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%\nArea: ${d.area_type}`
+                };
+            } else if (colorMode === 'gradient') {
+                // Urban percentage gradient coloring
+                colorConfig = {
+                    scheme: "Cividis",
+                    legend: true,
+                    label: "Urban %",
+                    pivot: 50,
+                    domain: [0, 100]
+                };
+                dotConfig = {
+                    stroke: "urban_percentage",
+                    fill: "urban_percentage",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%\nUrban %: ${d.urban_percentage.toFixed(1)}%`
+                };
+            } else {
+                // No coloring (red dots)
+                dotConfig = {
+                    fill: "red",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%`
+                };
+            }
+            
+            // Create the scatter plot
+            const plot = Plot.plot({
+                width: 800,
+                height: 500,
+                marginBottom: 50,
+                marginLeft: 60,
+                grid: true,
+                color: colorMode === 'gradient' ? colorConfig : null,
+                x: {
+                    label: "Total Votes per Machine",
+                    nice: true,
+                    domain: [0, Math.max(...plotData.map(d => d.total_votes)) * 1.05]
+                },
+                y: {
+                    label: "Trump %",
+                    nice: true,
+                    domain: [0, 100],
+                    tickFormat: d => `${d.toFixed(0)}`,
+                    grid: true
+                },
+                marks: [
+                    Plot.dot(plotData, {
+                        x: "total_votes",
+                        y: "trump_percentage",
+                        r: 4,
+                        opacity: 0.7,
+                        ...dotConfig
+                    })
+                ]
+            });
+            
+            // Clear and append the plot to the container
+            const container = document.getElementById('election-day-scatterplot');
+            container.innerHTML = '';
+            container.appendChild(plot);
+        }
+
+        const electionDayPlotInitializer = scrollama();
+
+        electionDayPlotInitializer
+            .setup({
+                step: document.querySelectorAll('#election-day-scatterplot-viz'),
+                offset: 0.1, // Trigger when section is 90% down the viewport
+                threshold: 4,
+                once: true,
+            })
+            .onStepEnter((response) => {
+                if (response.index === 0) {
+                    initElectionDayScatterplot();
+                }
+            });
+
+        // Machine History Visualization Functionality
+        function initMachineHistoryVisualization() {
+            // Show loading indicator
+            document.getElementById('machine-history-loading').style.display = 'block';
+            
+            // Show global color controls in sidebar
+            const globalColorControls = document.getElementById('globalColorControls');
+            globalColorControls.style.display = 'block';
+            setTimeout(() => {
+                globalColorControls.style.opacity = '1';
+            }, 100);
+            
+            // Fetch the early voting scatter data which contains the vote history
+            fetch('data/processed_data/early_votes_scatter_data.json')
+                .then(response => response.json())
+                .then(scatterData => {
+                    // Hide loading indicator
+                    document.getElementById('machine-history-loading').style.display = 'none';
+                    
+                    // Store data in global state
+                    globalVisualizationData.machineHistoryData = scatterData.data;
+                    
+                    // Create the machine history plot
+                    updateMachineHistoryPlot(scatterData.data);
+                    
+                    // Add event listeners for all controls
+                    document.querySelectorAll('input[name="globalColorMode"], input[name="machineHistoryLineCount"], input[name="machineHistorySelectionMethod"]').forEach(radio => {
+                        radio.addEventListener('change', () => updateMachineHistoryPlot(scatterData.data));
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading machine history data:', error);
+                    document.getElementById('machine-history-loading').textContent = 'Error loading data. Please check console for details.';
+                });
+        }
+        
+        function updateMachineHistoryPlot(scatterData) {
+            // Get the selected options
+            const colorMode = document.querySelector('input[name="globalColorMode"]:checked').value;
+            const lineCount = document.querySelector('input[name="machineHistoryLineCount"]:checked').value;
+            const selectionMethod = document.querySelector('input[name="machineHistorySelectionMethod"]:checked').value;
+            
+            // Import and use the game history function
+            import('./src/game_history.js').then(module => {
+                const { createGameHistoryPlot } = module;
+                
+                // Create the plot
+                createGameHistoryPlot('machine-history-plot', scatterData, {
+                    colorMode,
+                    lineCount,
+                    selectionMethod
+                });
+            }).catch(error => {
+                console.error('Error loading game history module:', error);
+            });
+        }
+
+        const machineHistoryInitializer = scrollama();
+
+        machineHistoryInitializer
+            .setup({
+                step: document.querySelectorAll('#machine-history-viz'),
+                offset: 0.1, // Trigger when section is 90% down the viewport
+                threshold: 4,
+                once: true,
+            })
+            .onStepEnter((response) => {
+                if (response.index === 0) {
+                    initMachineHistoryVisualization();
+                }
+            });
+        
+        // Global Color Control Management
+        let globalVisualizationData = {
+            earlyVotingData: null,
+            electionDayData: null,
+            machineHistoryData: null
+        };
+        
+        // Function to update all visualizations when global color mode changes
+        function updateAllVisualizationsColorMode() {
+            // Update early voting scatterplot if data is available
+            if (globalVisualizationData.earlyVotingData) {
+                createEarlyVotingScatterPlot(globalVisualizationData.earlyVotingData);
+            }
+            
+            // Update election day scatterplot if data is available
+            if (globalVisualizationData.electionDayData) {
+                createElectionDayScatterPlot(globalVisualizationData.electionDayData);
+            }
+            
+            // Update machine history if data is available
+            if (globalVisualizationData.machineHistoryData) {
+                updateMachineHistoryPlot(globalVisualizationData.machineHistoryData);
+            }
+        }
+        
+        // Add event listeners for global color controls
+        document.querySelectorAll('input[name="globalColorMode"]').forEach(radio => {
+            radio.addEventListener('change', updateAllVisualizationsColorMode);
+        });
         
         // Initialize mobile controls
         setupMobileControls();
