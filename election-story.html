@@ -7,7 +7,6 @@
     
     <!-- Dependencies -->
     <script src="https://unpkg.com/scrollama@3.2.0/build/scrollama.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
     
     <style>
         :root {
@@ -974,12 +973,39 @@
                 </p>
 
                 <p>
-If you want to peruse the data further, here are some interactive visualizations of the 2024 Cast Vote Records, both for Early Voting and Election Day voting                </p>
+                    If you want to peruse the data further, here are some interactive visualizations of the 2024 Cast Vote Records, both for Early Voting and Election Day voting                
+                </p>
             </section>
             
             <!-- Early Voting Scatterplot Visualization -->
             <div class="viz-container-light step" id="early-voting-scatterplot-viz">
                 <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Early Voting Scatterplot</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="radio-container" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; margin-right: 8px; white-space: nowrap;">Color Mode:</span>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="earlyVotingColorMode" value="none" style="margin-right: 4px;">
+                            None
+                        </label>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="earlyVotingColorMode" value="binary" checked style="margin-right: 4px;">
+                            Urban/Rural
+                        </label>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="earlyVotingColorMode" value="gradient" style="margin-right: 4px;">
+                            Urban %
+                        </label>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="earlyVotingColorMode" value="cutoff800" style="margin-right: 4px;">
+                            < 800 votes
+                        </label>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="earlyVotingColorMode" value="cutoff125" style="margin-right: 4px;">
+                            < 125 votes
+                        </label>
+                    </div>
+                </div>
+                <div id="early-voting-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
                 <div id="early-voting-scatterplot" class="plot-container"></div>
             </div>
             
@@ -1360,7 +1386,7 @@ If you want to peruse the data further, here are some interactive visualizations
                 </div>
                 
                 <!-- Coin bias slider, hidden initially -->
-                <div class="slider-control">
+                <div class="slider-control" id="coinBiasControl" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
                     <label>
                         Coin Bias
                         <span class="value">40%</span>
@@ -1416,6 +1442,9 @@ If you want to peruse the data further, here are some interactive visualizations
         import { animateCoinFlip } from './src/coin_flip.js';
         import { animateCoins, calculateStats, formatStats } from './src/multi_coin_flip.js';
         import { pregenerateCoinGames, createCoinGamesPlot, updateCoinGamesPlot } from './src/coin_games.js';
+        import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+        // import * as Plot from "./assets/plot@0.6.esm.js";
+
         
         // Create separate state for each visualization to avoid conflicts
         const vizStates = {
@@ -1606,7 +1635,7 @@ If you want to peruse the data further, here are some interactive visualizations
                 }, 500); // Wait for transition to complete
             }
             
-            updateVisualization();
+            updateCoinVisualization();
         }
 
         // Handler for probability slider change
@@ -1616,7 +1645,7 @@ If you want to peruse the data further, here are some interactive visualizations
             // Regenerate games with new probability
             vizStates.coinGames.coinGames = pregenerateCoinGames(vizStates.global.headsProbability);
             
-            updateVisualization();
+            updateCoinVisualization();
         }
         
         // Handler for guess range sliders
@@ -1627,9 +1656,9 @@ If you want to peruse the data further, here are some interactive visualizations
             // Update display
             e.target.previousElementSibling.querySelector('.value').textContent = e.target.value + '%';
             
-            updateVisualization();
+            updateCoinVisualization();
         }
-        function updateVisualization() {
+        function updateCoinVisualization() {
             updateCoinGamesPlot('coin-games-plot', vizStates.coinGames.coinGames, {
                 maxFlips: vizStates.coinGames.maxFlips,
                 guessLower: vizStates.userPrediction - 5,
@@ -1700,8 +1729,6 @@ If you want to peruse the data further, here are some interactive visualizations
             e.target.previousElementSibling.querySelector('.value').textContent = e.target.value + '%';
         });
         
-
-        
         
         // Handle prediction slider
         document.getElementById('userPrediction').addEventListener('input', function(e) {
@@ -1728,6 +1755,47 @@ If you want to peruse the data further, here are some interactive visualizations
                 setTimeout(() => {
                     predictionControl.style.opacity = '1';
                 }, 50);
+            });
+
+        // Set up bias control visibility using Scrollama
+        const biasControl = document.getElementById("coinBiasControl")
+        const biasScroller = scrollama();
+
+        biasScroller
+            .setup({
+                step: '#coin-game-explanation',
+                offset: 0.5, // Trigger when section is 90% up the viewport
+                once: true // Only trigger once
+            })
+            .onStepEnter(response => {
+                // Show prediction control when entering four-coins section
+                biasControl.style.display = 'block';
+                setTimeout(() => {
+                    biasControl.style.opacity = '1';
+                }, 50);
+            });
+
+        const coinElectionSwitcher = scrollama();
+        coinElectionSwitcher
+            .setup({
+                step: '#eta-introduction-lead-in',
+                offset: 0.5, // Trigger when section is 90% up the viewport
+            })
+            .onStepEnter(response => {
+                // Show coin controls when scrolling up into coin section
+                if (response.direction === 'up') {
+                    biasControl.style.display = 'block';
+                    setTimeout(() => {
+                        biasControl.style.opacity = '1';
+                    }, 50);
+                    predictionControl.style.display = 'block';
+                    setTimeout(() => {
+                        predictionControl.style.opacity = '1';
+                    }, 50);
+                } else {
+                    biasControl.style.display = 'none';
+                    predictionControl.style.display = 'none';
+                }
             });
         
         // Set up dynamic footnote system using Scrollama
@@ -1824,6 +1892,251 @@ If you want to peruse the data further, here are some interactive visualizations
                 }
             });
         };
+        
+        // Early Voting Scatterplot Functionality
+        function initEarlyVotingScatterplot() {
+            // Show loading indicator
+            document.getElementById('early-voting-loading').style.display = 'block';
+            
+            // Fetch the early voting scatter data
+            fetch('data/processed_data/early_votes_scatter_data.json')
+                .then(response => response.json())
+                .then(scatterData => {
+                    // Hide loading indicator
+                    document.getElementById('early-voting-loading').style.display = 'none';
+                    
+                    // Create the scatter plot
+                    createEarlyVotingScatterPlot(scatterData.data);
+                    
+                    // Add event listeners for radio buttons
+                    document.querySelectorAll('input[name="earlyVotingColorMode"]').forEach(radio => {
+                        radio.addEventListener('change', function() {
+                            createEarlyVotingScatterPlot(scatterData.data);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading early voting data:', error);
+                    document.getElementById('early-voting-loading').textContent = 'Error loading data. Please check console for details.';
+                });
+        }
+        
+        function createEarlyVotingScatterPlot(data) {
+            // Get the selected color mode
+            const colorMode = document.querySelector('input[name="earlyVotingColorMode"]:checked').value;
+            
+            // Process data for the plot
+            const plotData = data.map(item => ({
+                tabulator: item.tabulator,
+                total_votes: item.total_votes,
+                trump_percentage: item.trump_percentage,
+                area_type: item.is_urban === true ? 'Urban' : 'Rural',
+                urban_percentage: item.urban_percentage || 0
+            }));
+            
+            // Create color scale configuration based on color mode
+            let colorConfig = {};
+            let dotConfig = {};
+            
+            if (colorMode === 'binary') {
+                // Binary Urban/Rural coloring
+                dotConfig = {
+                    fill: d => d.area_type === 'Urban' ? "blue" : "green",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%\nArea: ${d.area_type}`
+                };
+            } else if (colorMode === 'gradient') {
+                // Urban percentage gradient coloring
+                colorConfig = {
+                    scheme: "Cividis",
+                    legend: true,
+                    label: "Urban %",
+                    pivot: 50,
+                    domain: [0, 100]
+                };
+                dotConfig = {
+                    stroke: "urban_percentage",
+                    fill: "urban_percentage",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%\nUrban %: ${d.urban_percentage.toFixed(1)}%`
+                };
+            } else if (colorMode === 'cutoff800') {
+                // Cut off at 800 votes with dual candidate display
+                dotConfig = {
+                    fill: "red",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%`
+                };
+                const kDotConfig = {
+                    fill: "blue",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nKamala %: ${(100-d.trump_percentage).toFixed(2)}%`
+                };
+                
+                // Add kamala percentage to data
+                for (let i = 0; i < plotData.length; i++) {
+                    plotData[i].kamala_percentage = 100 - plotData[i].trump_percentage;
+                }
+                
+                const filteredPlotData = plotData.filter(d => d.total_votes < 800);
+                
+                // Create the scatter plot with dual candidates
+                const plot = Plot.plot({
+                    width: 800,
+                    height: 500,
+                    marginBottom: 50,
+                    marginLeft: 60,
+                    grid: true,
+                    x: {
+                        label: "Total Votes per Machine",
+                        nice: true,
+                        domain: [0, Math.max(...filteredPlotData.map(d => d.total_votes)) * 1.05]
+                    },
+                    y: {
+                        label: "Vote %",
+                        nice: true,
+                        domain: [0, 100],
+                        tickFormat: d => `${d.toFixed(0)}`,
+                        grid: true
+                    },
+                    marks: [
+                        Plot.dot(filteredPlotData, {
+                            x: "total_votes",
+                            y: "trump_percentage",
+                            r: 4,
+                            opacity: 0.7,
+                            ...dotConfig
+                        }),
+                        Plot.dot(filteredPlotData, {
+                            x: "total_votes",
+                            y: "kamala_percentage",
+                            r: 4,
+                            opacity: 0.7,
+                            ...kDotConfig
+                        })
+                    ]
+                });
+                
+                // Clear and append the plot to the container
+                const container = document.getElementById('early-voting-scatterplot');
+                container.innerHTML = '';
+                container.appendChild(plot);
+                return;
+            } else if (colorMode === 'cutoff125') {
+                // Cut off at 125 votes with dual candidate display
+                dotConfig = {
+                    fill: "red",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%`
+                };
+                const kDotConfig = {
+                    fill: "blue",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nKamala %: ${(100-d.trump_percentage).toFixed(2)}%`
+                };
+                
+                // Add kamala percentage to data
+                for (let i = 0; i < plotData.length; i++) {
+                    plotData[i].kamala_percentage = 100 - plotData[i].trump_percentage;
+                }
+                
+                const filteredPlotData = plotData.filter(d => d.total_votes < 125);
+                
+                // Create the scatter plot with dual candidates
+                const plot = Plot.plot({
+                    width: 800,
+                    height: 500,
+                    marginBottom: 50,
+                    marginLeft: 60,
+                    grid: true,
+                    x: {
+                        label: "Total Votes per Machine",
+                        nice: true,
+                        domain: [0, Math.max(...filteredPlotData.map(d => d.total_votes)) * 1.05]
+                    },
+                    y: {
+                        label: "Vote %",
+                        nice: true,
+                        domain: [0, 100],
+                        tickFormat: d => `${d.toFixed(0)}`,
+                        grid: true
+                    },
+                    marks: [
+                        Plot.dot(filteredPlotData, {
+                            x: "total_votes",
+                            y: "trump_percentage",
+                            r: 4,
+                            opacity: 0.7,
+                            ...dotConfig
+                        }),
+                        Plot.dot(filteredPlotData, {
+                            x: "total_votes",
+                            y: "kamala_percentage",
+                            r: 4,
+                            opacity: 0.7,
+                            ...kDotConfig
+                        })
+                    ]
+                });
+                
+                // Clear and append the plot to the container
+                const container = document.getElementById('early-voting-scatterplot');
+                container.innerHTML = '';
+                container.appendChild(plot);
+                return;
+            } else {
+                // No coloring (red dots)
+                dotConfig = {
+                    fill: "red",
+                    title: d => `Tabulator: ${d.tabulator}\nTotal Votes: ${d.total_votes}\nTrump %: ${d.trump_percentage.toFixed(2)}%`
+                };
+            }
+            
+            // Create the standard scatter plot
+            const plot = Plot.plot({
+                width: 800,
+                height: 500,
+                marginBottom: 50,
+                marginLeft: 60,
+                grid: true,
+                color: colorMode === 'gradient' ? colorConfig : null,
+                x: {
+                    label: "Total Votes per Machine",
+                    nice: true,
+                    domain: [0, Math.max(...plotData.map(d => d.total_votes)) * 1.05]
+                },
+                y: {
+                    label: "Trump %",
+                    nice: true,
+                    domain: [0, 100],
+                    tickFormat: d => `${d.toFixed(0)}`,
+                    grid: true
+                },
+                marks: [
+                    Plot.dot(plotData, {
+                        x: "total_votes",
+                        y: "trump_percentage",
+                        r: 4,
+                        opacity: 0.7,
+                        ...dotConfig
+                    })
+                ]
+            });
+            
+            // Clear and append the plot to the container
+            const container = document.getElementById('early-voting-scatterplot');
+            container.innerHTML = '';
+            container.appendChild(plot);
+        }
+
+        const earlyVotingPlotInitializer = scrollama();
+
+        earlyVotingPlotInitializer
+            .setup({
+                step: document.querySelectorAll('#early-voting-scatterplot-viz'),
+                offset: 0.1, // Trigger when section is 90% down the viewport
+                threshold: 4,
+                once: true,
+            })
+            .onStepEnter((response) => {
+                if (response.index === 0) {
+                    initEarlyVotingScatterplot();
+                }
+            });
         
         // Initialize mobile controls
         setupMobileControls();
