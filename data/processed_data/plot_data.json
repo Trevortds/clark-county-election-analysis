@@ -1,0 +1,38 @@
+[
+  {
+    "vote_type": "early",
+    "candidate": "Kamala D. Harris",
+    "party": "Democratic",
+    "votes": 156705
+  },
+  {
+    "vote_type": "early",
+    "candidate": "Donald J. Trump",
+    "party": "Republican",
+    "votes": 234231
+  },
+  {
+    "vote_type": "mail",
+    "candidate": "Kamala D. Harris",
+    "party": "Democratic",
+    "votes": 271455
+  },
+  {
+    "vote_type": "mail",
+    "candidate": "Donald J. Trump",
+    "party": "Republican",
+    "votes": 160824
+  },
+  {
+    "vote_type": "election_day",
+    "candidate": "Kamala D. Harris",
+    "party": "Democratic",
+    "votes": 91831
+  },
+  {
+    "vote_type": "election_day",
+    "candidate": "Donald J. Trump",
+    "party": "Republican",
+    "votes": 97662
+  }
+]

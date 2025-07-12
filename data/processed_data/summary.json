@@ -1,0 +1,89 @@
+{
+  "total_rows_processed": 1033285,
+  "vote_type_counts": {
+    "early": 395438,
+    "mail": 443823,
+    "election_day": 194024,
+    "other": 0
+  },
+  "candidate_columns": [
+    "Harris, Kamala D. (DEM)",
+    "Trump, Donald J. (REP)"
+  ],
+  "candidate_vote_counts": {
+    "early": {
+      "Harris, Kamala D. (DEM)": 156705,
+      "Trump, Donald J. (REP)": 234231
+    },
+    "mail": {
+      "Harris, Kamala D. (DEM)": 271455,
+      "Trump, Donald J. (REP)": 160824
+    },
+    "election_day": {
+      "Harris, Kamala D. (DEM)": 91831,
+      "Trump, Donald J. (REP)": 97662
+    }
+  },
+  "metadata_columns": [
+    "CvrNumber",
+    "TabulatorNum",
+    "BatchId",
+    "RecordId",
+    "ImprintedId",
+    "CountingGroup",
+    "PrecinctPortion",
+    "BallotType",
+    "ImagePath",
+    "SessionType",
+    "VoterFlag",
+    "Modified",
+    "CardInfo",
+    "PdfName",
+    "UniqueVotingIdentifier",
+    "VotingSessionIdentifier"
+  ],
+  "plot_ready_data": [
+    {
+      "vote_type": "early",
+      "candidate": "Kamala D. Harris",
+      "party": "Democratic",
+      "votes": 156705
+    },
+    {
+      "vote_type": "early",
+      "candidate": "Donald J. Trump",
+      "party": "Republican",
+      "votes": 234231
+    },
+    {
+      "vote_type": "mail",
+      "candidate": "Kamala D. Harris",
+      "party": "Democratic",
+      "votes": 271455
+    },
+    {
+      "vote_type": "mail",
+      "candidate": "Donald J. Trump",
+      "party": "Republican",
+      "votes": 160824
+    },
+    {
+      "vote_type": "election_day",
+      "candidate": "Kamala D. Harris",
+      "party": "Democratic",
+      "votes": 91831
+    },
+    {
+      "vote_type": "election_day",
+      "candidate": "Donald J. Trump",
+      "party": "Republican",
+      "votes": 97662
+    }
+  ],
+  "candidate_party_info": {
+    "Harris, Kamala D. (DEM)": "Democratic",
+    "display_Harris, Kamala D. (DEM)": "Kamala D. Harris",
+    "Trump, Donald J. (REP)": "Republican",
+    "display_Trump, Donald J. (REP)": "Donald J. Trump"
+  }
+}

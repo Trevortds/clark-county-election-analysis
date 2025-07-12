@@ -377,8 +377,8 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
             `SIMULATED FRAUD SCENARIO - Rolling Average (Window Size: ${windowSize}) of Trump Votes` :
             `Rolling Average (Window Size: ${windowSize}) of Trump Votes by Tabulator`,
         subtitle: fakeDataMode ?
-            `FAKE DATA - NOT REAL - ${sampledData.length} sampled from ${filteredData.length} points, ${tabulatorsToDisplay.length} machines` :
-            `${sampledData.length} sampled from ${filteredData.length} points, ${tabulatorsToDisplay.length} machines`,
+            `FAKE DATA - NOT REAL - ${filteredData.length} points, ${tabulatorsToDisplay.length} machines` :
+            `${filteredData.length} points, ${tabulatorsToDisplay.length} machines`,
         color: colorConfig,
         x: {
             label: "Total Votes Counted",

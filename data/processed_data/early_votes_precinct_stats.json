@@ -1,0 +1,4448 @@
+{
+  "urban_votes": {
+    "Harris, Kamala D. (DEM)": 111911,
+    "Trump, Donald J. (REP)": 141370
+  },
+  "rural_votes": {
+    "Harris, Kamala D. (DEM)": 44794,
+    "Trump, Donald J. (REP)": 92861
+  },
+  "precinct_vote_counts": {
+    "2352": {
+      "Harris, Kamala D. (DEM)": 325,
+      "Trump, Donald J. (REP)": 757,
+      "total": 1082
+    },
+    "2048": {
+      "Harris, Kamala D. (DEM)": 554,
+      "Trump, Donald J. (REP)": 630,
+      "total": 1184
+    },
+    "5513": {
+      "Harris, Kamala D. (DEM)": 328,
+      "Trump, Donald J. (REP)": 417,
+      "total": 745
+    },
+    "1715": {
+      "Harris, Kamala D. (DEM)": 245,
+      "Trump, Donald J. (REP)": 604,
+      "total": 849
+    },
+    "4505": {
+      "Harris, Kamala D. (DEM)": 216,
+      "Trump, Donald J. (REP)": 196,
+      "total": 412
+    },
+    "3607": {
+      "Harris, Kamala D. (DEM)": 231,
+      "Trump, Donald J. (REP)": 249,
+      "total": 480
+    },
+    "6044": {
+      "Harris, Kamala D. (DEM)": 262,
+      "Trump, Donald J. (REP)": 328,
+      "total": 590
+    },
+    "3011": {
+      "Harris, Kamala D. (DEM)": 242,
+      "Trump, Donald J. (REP)": 445,
+      "total": 687
+    },
+    "4581": {
+      "Harris, Kamala D. (DEM)": 423,
+      "Trump, Donald J. (REP)": 371,
+      "total": 794
+    },
+    "3007": {
+      "Harris, Kamala D. (DEM)": 304,
+      "Trump, Donald J. (REP)": 307,
+      "total": 611
+    },
+    "1631": {
+      "Harris, Kamala D. (DEM)": 284,
+      "Trump, Donald J. (REP)": 392,
+      "total": 676
+    },
+    "1518": {
+      "Harris, Kamala D. (DEM)": 295,
+      "Trump, Donald J. (REP)": 612,
+      "total": 907
+    },
+    "4501": {
+      "Harris, Kamala D. (DEM)": 532,
+      "Trump, Donald J. (REP)": 511,
+      "total": 1043
+    },
+    "6520": {
+      "Harris, Kamala D. (DEM)": 350,
+      "Trump, Donald J. (REP)": 645,
+      "total": 995
+    },
+    "2066": {
+      "Harris, Kamala D. (DEM)": 15,
+      "Trump, Donald J. (REP)": 91,
+      "total": 106
+    },
+    "7611": {
+      "Harris, Kamala D. (DEM)": 390,
+      "Trump, Donald J. (REP)": 974,
+      "total": 1364
+    },
+    "2740": {
+      "Harris, Kamala D. (DEM)": 164,
+      "Trump, Donald J. (REP)": 155,
+      "total": 319
+    },
+    "5582": {
+      "Harris, Kamala D. (DEM)": 160,
+      "Trump, Donald J. (REP)": 109,
+      "total": 269
+    },
+    "2430": {
+      "Harris, Kamala D. (DEM)": 86,
+      "Trump, Donald J. (REP)": 117,
+      "total": 203
+    },
+    "1331": {
+      "Harris, Kamala D. (DEM)": 242,
+      "Trump, Donald J. (REP)": 281,
+      "total": 523
+    },
+    "3013": {
+      "Harris, Kamala D. (DEM)": 204,
+      "Trump, Donald J. (REP)": 221,
+      "total": 425
+    },
+    "2600": {
+      "Harris, Kamala D. (DEM)": 410,
+      "Trump, Donald J. (REP)": 687,
+      "total": 1097
+    },
+    "1015": {
+      "Harris, Kamala D. (DEM)": 335,
+      "Trump, Donald J. (REP)": 481,
+      "total": 816
+    },
+    "3758": {
+      "Harris, Kamala D. (DEM)": 45,
+      "Trump, Donald J. (REP)": 117,
+      "total": 162
+    },
+    "3588": {
+      "Harris, Kamala D. (DEM)": 416,
+      "Trump, Donald J. (REP)": 748,
+      "total": 1164
+    },
+    "5570": {
+      "Harris, Kamala D. (DEM)": 258,
+      "Trump, Donald J. (REP)": 263,
+      "total": 521
+    },
+    "4543": {
+      "Harris, Kamala D. (DEM)": 172,
+      "Trump, Donald J. (REP)": 96,
+      "total": 268
+    },
+    "1614": {
+      "Harris, Kamala D. (DEM)": 187,
+      "Trump, Donald J. (REP)": 306,
+      "total": 493
+    },
+    "4019": {
+      "Harris, Kamala D. (DEM)": 166,
+      "Trump, Donald J. (REP)": 114,
+      "total": 280
+    },
+    "2700": {
+      "Harris, Kamala D. (DEM)": 269,
+      "Trump, Donald J. (REP)": 422,
+      "total": 691
+    },
+    "5586": {
+      "Harris, Kamala D. (DEM)": 151,
+      "Trump, Donald J. (REP)": 105,
+      "total": 256
+    },
+    "4510": {
+      "Harris, Kamala D. (DEM)": 71,
+      "Trump, Donald J. (REP)": 46,
+      "total": 117
+    },
+    "4547": {
+      "Harris, Kamala D. (DEM)": 207,
+      "Trump, Donald J. (REP)": 141,
+      "total": 348
+    },
+    "2715": {
+      "Harris, Kamala D. (DEM)": 352,
+      "Trump, Donald J. (REP)": 368,
+      "total": 720
+    },
+    "5412": {
+      "Harris, Kamala D. (DEM)": 473,
+      "Trump, Donald J. (REP)": 394,
+      "total": 867
+    },
+    "2371": {
+      "Harris, Kamala D. (DEM)": 159,
+      "Trump, Donald J. (REP)": 231,
+      "total": 390
+    },
+    "1669": {
+      "Harris, Kamala D. (DEM)": 390,
+      "Trump, Donald J. (REP)": 618,
+      "total": 1008
+    },
+    "6725": {
+      "Harris, Kamala D. (DEM)": 439,
+      "Trump, Donald J. (REP)": 684,
+      "total": 1123
+    },
+    "1001": {
+      "Harris, Kamala D. (DEM)": 140,
+      "Trump, Donald J. (REP)": 255,
+      "total": 395
+    },
+    "7029": {
+      "Harris, Kamala D. (DEM)": 236,
+      "Trump, Donald J. (REP)": 414,
+      "total": 650
+    },
+    "3016": {
+      "Harris, Kamala D. (DEM)": 244,
+      "Trump, Donald J. (REP)": 417,
+      "total": 661
+    },
+    "1645": {
+      "Harris, Kamala D. (DEM)": 294,
+      "Trump, Donald J. (REP)": 285,
+      "total": 579
+    },
+    "7055": {
+      "Harris, Kamala D. (DEM)": 349,
+      "Trump, Donald J. (REP)": 348,
+      "total": 697
+    },
+    "5044": {
+      "Harris, Kamala D. (DEM)": 81,
+      "Trump, Donald J. (REP)": 111,
+      "total": 192
+    },
+    "4461": {
+      "Harris, Kamala D. (DEM)": 206,
+      "Trump, Donald J. (REP)": 51,
+      "total": 257
+    },
+    "7570": {
+      "Harris, Kamala D. (DEM)": 163,
+      "Trump, Donald J. (REP)": 374,
+      "total": 537
+    },
+    "2051": {
+      "Harris, Kamala D. (DEM)": 359,
+      "Trump, Donald J. (REP)": 666,
+      "total": 1025
+    },
+    "2087": {
+      "Harris, Kamala D. (DEM)": 504,
+      "Trump, Donald J. (REP)": 388,
+      "total": 892
+    },
+    "3706": {
+      "Harris, Kamala D. (DEM)": 497,
+      "Trump, Donald J. (REP)": 786,
+      "total": 1283
+    },
+    "6066": {
+      "Harris, Kamala D. (DEM)": 314,
+      "Trump, Donald J. (REP)": 407,
+      "total": 721
+    },
+    "4040": {
+      "Harris, Kamala D. (DEM)": 50,
+      "Trump, Donald J. (REP)": 33,
+      "total": 83
+    },
+    "5015": {
+      "Harris, Kamala D. (DEM)": 103,
+      "Trump, Donald J. (REP)": 61,
+      "total": 164
+    },
+    "2710": {
+      "Harris, Kamala D. (DEM)": 369,
+      "Trump, Donald J. (REP)": 551,
+      "total": 920
+    },
+    "2063": {
+      "Harris, Kamala D. (DEM)": 119,
+      "Trump, Donald J. (REP)": 105,
+      "total": 224
+    },
+    "4030": {
+      "Harris, Kamala D. (DEM)": 190,
+      "Trump, Donald J. (REP)": 51,
+      "total": 241
+    },
+    "7352": {
+      "Harris, Kamala D. (DEM)": 258,
+      "Trump, Donald J. (REP)": 836,
+      "total": 1094
+    },
+    "2776": {
+      "Harris, Kamala D. (DEM)": 92,
+      "Trump, Donald J. (REP)": 530,
+      "total": 622
+    },
+    "7025": {
+      "Harris, Kamala D. (DEM)": 67,
+      "Trump, Donald J. (REP)": 81,
+      "total": 148
+    },
+    "6552": {
+      "Harris, Kamala D. (DEM)": 101,
+      "Trump, Donald J. (REP)": 243,
+      "total": 344
+    },
+    "7502": {
+      "Harris, Kamala D. (DEM)": 91,
+      "Trump, Donald J. (REP)": 166,
+      "total": 257
+    },
+    "5565": {
+      "Harris, Kamala D. (DEM)": 224,
+      "Trump, Donald J. (REP)": 187,
+      "total": 411
+    },
+    "5554": {
+      "Harris, Kamala D. (DEM)": 259,
+      "Trump, Donald J. (REP)": 303,
+      "total": 562
+    },
+    "5350": {
+      "Harris, Kamala D. (DEM)": 424,
+      "Trump, Donald J. (REP)": 255,
+      "total": 679
+    },
+    "1008": {
+      "Harris, Kamala D. (DEM)": 466,
+      "Trump, Donald J. (REP)": 584,
+      "total": 1050
+    },
+    "3055": {
+      "Harris, Kamala D. (DEM)": 356,
+      "Trump, Donald J. (REP)": 579,
+      "total": 935
+    },
+    "4605": {
+      "Harris, Kamala D. (DEM)": 113,
+      "Trump, Donald J. (REP)": 72,
+      "total": 185
+    },
+    "6685": {
+      "Harris, Kamala D. (DEM)": 114,
+      "Trump, Donald J. (REP)": 285,
+      "total": 399
+    },
+    "6033": {
+      "Harris, Kamala D. (DEM)": 219,
+      "Trump, Donald J. (REP)": 248,
+      "total": 467
+    },
+    "5533": {
+      "Harris, Kamala D. (DEM)": 408,
+      "Trump, Donald J. (REP)": 347,
+      "total": 755
+    },
+    "5047": {
+      "Harris, Kamala D. (DEM)": 135,
+      "Trump, Donald J. (REP)": 247,
+      "total": 382
+    },
+    "5572": {
+      "Harris, Kamala D. (DEM)": 209,
+      "Trump, Donald J. (REP)": 225,
+      "total": 434
+    },
+    "3715": {
+      "Harris, Kamala D. (DEM)": 226,
+      "Trump, Donald J. (REP)": 751,
+      "total": 977
+    },
+    "4020": {
+      "Harris, Kamala D. (DEM)": 185,
+      "Trump, Donald J. (REP)": 105,
+      "total": 290
+    },
+    "5384": {
+      "Harris, Kamala D. (DEM)": 273,
+      "Trump, Donald J. (REP)": 182,
+      "total": 455
+    },
+    "2662": {
+      "Harris, Kamala D. (DEM)": 307,
+      "Trump, Donald J. (REP)": 593,
+      "total": 900
+    },
+    "3735": {
+      "Harris, Kamala D. (DEM)": 9,
+      "Trump, Donald J. (REP)": 22,
+      "total": 31
+    },
+    "7032": {
+      "Harris, Kamala D. (DEM)": 66,
+      "Trump, Donald J. (REP)": 155,
+      "total": 221
+    },
+    "3374": {
+      "Harris, Kamala D. (DEM)": 342,
+      "Trump, Donald J. (REP)": 661,
+      "total": 1003
+    },
+    "5587": {
+      "Harris, Kamala D. (DEM)": 350,
+      "Trump, Donald J. (REP)": 302,
+      "total": 652
+    },
+    "3000": {
+      "Harris, Kamala D. (DEM)": 285,
+      "Trump, Donald J. (REP)": 251,
+      "total": 536
+    },
+    "2644": {
+      "Harris, Kamala D. (DEM)": 280,
+      "Trump, Donald J. (REP)": 989,
+      "total": 1269
+    },
+    "3068": {
+      "Harris, Kamala D. (DEM)": 186,
+      "Trump, Donald J. (REP)": 154,
+      "total": 340
+    },
+    "3037": {
+      "Harris, Kamala D. (DEM)": 350,
+      "Trump, Donald J. (REP)": 557,
+      "total": 907
+    },
+    "5620": {
+      "Harris, Kamala D. (DEM)": 235,
+      "Trump, Donald J. (REP)": 256,
+      "total": 491
+    },
+    "1702": {
+      "Harris, Kamala D. (DEM)": 257,
+      "Trump, Donald J. (REP)": 511,
+      "total": 768
+    },
+    "3017": {
+      "Harris, Kamala D. (DEM)": 419,
+      "Trump, Donald J. (REP)": 571,
+      "total": 990
+    },
+    "1643": {
+      "Harris, Kamala D. (DEM)": 42,
+      "Trump, Donald J. (REP)": 121,
+      "total": 163
+    },
+    "4526": {
+      "Harris, Kamala D. (DEM)": 434,
+      "Trump, Donald J. (REP)": 126,
+      "total": 560
+    },
+    "3364": {
+      "Harris, Kamala D. (DEM)": 196,
+      "Trump, Donald J. (REP)": 484,
+      "total": 680
+    },
+    "7503": {
+      "Harris, Kamala D. (DEM)": 51,
+      "Trump, Donald J. (REP)": 45,
+      "total": 96
+    },
+    "6648": {
+      "Harris, Kamala D. (DEM)": 447,
+      "Trump, Donald J. (REP)": 616,
+      "total": 1063
+    },
+    "1302": {
+      "Harris, Kamala D. (DEM)": 573,
+      "Trump, Donald J. (REP)": 724,
+      "total": 1297
+    },
+    "6735": {
+      "Harris, Kamala D. (DEM)": 371,
+      "Trump, Donald J. (REP)": 527,
+      "total": 898
+    },
+    "6540": {
+      "Harris, Kamala D. (DEM)": 447,
+      "Trump, Donald J. (REP)": 549,
+      "total": 996
+    },
+    "2033": {
+      "Harris, Kamala D. (DEM)": 278,
+      "Trump, Donald J. (REP)": 395,
+      "total": 673
+    },
+    "2663": {
+      "Harris, Kamala D. (DEM)": 245,
+      "Trump, Donald J. (REP)": 782,
+      "total": 1027
+    },
+    "6708": {
+      "Harris, Kamala D. (DEM)": 281,
+      "Trump, Donald J. (REP)": 442,
+      "total": 723
+    },
+    "7723": {
+      "Harris, Kamala D. (DEM)": 197,
+      "Trump, Donald J. (REP)": 296,
+      "total": 493
+    },
+    "1550": {
+      "Harris, Kamala D. (DEM)": 107,
+      "Trump, Donald J. (REP)": 267,
+      "total": 374
+    },
+    "3863": {
+      "Harris, Kamala D. (DEM)": 320,
+      "Trump, Donald J. (REP)": 442,
+      "total": 762
+    },
+    "2126": {
+      "Harris, Kamala D. (DEM)": 227,
+      "Trump, Donald J. (REP)": 312,
+      "total": 539
+    },
+    "4404": {
+      "Harris, Kamala D. (DEM)": 498,
+      "Trump, Donald J. (REP)": 342,
+      "total": 840
+    },
+    "6512": {
+      "Harris, Kamala D. (DEM)": 184,
+      "Trump, Donald J. (REP)": 563,
+      "total": 747
+    },
+    "3719": {
+      "Harris, Kamala D. (DEM)": 476,
+      "Trump, Donald J. (REP)": 658,
+      "total": 1134
+    },
+    "1602": {
+      "Harris, Kamala D. (DEM)": 256,
+      "Trump, Donald J. (REP)": 337,
+      "total": 593
+    },
+    "3363": {
+      "Harris, Kamala D. (DEM)": 330,
+      "Trump, Donald J. (REP)": 630,
+      "total": 960
+    },
+    "2695": {
+      "Harris, Kamala D. (DEM)": 267,
+      "Trump, Donald J. (REP)": 612,
+      "total": 879
+    },
+    "1606": {
+      "Harris, Kamala D. (DEM)": 295,
+      "Trump, Donald J. (REP)": 593,
+      "total": 888
+    },
+    "6514": {
+      "Harris, Kamala D. (DEM)": 355,
+      "Trump, Donald J. (REP)": 542,
+      "total": 897
+    },
+    "1712": {
+      "Harris, Kamala D. (DEM)": 357,
+      "Trump, Donald J. (REP)": 587,
+      "total": 944
+    },
+    "5011": {
+      "Harris, Kamala D. (DEM)": 180,
+      "Trump, Donald J. (REP)": 167,
+      "total": 347
+    },
+    "3755": {
+      "Harris, Kamala D. (DEM)": 308,
+      "Trump, Donald J. (REP)": 336,
+      "total": 644
+    },
+    "3385": {
+      "Harris, Kamala D. (DEM)": 286,
+      "Trump, Donald J. (REP)": 426,
+      "total": 712
+    },
+    "5566": {
+      "Harris, Kamala D. (DEM)": 366,
+      "Trump, Donald J. (REP)": 465,
+      "total": 831
+    },
+    "4463": {
+      "Harris, Kamala D. (DEM)": 33,
+      "Trump, Donald J. (REP)": 15,
+      "total": 48
+    },
+    "5417": {
+      "Harris, Kamala D. (DEM)": 297,
+      "Trump, Donald J. (REP)": 308,
+      "total": 605
+    },
+    "7715": {
+      "Harris, Kamala D. (DEM)": 229,
+      "Trump, Donald J. (REP)": 347,
+      "total": 576
+    },
+    "1304": {
+      "Harris, Kamala D. (DEM)": 417,
+      "Trump, Donald J. (REP)": 577,
+      "total": 994
+    },
+    "7405": {
+      "Harris, Kamala D. (DEM)": 197,
+      "Trump, Donald J. (REP)": 336,
+      "total": 533
+    },
+    "1653": {
+      "Harris, Kamala D. (DEM)": 170,
+      "Trump, Donald J. (REP)": 188,
+      "total": 358
+    },
+    "7601": {
+      "Harris, Kamala D. (DEM)": 344,
+      "Trump, Donald J. (REP)": 1095,
+      "total": 1439
+    },
+    "4013": {
+      "Harris, Kamala D. (DEM)": 584,
+      "Trump, Donald J. (REP)": 456,
+      "total": 1040
+    },
+    "3609": {
+      "Harris, Kamala D. (DEM)": 151,
+      "Trump, Donald J. (REP)": 620,
+      "total": 771
+    },
+    "7028": {
+      "Harris, Kamala D. (DEM)": 186,
+      "Trump, Donald J. (REP)": 232,
+      "total": 418
+    },
+    "5023": {
+      "Harris, Kamala D. (DEM)": 182,
+      "Trump, Donald J. (REP)": 524,
+      "total": 706
+    },
+    "2005": {
+      "Harris, Kamala D. (DEM)": 265,
+      "Trump, Donald J. (REP)": 371,
+      "total": 636
+    },
+    "2643": {
+      "Harris, Kamala D. (DEM)": 257,
+      "Trump, Donald J. (REP)": 621,
+      "total": 878
+    },
+    "3748": {
+      "Harris, Kamala D. (DEM)": 293,
+      "Trump, Donald J. (REP)": 566,
+      "total": 859
+    },
+    "7603": {
+      "Harris, Kamala D. (DEM)": 246,
+      "Trump, Donald J. (REP)": 701,
+      "total": 947
+    },
+    "4304": {
+      "Harris, Kamala D. (DEM)": 502,
+      "Trump, Donald J. (REP)": 265,
+      "total": 767
+    },
+    "2682": {
+      "Harris, Kamala D. (DEM)": 304,
+      "Trump, Donald J. (REP)": 723,
+      "total": 1027
+    },
+    "6530": {
+      "Harris, Kamala D. (DEM)": 400,
+      "Trump, Donald J. (REP)": 629,
+      "total": 1029
+    },
+    "2737": {
+      "Harris, Kamala D. (DEM)": 205,
+      "Trump, Donald J. (REP)": 92,
+      "total": 297
+    },
+    "1333": {
+      "Harris, Kamala D. (DEM)": 208,
+      "Trump, Donald J. (REP)": 318,
+      "total": 526
+    },
+    "4506": {
+      "Harris, Kamala D. (DEM)": 198,
+      "Trump, Donald J. (REP)": 160,
+      "total": 358
+    },
+    "4011": {
+      "Harris, Kamala D. (DEM)": 225,
+      "Trump, Donald J. (REP)": 210,
+      "total": 435
+    },
+    "2752": {
+      "Harris, Kamala D. (DEM)": 230,
+      "Trump, Donald J. (REP)": 142,
+      "total": 372
+    },
+    "1356": {
+      "Harris, Kamala D. (DEM)": 261,
+      "Trump, Donald J. (REP)": 388,
+      "total": 649
+    },
+    "5563": {
+      "Harris, Kamala D. (DEM)": 167,
+      "Trump, Donald J. (REP)": 114,
+      "total": 281
+    },
+    "5589": {
+      "Harris, Kamala D. (DEM)": 38,
+      "Trump, Donald J. (REP)": 91,
+      "total": 129
+    },
+    "5425": {
+      "Harris, Kamala D. (DEM)": 277,
+      "Trump, Donald J. (REP)": 273,
+      "total": 550
+    },
+    "4024": {
+      "Harris, Kamala D. (DEM)": 291,
+      "Trump, Donald J. (REP)": 171,
+      "total": 462
+    },
+    "5583": {
+      "Harris, Kamala D. (DEM)": 115,
+      "Trump, Donald J. (REP)": 80,
+      "total": 195
+    },
+    "7079": {
+      "Harris, Kamala D. (DEM)": 194,
+      "Trump, Donald J. (REP)": 155,
+      "total": 349
+    },
+    "4553": {
+      "Harris, Kamala D. (DEM)": 171,
+      "Trump, Donald J. (REP)": 135,
+      "total": 306
+    },
+    "4613": {
+      "Harris, Kamala D. (DEM)": 58,
+      "Trump, Donald J. (REP)": 28,
+      "total": 86
+    },
+    "6632": {
+      "Harris, Kamala D. (DEM)": 128,
+      "Trump, Donald J. (REP)": 234,
+      "total": 362
+    },
+    "5504": {
+      "Harris, Kamala D. (DEM)": 360,
+      "Trump, Donald J. (REP)": 466,
+      "total": 826
+    },
+    "4027": {
+      "Harris, Kamala D. (DEM)": 221,
+      "Trump, Donald J. (REP)": 147,
+      "total": 368
+    },
+    "5603": {
+      "Harris, Kamala D. (DEM)": 96,
+      "Trump, Donald J. (REP)": 153,
+      "total": 249
+    },
+    "6545": {
+      "Harris, Kamala D. (DEM)": 210,
+      "Trump, Donald J. (REP)": 283,
+      "total": 493
+    },
+    "2633": {
+      "Harris, Kamala D. (DEM)": 337,
+      "Trump, Donald J. (REP)": 674,
+      "total": 1011
+    },
+    "3757": {
+      "Harris, Kamala D. (DEM)": 132,
+      "Trump, Donald J. (REP)": 396,
+      "total": 528
+    },
+    "7625": {
+      "Harris, Kamala D. (DEM)": 406,
+      "Trump, Donald J. (REP)": 716,
+      "total": 1122
+    },
+    "2611": {
+      "Harris, Kamala D. (DEM)": 260,
+      "Trump, Donald J. (REP)": 365,
+      "total": 625
+    },
+    "2457": {
+      "Harris, Kamala D. (DEM)": 369,
+      "Trump, Donald J. (REP)": 657,
+      "total": 1026
+    },
+    "6490": {
+      "Harris, Kamala D. (DEM)": 488,
+      "Trump, Donald J. (REP)": 802,
+      "total": 1290
+    },
+    "2417": {
+      "Harris, Kamala D. (DEM)": 22,
+      "Trump, Donald J. (REP)": 16,
+      "total": 38
+    },
+    "5045": {
+      "Harris, Kamala D. (DEM)": 145,
+      "Trump, Donald J. (REP)": 153,
+      "total": 298
+    },
+    "1336": {
+      "Harris, Kamala D. (DEM)": 189,
+      "Trump, Donald J. (REP)": 171,
+      "total": 360
+    },
+    "5405": {
+      "Harris, Kamala D. (DEM)": 339,
+      "Trump, Donald J. (REP)": 298,
+      "total": 637
+    },
+    "6036": {
+      "Harris, Kamala D. (DEM)": 319,
+      "Trump, Donald J. (REP)": 547,
+      "total": 866
+    },
+    "3435": {
+      "Harris, Kamala D. (DEM)": 366,
+      "Trump, Donald J. (REP)": 563,
+      "total": 929
+    },
+    "6706": {
+      "Harris, Kamala D. (DEM)": 164,
+      "Trump, Donald J. (REP)": 253,
+      "total": 417
+    },
+    "5569": {
+      "Harris, Kamala D. (DEM)": 300,
+      "Trump, Donald J. (REP)": 384,
+      "total": 684
+    },
+    "3732": {
+      "Harris, Kamala D. (DEM)": 349,
+      "Trump, Donald J. (REP)": 534,
+      "total": 883
+    },
+    "4423": {
+      "Harris, Kamala D. (DEM)": 477,
+      "Trump, Donald J. (REP)": 438,
+      "total": 915
+    },
+    "6526": {
+      "Harris, Kamala D. (DEM)": 194,
+      "Trump, Donald J. (REP)": 452,
+      "total": 646
+    },
+    "5597": {
+      "Harris, Kamala D. (DEM)": 206,
+      "Trump, Donald J. (REP)": 158,
+      "total": 364
+    },
+    "6727": {
+      "Harris, Kamala D. (DEM)": 121,
+      "Trump, Donald J. (REP)": 262,
+      "total": 383
+    },
+    "4597": {
+      "Harris, Kamala D. (DEM)": 273,
+      "Trump, Donald J. (REP)": 132,
+      "total": 405
+    },
+    "2666": {
+      "Harris, Kamala D. (DEM)": 612,
+      "Trump, Donald J. (REP)": 720,
+      "total": 1332
+    },
+    "2046": {
+      "Harris, Kamala D. (DEM)": 292,
+      "Trump, Donald J. (REP)": 272,
+      "total": 564
+    },
+    "6710": {
+      "Harris, Kamala D. (DEM)": 237,
+      "Trump, Donald J. (REP)": 220,
+      "total": 457
+    },
+    "2605": {
+      "Harris, Kamala D. (DEM)": 194,
+      "Trump, Donald J. (REP)": 392,
+      "total": 586
+    },
+    "2015": {
+      "Harris, Kamala D. (DEM)": 274,
+      "Trump, Donald J. (REP)": 285,
+      "total": 559
+    },
+    "1390": {
+      "Harris, Kamala D. (DEM)": 468,
+      "Trump, Donald J. (REP)": 668,
+      "total": 1136
+    },
+    "2082": {
+      "Harris, Kamala D. (DEM)": 251,
+      "Trump, Donald J. (REP)": 540,
+      "total": 791
+    },
+    "3546": {
+      "Harris, Kamala D. (DEM)": 493,
+      "Trump, Donald J. (REP)": 871,
+      "total": 1364
+    },
+    "5624": {
+      "Harris, Kamala D. (DEM)": 101,
+      "Trump, Donald J. (REP)": 130,
+      "total": 231
+    },
+    "1619": {
+      "Harris, Kamala D. (DEM)": 282,
+      "Trump, Donald J. (REP)": 424,
+      "total": 706
+    },
+    "2622": {
+      "Harris, Kamala D. (DEM)": 231,
+      "Trump, Donald J. (REP)": 549,
+      "total": 780
+    },
+    "5395": {
+      "Harris, Kamala D. (DEM)": 57,
+      "Trump, Donald J. (REP)": 129,
+      "total": 186
+    },
+    "1680": {
+      "Harris, Kamala D. (DEM)": 241,
+      "Trump, Donald J. (REP)": 375,
+      "total": 616
+    },
+    "4417": {
+      "Harris, Kamala D. (DEM)": 445,
+      "Trump, Donald J. (REP)": 485,
+      "total": 930
+    },
+    "3043": {
+      "Harris, Kamala D. (DEM)": 191,
+      "Trump, Donald J. (REP)": 162,
+      "total": 353
+    },
+    "6499": {
+      "Harris, Kamala D. (DEM)": 287,
+      "Trump, Donald J. (REP)": 444,
+      "total": 731
+    },
+    "2053": {
+      "Harris, Kamala D. (DEM)": 102,
+      "Trump, Donald J. (REP)": 485,
+      "total": 587
+    },
+    "1396": {
+      "Harris, Kamala D. (DEM)": 383,
+      "Trump, Donald J. (REP)": 481,
+      "total": 864
+    },
+    "6467": {
+      "Harris, Kamala D. (DEM)": 480,
+      "Trump, Donald J. (REP)": 894,
+      "total": 1374
+    },
+    "1679": {
+      "Harris, Kamala D. (DEM)": 121,
+      "Trump, Donald J. (REP)": 269,
+      "total": 390
+    },
+    "6527": {
+      "Harris, Kamala D. (DEM)": 444,
+      "Trump, Donald J. (REP)": 777,
+      "total": 1221
+    },
+    "5372": {
+      "Harris, Kamala D. (DEM)": 232,
+      "Trump, Donald J. (REP)": 159,
+      "total": 391
+    },
+    "2007": {
+      "Harris, Kamala D. (DEM)": 55,
+      "Trump, Donald J. (REP)": 146,
+      "total": 201
+    },
+    "7403": {
+      "Harris, Kamala D. (DEM)": 483,
+      "Trump, Donald J. (REP)": 717,
+      "total": 1200
+    },
+    "4032": {
+      "Harris, Kamala D. (DEM)": 164,
+      "Trump, Donald J. (REP)": 181,
+      "total": 345
+    },
+    "3045": {
+      "Harris, Kamala D. (DEM)": 135,
+      "Trump, Donald J. (REP)": 172,
+      "total": 307
+    },
+    "5571": {
+      "Harris, Kamala D. (DEM)": 135,
+      "Trump, Donald J. (REP)": 146,
+      "total": 281
+    },
+    "3030": {
+      "Harris, Kamala D. (DEM)": 307,
+      "Trump, Donald J. (REP)": 507,
+      "total": 814
+    },
+    "2037": {
+      "Harris, Kamala D. (DEM)": 368,
+      "Trump, Donald J. (REP)": 813,
+      "total": 1181
+    },
+    "7311": {
+      "Harris, Kamala D. (DEM)": 85,
+      "Trump, Donald J. (REP)": 123,
+      "total": 208
+    },
+    "2054": {
+      "Harris, Kamala D. (DEM)": 271,
+      "Trump, Donald J. (REP)": 533,
+      "total": 804
+    },
+    "1685": {
+      "Harris, Kamala D. (DEM)": 135,
+      "Trump, Donald J. (REP)": 294,
+      "total": 429
+    },
+    "3604": {
+      "Harris, Kamala D. (DEM)": 392,
+      "Trump, Donald J. (REP)": 448,
+      "total": 840
+    },
+    "3058": {
+      "Harris, Kamala D. (DEM)": 260,
+      "Trump, Donald J. (REP)": 402,
+      "total": 662
+    },
+    "3717": {
+      "Harris, Kamala D. (DEM)": 141,
+      "Trump, Donald J. (REP)": 364,
+      "total": 505
+    },
+    "2028": {
+      "Harris, Kamala D. (DEM)": 301,
+      "Trump, Donald J. (REP)": 339,
+      "total": 640
+    },
+    "5005": {
+      "Harris, Kamala D. (DEM)": 235,
+      "Trump, Donald J. (REP)": 164,
+      "total": 399
+    },
+    "6528": {
+      "Harris, Kamala D. (DEM)": 240,
+      "Trump, Donald J. (REP)": 512,
+      "total": 752
+    },
+    "4586": {
+      "Harris, Kamala D. (DEM)": 527,
+      "Trump, Donald J. (REP)": 380,
+      "total": 907
+    },
+    "2726": {
+      "Harris, Kamala D. (DEM)": 57,
+      "Trump, Donald J. (REP)": 506,
+      "total": 563
+    },
+    "3059": {
+      "Harris, Kamala D. (DEM)": 429,
+      "Trump, Donald J. (REP)": 711,
+      "total": 1140
+    },
+    "7509": {
+      "Harris, Kamala D. (DEM)": 141,
+      "Trump, Donald J. (REP)": 90,
+      "total": 231
+    },
+    "3544": {
+      "Harris, Kamala D. (DEM)": 195,
+      "Trump, Donald J. (REP)": 397,
+      "total": 592
+    },
+    "7059": {
+      "Harris, Kamala D. (DEM)": 310,
+      "Trump, Donald J. (REP)": 584,
+      "total": 894
+    },
+    "3793": {
+      "Harris, Kamala D. (DEM)": 581,
+      "Trump, Donald J. (REP)": 1001,
+      "total": 1582
+    },
+    "2717": {
+      "Harris, Kamala D. (DEM)": 213,
+      "Trump, Donald J. (REP)": 171,
+      "total": 384
+    },
+    "5022": {
+      "Harris, Kamala D. (DEM)": 208,
+      "Trump, Donald J. (REP)": 98,
+      "total": 306
+    },
+    "1330": {
+      "Harris, Kamala D. (DEM)": 187,
+      "Trump, Donald J. (REP)": 525,
+      "total": 712
+    },
+    "6016": {
+      "Harris, Kamala D. (DEM)": 290,
+      "Trump, Donald J. (REP)": 367,
+      "total": 657
+    },
+    "3764": {
+      "Harris, Kamala D. (DEM)": 441,
+      "Trump, Donald J. (REP)": 523,
+      "total": 964
+    },
+    "7705": {
+      "Harris, Kamala D. (DEM)": 157,
+      "Trump, Donald J. (REP)": 292,
+      "total": 449
+    },
+    "1632": {
+      "Harris, Kamala D. (DEM)": 238,
+      "Trump, Donald J. (REP)": 343,
+      "total": 581
+    },
+    "6610": {
+      "Harris, Kamala D. (DEM)": 340,
+      "Trump, Donald J. (REP)": 670,
+      "total": 1010
+    },
+    "3366": {
+      "Harris, Kamala D. (DEM)": 414,
+      "Trump, Donald J. (REP)": 723,
+      "total": 1137
+    },
+    "7415": {
+      "Harris, Kamala D. (DEM)": 363,
+      "Trump, Donald J. (REP)": 584,
+      "total": 947
+    },
+    "1660": {
+      "Harris, Kamala D. (DEM)": 259,
+      "Trump, Donald J. (REP)": 407,
+      "total": 666
+    },
+    "6001": {
+      "Harris, Kamala D. (DEM)": 612,
+      "Trump, Donald J. (REP)": 1054,
+      "total": 1666
+    },
+    "4037": {
+      "Harris, Kamala D. (DEM)": 79,
+      "Trump, Donald J. (REP)": 40,
+      "total": 119
+    },
+    "3606": {
+      "Harris, Kamala D. (DEM)": 468,
+      "Trump, Donald J. (REP)": 792,
+      "total": 1260
+    },
+    "2073": {
+      "Harris, Kamala D. (DEM)": 257,
+      "Trump, Donald J. (REP)": 335,
+      "total": 592
+    },
+    "5584": {
+      "Harris, Kamala D. (DEM)": 156,
+      "Trump, Donald J. (REP)": 65,
+      "total": 221
+    },
+    "1354": {
+      "Harris, Kamala D. (DEM)": 457,
+      "Trump, Donald J. (REP)": 516,
+      "total": 973
+    },
+    "5007": {
+      "Harris, Kamala D. (DEM)": 227,
+      "Trump, Donald J. (REP)": 154,
+      "total": 381
+    },
+    "2023": {
+      "Harris, Kamala D. (DEM)": 168,
+      "Trump, Donald J. (REP)": 165,
+      "total": 333
+    },
+    "7402": {
+      "Harris, Kamala D. (DEM)": 361,
+      "Trump, Donald J. (REP)": 518,
+      "total": 879
+    },
+    "7057": {
+      "Harris, Kamala D. (DEM)": 123,
+      "Trump, Donald J. (REP)": 244,
+      "total": 367
+    },
+    "5049": {
+      "Harris, Kamala D. (DEM)": 97,
+      "Trump, Donald J. (REP)": 117,
+      "total": 214
+    },
+    "1682": {
+      "Harris, Kamala D. (DEM)": 374,
+      "Trump, Donald J. (REP)": 474,
+      "total": 848
+    },
+    "6538": {
+      "Harris, Kamala D. (DEM)": 423,
+      "Trump, Donald J. (REP)": 544,
+      "total": 967
+    },
+    "5031": {
+      "Harris, Kamala D. (DEM)": 281,
+      "Trump, Donald J. (REP)": 180,
+      "total": 461
+    },
+    "1328": {
+      "Harris, Kamala D. (DEM)": 213,
+      "Trump, Donald J. (REP)": 279,
+      "total": 492
+    },
+    "2074": {
+      "Harris, Kamala D. (DEM)": 521,
+      "Trump, Donald J. (REP)": 455,
+      "total": 976
+    },
+    "6609": {
+      "Harris, Kamala D. (DEM)": 417,
+      "Trump, Donald J. (REP)": 595,
+      "total": 1012
+    },
+    "7019": {
+      "Harris, Kamala D. (DEM)": 220,
+      "Trump, Donald J. (REP)": 498,
+      "total": 718
+    },
+    "3464": {
+      "Harris, Kamala D. (DEM)": 278,
+      "Trump, Donald J. (REP)": 567,
+      "total": 845
+    },
+    "2086": {
+      "Harris, Kamala D. (DEM)": 220,
+      "Trump, Donald J. (REP)": 139,
+      "total": 359
+    },
+    "1353": {
+      "Harris, Kamala D. (DEM)": 309,
+      "Trump, Donald J. (REP)": 391,
+      "total": 700
+    },
+    "5330": {
+      "Harris, Kamala D. (DEM)": 368,
+      "Trump, Donald J. (REP)": 333,
+      "total": 701
+    },
+    "7592": {
+      "Harris, Kamala D. (DEM)": 365,
+      "Trump, Donald J. (REP)": 898,
+      "total": 1263
+    },
+    "3022": {
+      "Harris, Kamala D. (DEM)": 369,
+      "Trump, Donald J. (REP)": 703,
+      "total": 1072
+    },
+    "4623": {
+      "Harris, Kamala D. (DEM)": 246,
+      "Trump, Donald J. (REP)": 307,
+      "total": 553
+    },
+    "5030": {
+      "Harris, Kamala D. (DEM)": 160,
+      "Trump, Donald J. (REP)": 194,
+      "total": 354
+    },
+    "1613": {
+      "Harris, Kamala D. (DEM)": 254,
+      "Trump, Donald J. (REP)": 399,
+      "total": 653
+    },
+    "2651": {
+      "Harris, Kamala D. (DEM)": 397,
+      "Trump, Donald J. (REP)": 681,
+      "total": 1078
+    },
+    "1517": {
+      "Harris, Kamala D. (DEM)": 304,
+      "Trump, Donald J. (REP)": 731,
+      "total": 1035
+    },
+    "5025": {
+      "Harris, Kamala D. (DEM)": 242,
+      "Trump, Donald J. (REP)": 582,
+      "total": 824
+    },
+    "6469": {
+      "Harris, Kamala D. (DEM)": 415,
+      "Trump, Donald J. (REP)": 653,
+      "total": 1068
+    },
+    "6154": {
+      "Harris, Kamala D. (DEM)": 306,
+      "Trump, Donald J. (REP)": 694,
+      "total": 1000
+    },
+    "6656": {
+      "Harris, Kamala D. (DEM)": 174,
+      "Trump, Donald J. (REP)": 264,
+      "total": 438
+    },
+    "2704": {
+      "Harris, Kamala D. (DEM)": 11,
+      "Trump, Donald J. (REP)": 26,
+      "total": 37
+    },
+    "7040": {
+      "Harris, Kamala D. (DEM)": 212,
+      "Trump, Donald J. (REP)": 477,
+      "total": 689
+    },
+    "3740": {
+      "Harris, Kamala D. (DEM)": 490,
+      "Trump, Donald J. (REP)": 1173,
+      "total": 1663
+    },
+    "2014": {
+      "Harris, Kamala D. (DEM)": 364,
+      "Trump, Donald J. (REP)": 329,
+      "total": 693
+    },
+    "1341": {
+      "Harris, Kamala D. (DEM)": 376,
+      "Trump, Donald J. (REP)": 555,
+      "total": 931
+    },
+    "3152": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 30,
+      "total": 37
+    },
+    "6625": {
+      "Harris, Kamala D. (DEM)": 203,
+      "Trump, Donald J. (REP)": 401,
+      "total": 604
+    },
+    "4044": {
+      "Harris, Kamala D. (DEM)": 451,
+      "Trump, Donald J. (REP)": 335,
+      "total": 786
+    },
+    "5556": {
+      "Harris, Kamala D. (DEM)": 226,
+      "Trump, Donald J. (REP)": 757,
+      "total": 983
+    },
+    "5324": {
+      "Harris, Kamala D. (DEM)": 302,
+      "Trump, Donald J. (REP)": 444,
+      "total": 746
+    },
+    "2440": {
+      "Harris, Kamala D. (DEM)": 167,
+      "Trump, Donald J. (REP)": 331,
+      "total": 498
+    },
+    "2399": {
+      "Harris, Kamala D. (DEM)": 388,
+      "Trump, Donald J. (REP)": 345,
+      "total": 733
+    },
+    "5625": {
+      "Harris, Kamala D. (DEM)": 263,
+      "Trump, Donald J. (REP)": 329,
+      "total": 592
+    },
+    "3383": {
+      "Harris, Kamala D. (DEM)": 254,
+      "Trump, Donald J. (REP)": 550,
+      "total": 804
+    },
+    "7569": {
+      "Harris, Kamala D. (DEM)": 208,
+      "Trump, Donald J. (REP)": 452,
+      "total": 660
+    },
+    "3729": {
+      "Harris, Kamala D. (DEM)": 150,
+      "Trump, Donald J. (REP)": 237,
+      "total": 387
+    },
+    "6522": {
+      "Harris, Kamala D. (DEM)": 209,
+      "Trump, Donald J. (REP)": 423,
+      "total": 632
+    },
+    "6547": {
+      "Harris, Kamala D. (DEM)": 303,
+      "Trump, Donald J. (REP)": 422,
+      "total": 725
+    },
+    "5578": {
+      "Harris, Kamala D. (DEM)": 173,
+      "Trump, Donald J. (REP)": 171,
+      "total": 344
+    },
+    "3765": {
+      "Harris, Kamala D. (DEM)": 212,
+      "Trump, Donald J. (REP)": 256,
+      "total": 468
+    },
+    "4585": {
+      "Harris, Kamala D. (DEM)": 130,
+      "Trump, Donald J. (REP)": 83,
+      "total": 213
+    },
+    "6009": {
+      "Harris, Kamala D. (DEM)": 182,
+      "Trump, Donald J. (REP)": 331,
+      "total": 513
+    },
+    "5622": {
+      "Harris, Kamala D. (DEM)": 206,
+      "Trump, Donald J. (REP)": 210,
+      "total": 416
+    },
+    "1700": {
+      "Harris, Kamala D. (DEM)": 434,
+      "Trump, Donald J. (REP)": 555,
+      "total": 989
+    },
+    "3006": {
+      "Harris, Kamala D. (DEM)": 51,
+      "Trump, Donald J. (REP)": 126,
+      "total": 177
+    },
+    "5024": {
+      "Harris, Kamala D. (DEM)": 169,
+      "Trump, Donald J. (REP)": 594,
+      "total": 763
+    },
+    "5530": {
+      "Harris, Kamala D. (DEM)": 287,
+      "Trump, Donald J. (REP)": 944,
+      "total": 1231
+    },
+    "3540": {
+      "Harris, Kamala D. (DEM)": 34,
+      "Trump, Donald J. (REP)": 189,
+      "total": 223
+    },
+    "6042": {
+      "Harris, Kamala D. (DEM)": 564,
+      "Trump, Donald J. (REP)": 796,
+      "total": 1360
+    },
+    "7341": {
+      "Harris, Kamala D. (DEM)": 308,
+      "Trump, Donald J. (REP)": 424,
+      "total": 732
+    },
+    "7643": {
+      "Harris, Kamala D. (DEM)": 234,
+      "Trump, Donald J. (REP)": 449,
+      "total": 683
+    },
+    "4414": {
+      "Harris, Kamala D. (DEM)": 400,
+      "Trump, Donald J. (REP)": 478,
+      "total": 878
+    },
+    "3021": {
+      "Harris, Kamala D. (DEM)": 363,
+      "Trump, Donald J. (REP)": 560,
+      "total": 923
+    },
+    "5008": {
+      "Harris, Kamala D. (DEM)": 257,
+      "Trump, Donald J. (REP)": 193,
+      "total": 450
+    },
+    "3576": {
+      "Harris, Kamala D. (DEM)": 347,
+      "Trump, Donald J. (REP)": 673,
+      "total": 1020
+    },
+    "5012": {
+      "Harris, Kamala D. (DEM)": 170,
+      "Trump, Donald J. (REP)": 129,
+      "total": 299
+    },
+    "6046": {
+      "Harris, Kamala D. (DEM)": 101,
+      "Trump, Donald J. (REP)": 190,
+      "total": 291
+    },
+    "2049": {
+      "Harris, Kamala D. (DEM)": 349,
+      "Trump, Donald J. (REP)": 449,
+      "total": 798
+    },
+    "2743": {
+      "Harris, Kamala D. (DEM)": 344,
+      "Trump, Donald J. (REP)": 339,
+      "total": 683
+    },
+    "5593": {
+      "Harris, Kamala D. (DEM)": 277,
+      "Trump, Donald J. (REP)": 276,
+      "total": 553
+    },
+    "6681": {
+      "Harris, Kamala D. (DEM)": 128,
+      "Trump, Donald J. (REP)": 283,
+      "total": 411
+    },
+    "2746": {
+      "Harris, Kamala D. (DEM)": 102,
+      "Trump, Donald J. (REP)": 135,
+      "total": 237
+    },
+    "2055": {
+      "Harris, Kamala D. (DEM)": 332,
+      "Trump, Donald J. (REP)": 896,
+      "total": 1228
+    },
+    "4590": {
+      "Harris, Kamala D. (DEM)": 102,
+      "Trump, Donald J. (REP)": 32,
+      "total": 134
+    },
+    "2464": {
+      "Harris, Kamala D. (DEM)": 456,
+      "Trump, Donald J. (REP)": 452,
+      "total": 908
+    },
+    "7652": {
+      "Harris, Kamala D. (DEM)": 167,
+      "Trump, Donald J. (REP)": 426,
+      "total": 593
+    },
+    "1335": {
+      "Harris, Kamala D. (DEM)": 181,
+      "Trump, Donald J. (REP)": 326,
+      "total": 507
+    },
+    "5017": {
+      "Harris, Kamala D. (DEM)": 240,
+      "Trump, Donald J. (REP)": 270,
+      "total": 510
+    },
+    "7001": {
+      "Harris, Kamala D. (DEM)": 267,
+      "Trump, Donald J. (REP)": 288,
+      "total": 555
+    },
+    "2711": {
+      "Harris, Kamala D. (DEM)": 210,
+      "Trump, Donald J. (REP)": 429,
+      "total": 639
+    },
+    "7414": {
+      "Harris, Kamala D. (DEM)": 249,
+      "Trump, Donald J. (REP)": 357,
+      "total": 606
+    },
+    "2067": {
+      "Harris, Kamala D. (DEM)": 172,
+      "Trump, Donald J. (REP)": 322,
+      "total": 494
+    },
+    "7012": {
+      "Harris, Kamala D. (DEM)": 354,
+      "Trump, Donald J. (REP)": 325,
+      "total": 679
+    },
+    "7595": {
+      "Harris, Kamala D. (DEM)": 72,
+      "Trump, Donald J. (REP)": 413,
+      "total": 485
+    },
+    "3391": {
+      "Harris, Kamala D. (DEM)": 295,
+      "Trump, Donald J. (REP)": 477,
+      "total": 772
+    },
+    "2654": {
+      "Harris, Kamala D. (DEM)": 316,
+      "Trump, Donald J. (REP)": 723,
+      "total": 1039
+    },
+    "4022": {
+      "Harris, Kamala D. (DEM)": 276,
+      "Trump, Donald J. (REP)": 243,
+      "total": 519
+    },
+    "5591": {
+      "Harris, Kamala D. (DEM)": 82,
+      "Trump, Donald J. (REP)": 70,
+      "total": 152
+    },
+    "2021": {
+      "Harris, Kamala D. (DEM)": 345,
+      "Trump, Donald J. (REP)": 315,
+      "total": 660
+    },
+    "2606": {
+      "Harris, Kamala D. (DEM)": 435,
+      "Trump, Donald J. (REP)": 434,
+      "total": 869
+    },
+    "3602": {
+      "Harris, Kamala D. (DEM)": 361,
+      "Trump, Donald J. (REP)": 558,
+      "total": 919
+    },
+    "5002": {
+      "Harris, Kamala D. (DEM)": 227,
+      "Trump, Donald J. (REP)": 161,
+      "total": 388
+    },
+    "3565": {
+      "Harris, Kamala D. (DEM)": 363,
+      "Trump, Donald J. (REP)": 703,
+      "total": 1066
+    },
+    "7417": {
+      "Harris, Kamala D. (DEM)": 334,
+      "Trump, Donald J. (REP)": 497,
+      "total": 831
+    },
+    "3373": {
+      "Harris, Kamala D. (DEM)": 628,
+      "Trump, Donald J. (REP)": 1034,
+      "total": 1662
+    },
+    "5046": {
+      "Harris, Kamala D. (DEM)": 239,
+      "Trump, Donald J. (REP)": 188,
+      "total": 427
+    },
+    "7545": {
+      "Harris, Kamala D. (DEM)": 150,
+      "Trump, Donald J. (REP)": 664,
+      "total": 814
+    },
+    "1689": {
+      "Harris, Kamala D. (DEM)": 260,
+      "Trump, Donald J. (REP)": 362,
+      "total": 622
+    },
+    "1010": {
+      "Harris, Kamala D. (DEM)": 55,
+      "Trump, Donald J. (REP)": 52,
+      "total": 107
+    },
+    "4010": {
+      "Harris, Kamala D. (DEM)": 549,
+      "Trump, Donald J. (REP)": 593,
+      "total": 1142
+    },
+    "3217": {
+      "Harris, Kamala D. (DEM)": 239,
+      "Trump, Donald J. (REP)": 374,
+      "total": 613
+    },
+    "6731": {
+      "Harris, Kamala D. (DEM)": 493,
+      "Trump, Donald J. (REP)": 750,
+      "total": 1243
+    },
+    "1344": {
+      "Harris, Kamala D. (DEM)": 203,
+      "Trump, Donald J. (REP)": 270,
+      "total": 473
+    },
+    "2733": {
+      "Harris, Kamala D. (DEM)": 260,
+      "Trump, Donald J. (REP)": 218,
+      "total": 478
+    },
+    "2088": {
+      "Harris, Kamala D. (DEM)": 341,
+      "Trump, Donald J. (REP)": 201,
+      "total": 542
+    },
+    "7730": {
+      "Harris, Kamala D. (DEM)": 285,
+      "Trump, Donald J. (REP)": 422,
+      "total": 707
+    },
+    "1668": {
+      "Harris, Kamala D. (DEM)": 588,
+      "Trump, Donald J. (REP)": 1085,
+      "total": 1673
+    },
+    "6704": {
+      "Harris, Kamala D. (DEM)": 146,
+      "Trump, Donald J. (REP)": 180,
+      "total": 326
+    },
+    "3370": {
+      "Harris, Kamala D. (DEM)": 496,
+      "Trump, Donald J. (REP)": 630,
+      "total": 1126
+    },
+    "3557": {
+      "Harris, Kamala D. (DEM)": 299,
+      "Trump, Donald J. (REP)": 522,
+      "total": 821
+    },
+    "1514": {
+      "Harris, Kamala D. (DEM)": 212,
+      "Trump, Donald J. (REP)": 518,
+      "total": 730
+    },
+    "6717": {
+      "Harris, Kamala D. (DEM)": 316,
+      "Trump, Donald J. (REP)": 621,
+      "total": 937
+    },
+    "2645": {
+      "Harris, Kamala D. (DEM)": 13,
+      "Trump, Donald J. (REP)": 47,
+      "total": 60
+    },
+    "3414": {
+      "Harris, Kamala D. (DEM)": 152,
+      "Trump, Donald J. (REP)": 305,
+      "total": 457
+    },
+    "3547": {
+      "Harris, Kamala D. (DEM)": 286,
+      "Trump, Donald J. (REP)": 622,
+      "total": 908
+    },
+    "7634": {
+      "Harris, Kamala D. (DEM)": 245,
+      "Trump, Donald J. (REP)": 447,
+      "total": 692
+    },
+    "2372": {
+      "Harris, Kamala D. (DEM)": 347,
+      "Trump, Donald J. (REP)": 377,
+      "total": 724
+    },
+    "5003": {
+      "Harris, Kamala D. (DEM)": 13,
+      "Trump, Donald J. (REP)": 18,
+      "total": 31
+    },
+    "7683": {
+      "Harris, Kamala D. (DEM)": 230,
+      "Trump, Donald J. (REP)": 394,
+      "total": 624
+    },
+    "7614": {
+      "Harris, Kamala D. (DEM)": 385,
+      "Trump, Donald J. (REP)": 678,
+      "total": 1063
+    },
+    "3762": {
+      "Harris, Kamala D. (DEM)": 366,
+      "Trump, Donald J. (REP)": 400,
+      "total": 766
+    },
+    "2473": {
+      "Harris, Kamala D. (DEM)": 41,
+      "Trump, Donald J. (REP)": 631,
+      "total": 672
+    },
+    "1334": {
+      "Harris, Kamala D. (DEM)": 254,
+      "Trump, Donald J. (REP)": 385,
+      "total": 639
+    },
+    "6728": {
+      "Harris, Kamala D. (DEM)": 276,
+      "Trump, Donald J. (REP)": 787,
+      "total": 1063
+    },
+    "7507": {
+      "Harris, Kamala D. (DEM)": 194,
+      "Trump, Donald J. (REP)": 225,
+      "total": 419
+    },
+    "1609": {
+      "Harris, Kamala D. (DEM)": 292,
+      "Trump, Donald J. (REP)": 486,
+      "total": 778
+    },
+    "7604": {
+      "Harris, Kamala D. (DEM)": 223,
+      "Trump, Donald J. (REP)": 774,
+      "total": 997
+    },
+    "2614": {
+      "Harris, Kamala D. (DEM)": 368,
+      "Trump, Donald J. (REP)": 737,
+      "total": 1105
+    },
+    "4028": {
+      "Harris, Kamala D. (DEM)": 283,
+      "Trump, Donald J. (REP)": 49,
+      "total": 332
+    },
+    "5001": {
+      "Harris, Kamala D. (DEM)": 124,
+      "Trump, Donald J. (REP)": 78,
+      "total": 202
+    },
+    "2047": {
+      "Harris, Kamala D. (DEM)": 99,
+      "Trump, Donald J. (REP)": 122,
+      "total": 221
+    },
+    "6497": {
+      "Harris, Kamala D. (DEM)": 287,
+      "Trump, Donald J. (REP)": 465,
+      "total": 752
+    },
+    "4502": {
+      "Harris, Kamala D. (DEM)": 135,
+      "Trump, Donald J. (REP)": 130,
+      "total": 265
+    },
+    "3014": {
+      "Harris, Kamala D. (DEM)": 280,
+      "Trump, Donald J. (REP)": 483,
+      "total": 763
+    },
+    "3754": {
+      "Harris, Kamala D. (DEM)": 267,
+      "Trump, Donald J. (REP)": 272,
+      "total": 539
+    },
+    "7036": {
+      "Harris, Kamala D. (DEM)": 208,
+      "Trump, Donald J. (REP)": 358,
+      "total": 566
+    },
+    "3039": {
+      "Harris, Kamala D. (DEM)": 168,
+      "Trump, Donald J. (REP)": 162,
+      "total": 330
+    },
+    "7410": {
+      "Harris, Kamala D. (DEM)": 165,
+      "Trump, Donald J. (REP)": 267,
+      "total": 432
+    },
+    "3781": {
+      "Harris, Kamala D. (DEM)": 336,
+      "Trump, Donald J. (REP)": 526,
+      "total": 862
+    },
+    "1664": {
+      "Harris, Kamala D. (DEM)": 116,
+      "Trump, Donald J. (REP)": 231,
+      "total": 347
+    },
+    "6741": {
+      "Harris, Kamala D. (DEM)": 274,
+      "Trump, Donald J. (REP)": 522,
+      "total": 796
+    },
+    "7004": {
+      "Harris, Kamala D. (DEM)": 134,
+      "Trump, Donald J. (REP)": 161,
+      "total": 295
+    },
+    "5018": {
+      "Harris, Kamala D. (DEM)": 150,
+      "Trump, Donald J. (REP)": 121,
+      "total": 271
+    },
+    "6652": {
+      "Harris, Kamala D. (DEM)": 269,
+      "Trump, Donald J. (REP)": 458,
+      "total": 727
+    },
+    "7522": {
+      "Harris, Kamala D. (DEM)": 359,
+      "Trump, Donald J. (REP)": 406,
+      "total": 765
+    },
+    "4017": {
+      "Harris, Kamala D. (DEM)": 373,
+      "Trump, Donald J. (REP)": 69,
+      "total": 442
+    },
+    "5020": {
+      "Harris, Kamala D. (DEM)": 82,
+      "Trump, Donald J. (REP)": 55,
+      "total": 137
+    },
+    "7312": {
+      "Harris, Kamala D. (DEM)": 182,
+      "Trump, Donald J. (REP)": 141,
+      "total": 323
+    },
+    "3018": {
+      "Harris, Kamala D. (DEM)": 365,
+      "Trump, Donald J. (REP)": 637,
+      "total": 1002
+    },
+    "7501": {
+      "Harris, Kamala D. (DEM)": 28,
+      "Trump, Donald J. (REP)": 29,
+      "total": 57
+    },
+    "1009": {
+      "Harris, Kamala D. (DEM)": 170,
+      "Trump, Donald J. (REP)": 351,
+      "total": 521
+    },
+    "6734": {
+      "Harris, Kamala D. (DEM)": 130,
+      "Trump, Donald J. (REP)": 207,
+      "total": 337
+    },
+    "2080": {
+      "Harris, Kamala D. (DEM)": 44,
+      "Trump, Donald J. (REP)": 198,
+      "total": 242
+    },
+    "5585": {
+      "Harris, Kamala D. (DEM)": 157,
+      "Trump, Donald J. (REP)": 96,
+      "total": 253
+    },
+    "1005": {
+      "Harris, Kamala D. (DEM)": 172,
+      "Trump, Donald J. (REP)": 283,
+      "total": 455
+    },
+    "5531": {
+      "Harris, Kamala D. (DEM)": 58,
+      "Trump, Donald J. (REP)": 144,
+      "total": 202
+    },
+    "6062": {
+      "Harris, Kamala D. (DEM)": 244,
+      "Trump, Donald J. (REP)": 341,
+      "total": 585
+    },
+    "1348": {
+      "Harris, Kamala D. (DEM)": 207,
+      "Trump, Donald J. (REP)": 355,
+      "total": 562
+    },
+    "1039": {
+      "Harris, Kamala D. (DEM)": 335,
+      "Trump, Donald J. (REP)": 688,
+      "total": 1023
+    },
+    "7651": {
+      "Harris, Kamala D. (DEM)": 305,
+      "Trump, Donald J. (REP)": 483,
+      "total": 788
+    },
+    "2387": {
+      "Harris, Kamala D. (DEM)": 379,
+      "Trump, Donald J. (REP)": 433,
+      "total": 812
+    },
+    "2631": {
+      "Harris, Kamala D. (DEM)": 6,
+      "Trump, Donald J. (REP)": 11,
+      "total": 17
+    },
+    "6517": {
+      "Harris, Kamala D. (DEM)": 327,
+      "Trump, Donald J. (REP)": 527,
+      "total": 854
+    },
+    "3587": {
+      "Harris, Kamala D. (DEM)": 305,
+      "Trump, Donald J. (REP)": 710,
+      "total": 1015
+    },
+    "6658": {
+      "Harris, Kamala D. (DEM)": 281,
+      "Trump, Donald J. (REP)": 564,
+      "total": 845
+    },
+    "2479": {
+      "Harris, Kamala D. (DEM)": 404,
+      "Trump, Donald J. (REP)": 433,
+      "total": 837
+    },
+    "7665": {
+      "Harris, Kamala D. (DEM)": 434,
+      "Trump, Donald J. (REP)": 695,
+      "total": 1129
+    },
+    "6468": {
+      "Harris, Kamala D. (DEM)": 309,
+      "Trump, Donald J. (REP)": 538,
+      "total": 847
+    },
+    "2444": {
+      "Harris, Kamala D. (DEM)": 32,
+      "Trump, Donald J. (REP)": 47,
+      "total": 79
+    },
+    "3064": {
+      "Harris, Kamala D. (DEM)": 35,
+      "Trump, Donald J. (REP)": 82,
+      "total": 117
+    },
+    "3034": {
+      "Harris, Kamala D. (DEM)": 78,
+      "Trump, Donald J. (REP)": 98,
+      "total": 176
+    },
+    "5323": {
+      "Harris, Kamala D. (DEM)": 361,
+      "Trump, Donald J. (REP)": 293,
+      "total": 654
+    },
+    "1012": {
+      "Harris, Kamala D. (DEM)": 191,
+      "Trump, Donald J. (REP)": 438,
+      "total": 629
+    },
+    "2730": {
+      "Harris, Kamala D. (DEM)": 388,
+      "Trump, Donald J. (REP)": 352,
+      "total": 740
+    },
+    "1004": {
+      "Harris, Kamala D. (DEM)": 203,
+      "Trump, Donald J. (REP)": 187,
+      "total": 390
+    },
+    "3027": {
+      "Harris, Kamala D. (DEM)": 352,
+      "Trump, Donald J. (REP)": 611,
+      "total": 963
+    },
+    "3048": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 44,
+      "total": 51
+    },
+    "2065": {
+      "Harris, Kamala D. (DEM)": 240,
+      "Trump, Donald J. (REP)": 462,
+      "total": 702
+    },
+    "1346": {
+      "Harris, Kamala D. (DEM)": 307,
+      "Trump, Donald J. (REP)": 657,
+      "total": 964
+    },
+    "3071": {
+      "Harris, Kamala D. (DEM)": 79,
+      "Trump, Donald J. (REP)": 226,
+      "total": 305
+    },
+    "4387": {
+      "Harris, Kamala D. (DEM)": 215,
+      "Trump, Donald J. (REP)": 132,
+      "total": 347
+    },
+    "2077": {
+      "Harris, Kamala D. (DEM)": 167,
+      "Trump, Donald J. (REP)": 154,
+      "total": 321
+    },
+    "6015": {
+      "Harris, Kamala D. (DEM)": 195,
+      "Trump, Donald J. (REP)": 262,
+      "total": 457
+    },
+    "1633": {
+      "Harris, Kamala D. (DEM)": 171,
+      "Trump, Donald J. (REP)": 132,
+      "total": 303
+    },
+    "7097": {
+      "Harris, Kamala D. (DEM)": 115,
+      "Trump, Donald J. (REP)": 106,
+      "total": 221
+    },
+    "7675": {
+      "Harris, Kamala D. (DEM)": 112,
+      "Trump, Donald J. (REP)": 254,
+      "total": 366
+    },
+    "4541": {
+      "Harris, Kamala D. (DEM)": 411,
+      "Trump, Donald J. (REP)": 293,
+      "total": 704
+    },
+    "7024": {
+      "Harris, Kamala D. (DEM)": 174,
+      "Trump, Donald J. (REP)": 482,
+      "total": 656
+    },
+    "5013": {
+      "Harris, Kamala D. (DEM)": 190,
+      "Trump, Donald J. (REP)": 141,
+      "total": 331
+    },
+    "6509": {
+      "Harris, Kamala D. (DEM)": 139,
+      "Trump, Donald J. (REP)": 362,
+      "total": 501
+    },
+    "3766": {
+      "Harris, Kamala D. (DEM)": 274,
+      "Trump, Donald J. (REP)": 595,
+      "total": 869
+    },
+    "4421": {
+      "Harris, Kamala D. (DEM)": 342,
+      "Trump, Donald J. (REP)": 363,
+      "total": 705
+    },
+    "2032": {
+      "Harris, Kamala D. (DEM)": 166,
+      "Trump, Donald J. (REP)": 132,
+      "total": 298
+    },
+    "2009": {
+      "Harris, Kamala D. (DEM)": 144,
+      "Trump, Donald J. (REP)": 189,
+      "total": 333
+    },
+    "7021": {
+      "Harris, Kamala D. (DEM)": 144,
+      "Trump, Donald J. (REP)": 156,
+      "total": 300
+    },
+    "3074": {
+      "Harris, Kamala D. (DEM)": 152,
+      "Trump, Donald J. (REP)": 142,
+      "total": 294
+    },
+    "1411": {
+      "Harris, Kamala D. (DEM)": 338,
+      "Trump, Donald J. (REP)": 657,
+      "total": 995
+    },
+    "3417": {
+      "Harris, Kamala D. (DEM)": 288,
+      "Trump, Donald J. (REP)": 391,
+      "total": 679
+    },
+    "1006": {
+      "Harris, Kamala D. (DEM)": 272,
+      "Trump, Donald J. (REP)": 345,
+      "total": 617
+    },
+    "6057": {
+      "Harris, Kamala D. (DEM)": 200,
+      "Trump, Donald J. (REP)": 248,
+      "total": 448
+    },
+    "1625": {
+      "Harris, Kamala D. (DEM)": 289,
+      "Trump, Donald J. (REP)": 367,
+      "total": 656
+    },
+    "3800": {
+      "Harris, Kamala D. (DEM)": 437,
+      "Trump, Donald J. (REP)": 675,
+      "total": 1112
+    },
+    "1525": {
+      "Harris, Kamala D. (DEM)": 274,
+      "Trump, Donald J. (REP)": 470,
+      "total": 744
+    },
+    "7047": {
+      "Harris, Kamala D. (DEM)": 311,
+      "Trump, Donald J. (REP)": 405,
+      "total": 716
+    },
+    "6695": {
+      "Harris, Kamala D. (DEM)": 355,
+      "Trump, Donald J. (REP)": 597,
+      "total": 952
+    },
+    "7512": {
+      "Harris, Kamala D. (DEM)": 88,
+      "Trump, Donald J. (REP)": 79,
+      "total": 167
+    },
+    "1352": {
+      "Harris, Kamala D. (DEM)": 206,
+      "Trump, Donald J. (REP)": 224,
+      "total": 430
+    },
+    "7041": {
+      "Harris, Kamala D. (DEM)": 160,
+      "Trump, Donald J. (REP)": 508,
+      "total": 668
+    },
+    "6693": {
+      "Harris, Kamala D. (DEM)": 358,
+      "Trump, Donald J. (REP)": 456,
+      "total": 814
+    },
+    "2449": {
+      "Harris, Kamala D. (DEM)": 332,
+      "Trump, Donald J. (REP)": 503,
+      "total": 835
+    },
+    "7553": {
+      "Harris, Kamala D. (DEM)": 280,
+      "Trump, Donald J. (REP)": 943,
+      "total": 1223
+    },
+    "3747": {
+      "Harris, Kamala D. (DEM)": 249,
+      "Trump, Donald J. (REP)": 428,
+      "total": 677
+    },
+    "3009": {
+      "Harris, Kamala D. (DEM)": 255,
+      "Trump, Donald J. (REP)": 333,
+      "total": 588
+    },
+    "7411": {
+      "Harris, Kamala D. (DEM)": 324,
+      "Trump, Donald J. (REP)": 394,
+      "total": 718
+    },
+    "4650": {
+      "Harris, Kamala D. (DEM)": 198,
+      "Trump, Donald J. (REP)": 87,
+      "total": 285
+    },
+    "5040": {
+      "Harris, Kamala D. (DEM)": 255,
+      "Trump, Donald J. (REP)": 249,
+      "total": 504
+    },
+    "7023": {
+      "Harris, Kamala D. (DEM)": 231,
+      "Trump, Donald J. (REP)": 240,
+      "total": 471
+    },
+    "1677": {
+      "Harris, Kamala D. (DEM)": 315,
+      "Trump, Donald J. (REP)": 585,
+      "total": 900
+    },
+    "2360": {
+      "Harris, Kamala D. (DEM)": 305,
+      "Trump, Donald J. (REP)": 226,
+      "total": 531
+    },
+    "6493": {
+      "Harris, Kamala D. (DEM)": 330,
+      "Trump, Donald J. (REP)": 618,
+      "total": 948
+    },
+    "1318": {
+      "Harris, Kamala D. (DEM)": 247,
+      "Trump, Donald J. (REP)": 303,
+      "total": 550
+    },
+    "2011": {
+      "Harris, Kamala D. (DEM)": 156,
+      "Trump, Donald J. (REP)": 215,
+      "total": 371
+    },
+    "3050": {
+      "Harris, Kamala D. (DEM)": 166,
+      "Trump, Donald J. (REP)": 604,
+      "total": 770
+    },
+    "3787": {
+      "Harris, Kamala D. (DEM)": 186,
+      "Trump, Donald J. (REP)": 324,
+      "total": 510
+    },
+    "7334": {
+      "Harris, Kamala D. (DEM)": 135,
+      "Trump, Donald J. (REP)": 148,
+      "total": 283
+    },
+    "7531": {
+      "Harris, Kamala D. (DEM)": 119,
+      "Trump, Donald J. (REP)": 116,
+      "total": 235
+    },
+    "7500": {
+      "Harris, Kamala D. (DEM)": 198,
+      "Trump, Donald J. (REP)": 355,
+      "total": 553
+    },
+    "6018": {
+      "Harris, Kamala D. (DEM)": 99,
+      "Trump, Donald J. (REP)": 236,
+      "total": 335
+    },
+    "7361": {
+      "Harris, Kamala D. (DEM)": 127,
+      "Trump, Donald J. (REP)": 441,
+      "total": 568
+    },
+    "6736": {
+      "Harris, Kamala D. (DEM)": 131,
+      "Trump, Donald J. (REP)": 195,
+      "total": 326
+    },
+    "7042": {
+      "Harris, Kamala D. (DEM)": 129,
+      "Trump, Donald J. (REP)": 343,
+      "total": 472
+    },
+    "2511": {
+      "Harris, Kamala D. (DEM)": 88,
+      "Trump, Donald J. (REP)": 78,
+      "total": 166
+    },
+    "3392": {
+      "Harris, Kamala D. (DEM)": 204,
+      "Trump, Donald J. (REP)": 396,
+      "total": 600
+    },
+    "4000": {
+      "Harris, Kamala D. (DEM)": 129,
+      "Trump, Donald J. (REP)": 94,
+      "total": 223
+    },
+    "7674": {
+      "Harris, Kamala D. (DEM)": 163,
+      "Trump, Donald J. (REP)": 372,
+      "total": 535
+    },
+    "6753": {
+      "Harris, Kamala D. (DEM)": 487,
+      "Trump, Donald J. (REP)": 838,
+      "total": 1325
+    },
+    "2003": {
+      "Harris, Kamala D. (DEM)": 102,
+      "Trump, Donald J. (REP)": 133,
+      "total": 235
+    },
+    "3361": {
+      "Harris, Kamala D. (DEM)": 211,
+      "Trump, Donald J. (REP)": 315,
+      "total": 526
+    },
+    "3061": {
+      "Harris, Kamala D. (DEM)": 61,
+      "Trump, Donald J. (REP)": 49,
+      "total": 110
+    },
+    "4018": {
+      "Harris, Kamala D. (DEM)": 59,
+      "Trump, Donald J. (REP)": 122,
+      "total": 181
+    },
+    "3763": {
+      "Harris, Kamala D. (DEM)": 49,
+      "Trump, Donald J. (REP)": 80,
+      "total": 129
+    },
+    "6657": {
+      "Harris, Kamala D. (DEM)": 175,
+      "Trump, Donald J. (REP)": 357,
+      "total": 532
+    },
+    "3382": {
+      "Harris, Kamala D. (DEM)": 340,
+      "Trump, Donald J. (REP)": 603,
+      "total": 943
+    },
+    "7513": {
+      "Harris, Kamala D. (DEM)": 212,
+      "Trump, Donald J. (REP)": 180,
+      "total": 392
+    },
+    "4415": {
+      "Harris, Kamala D. (DEM)": 200,
+      "Trump, Donald J. (REP)": 63,
+      "total": 263
+    },
+    "6017": {
+      "Harris, Kamala D. (DEM)": 325,
+      "Trump, Donald J. (REP)": 544,
+      "total": 869
+    },
+    "3705": {
+      "Harris, Kamala D. (DEM)": 160,
+      "Trump, Donald J. (REP)": 321,
+      "total": 481
+    },
+    "4548": {
+      "Harris, Kamala D. (DEM)": 218,
+      "Trump, Donald J. (REP)": 104,
+      "total": 322
+    },
+    "1717": {
+      "Harris, Kamala D. (DEM)": 285,
+      "Trump, Donald J. (REP)": 589,
+      "total": 874
+    },
+    "7526": {
+      "Harris, Kamala D. (DEM)": 76,
+      "Trump, Donald J. (REP)": 67,
+      "total": 143
+    },
+    "5501": {
+      "Harris, Kamala D. (DEM)": 89,
+      "Trump, Donald J. (REP)": 248,
+      "total": 337
+    },
+    "4043": {
+      "Harris, Kamala D. (DEM)": 133,
+      "Trump, Donald J. (REP)": 89,
+      "total": 222
+    },
+    "6675": {
+      "Harris, Kamala D. (DEM)": 164,
+      "Trump, Donald J. (REP)": 403,
+      "total": 567
+    },
+    "5652": {
+      "Harris, Kamala D. (DEM)": 87,
+      "Trump, Donald J. (REP)": 313,
+      "total": 400
+    },
+    "6715": {
+      "Harris, Kamala D. (DEM)": 144,
+      "Trump, Donald J. (REP)": 268,
+      "total": 412
+    },
+    "7058": {
+      "Harris, Kamala D. (DEM)": 140,
+      "Trump, Donald J. (REP)": 185,
+      "total": 325
+    },
+    "3418": {
+      "Harris, Kamala D. (DEM)": 98,
+      "Trump, Donald J. (REP)": 194,
+      "total": 292
+    },
+    "7527": {
+      "Harris, Kamala D. (DEM)": 97,
+      "Trump, Donald J. (REP)": 83,
+      "total": 180
+    },
+    "4529": {
+      "Harris, Kamala D. (DEM)": 264,
+      "Trump, Donald J. (REP)": 163,
+      "total": 427
+    },
+    "4508": {
+      "Harris, Kamala D. (DEM)": 378,
+      "Trump, Donald J. (REP)": 131,
+      "total": 509
+    },
+    "4512": {
+      "Harris, Kamala D. (DEM)": 441,
+      "Trump, Donald J. (REP)": 377,
+      "total": 818
+    },
+    "1000": {
+      "Harris, Kamala D. (DEM)": 96,
+      "Trump, Donald J. (REP)": 162,
+      "total": 258
+    },
+    "2008": {
+      "Harris, Kamala D. (DEM)": 382,
+      "Trump, Donald J. (REP)": 643,
+      "total": 1025
+    },
+    "3040": {
+      "Harris, Kamala D. (DEM)": 232,
+      "Trump, Donald J. (REP)": 570,
+      "total": 802
+    },
+    "1038": {
+      "Harris, Kamala D. (DEM)": 255,
+      "Trump, Donald J. (REP)": 438,
+      "total": 693
+    },
+    "1688": {
+      "Harris, Kamala D. (DEM)": 181,
+      "Trump, Donald J. (REP)": 253,
+      "total": 434
+    },
+    "3613": {
+      "Harris, Kamala D. (DEM)": 190,
+      "Trump, Donald J. (REP)": 203,
+      "total": 393
+    },
+    "7003": {
+      "Harris, Kamala D. (DEM)": 80,
+      "Trump, Donald J. (REP)": 127,
+      "total": 207
+    },
+    "7663": {
+      "Harris, Kamala D. (DEM)": 107,
+      "Trump, Donald J. (REP)": 206,
+      "total": 313
+    },
+    "6014": {
+      "Harris, Kamala D. (DEM)": 139,
+      "Trump, Donald J. (REP)": 258,
+      "total": 397
+    },
+    "4564": {
+      "Harris, Kamala D. (DEM)": 258,
+      "Trump, Donald J. (REP)": 156,
+      "total": 414
+    },
+    "3724": {
+      "Harris, Kamala D. (DEM)": 414,
+      "Trump, Donald J. (REP)": 535,
+      "total": 949
+    },
+    "7691": {
+      "Harris, Kamala D. (DEM)": 306,
+      "Trump, Donald J. (REP)": 533,
+      "total": 839
+    },
+    "4422": {
+      "Harris, Kamala D. (DEM)": 365,
+      "Trump, Donald J. (REP)": 361,
+      "total": 726
+    },
+    "5577": {
+      "Harris, Kamala D. (DEM)": 115,
+      "Trump, Donald J. (REP)": 135,
+      "total": 250
+    },
+    "4555": {
+      "Harris, Kamala D. (DEM)": 384,
+      "Trump, Donald J. (REP)": 249,
+      "total": 633
+    },
+    "7060": {
+      "Harris, Kamala D. (DEM)": 247,
+      "Trump, Donald J. (REP)": 417,
+      "total": 664
+    },
+    "1651": {
+      "Harris, Kamala D. (DEM)": 335,
+      "Trump, Donald J. (REP)": 606,
+      "total": 941
+    },
+    "2445": {
+      "Harris, Kamala D. (DEM)": 61,
+      "Trump, Donald J. (REP)": 72,
+      "total": 133
+    },
+    "4550": {
+      "Harris, Kamala D. (DEM)": 59,
+      "Trump, Donald J. (REP)": 18,
+      "total": 77
+    },
+    "2751": {
+      "Harris, Kamala D. (DEM)": 12,
+      "Trump, Donald J. (REP)": 10,
+      "total": 22
+    },
+    "4562": {
+      "Harris, Kamala D. (DEM)": 164,
+      "Trump, Donald J. (REP)": 119,
+      "total": 283
+    },
+    "4309": {
+      "Harris, Kamala D. (DEM)": 161,
+      "Trump, Donald J. (REP)": 48,
+      "total": 209
+    },
+    "2072": {
+      "Harris, Kamala D. (DEM)": 35,
+      "Trump, Donald J. (REP)": 119,
+      "total": 154
+    },
+    "6007": {
+      "Harris, Kamala D. (DEM)": 200,
+      "Trump, Donald J. (REP)": 401,
+      "total": 601
+    },
+    "1007": {
+      "Harris, Kamala D. (DEM)": 379,
+      "Trump, Donald J. (REP)": 440,
+      "total": 819
+    },
+    "4591": {
+      "Harris, Kamala D. (DEM)": 32,
+      "Trump, Donald J. (REP)": 7,
+      "total": 39
+    },
+    "4400": {
+      "Harris, Kamala D. (DEM)": 490,
+      "Trump, Donald J. (REP)": 352,
+      "total": 842
+    },
+    "4306": {
+      "Harris, Kamala D. (DEM)": 304,
+      "Trump, Donald J. (REP)": 136,
+      "total": 440
+    },
+    "4559": {
+      "Harris, Kamala D. (DEM)": 217,
+      "Trump, Donald J. (REP)": 160,
+      "total": 377
+    },
+    "6037": {
+      "Harris, Kamala D. (DEM)": 293,
+      "Trump, Donald J. (REP)": 458,
+      "total": 751
+    },
+    "7624": {
+      "Harris, Kamala D. (DEM)": 163,
+      "Trump, Donald J. (REP)": 273,
+      "total": 436
+    },
+    "6011": {
+      "Harris, Kamala D. (DEM)": 99,
+      "Trump, Donald J. (REP)": 174,
+      "total": 273
+    },
+    "4583": {
+      "Harris, Kamala D. (DEM)": 369,
+      "Trump, Donald J. (REP)": 305,
+      "total": 674
+    },
+    "4716": {
+      "Harris, Kamala D. (DEM)": 333,
+      "Trump, Donald J. (REP)": 232,
+      "total": 565
+    },
+    "4036": {
+      "Harris, Kamala D. (DEM)": 283,
+      "Trump, Donald J. (REP)": 130,
+      "total": 413
+    },
+    "7378": {
+      "Harris, Kamala D. (DEM)": 315,
+      "Trump, Donald J. (REP)": 697,
+      "total": 1012
+    },
+    "7039": {
+      "Harris, Kamala D. (DEM)": 269,
+      "Trump, Donald J. (REP)": 566,
+      "total": 835
+    },
+    "3771": {
+      "Harris, Kamala D. (DEM)": 138,
+      "Trump, Donald J. (REP)": 173,
+      "total": 311
+    },
+    "2632": {
+      "Harris, Kamala D. (DEM)": 15,
+      "Trump, Donald J. (REP)": 29,
+      "total": 44
+    },
+    "4528": {
+      "Harris, Kamala D. (DEM)": 234,
+      "Trump, Donald J. (REP)": 120,
+      "total": 354
+    },
+    "6738": {
+      "Harris, Kamala D. (DEM)": 396,
+      "Trump, Donald J. (REP)": 622,
+      "total": 1018
+    },
+    "4573": {
+      "Harris, Kamala D. (DEM)": 39,
+      "Trump, Donald J. (REP)": 17,
+      "total": 56
+    },
+    "7714": {
+      "Harris, Kamala D. (DEM)": 117,
+      "Trump, Donald J. (REP)": 116,
+      "total": 233
+    },
+    "7355": {
+      "Harris, Kamala D. (DEM)": 206,
+      "Trump, Donald J. (REP)": 483,
+      "total": 689
+    },
+    "4540": {
+      "Harris, Kamala D. (DEM)": 90,
+      "Trump, Donald J. (REP)": 39,
+      "total": 129
+    },
+    "3769": {
+      "Harris, Kamala D. (DEM)": 140,
+      "Trump, Donald J. (REP)": 238,
+      "total": 378
+    },
+    "5633": {
+      "Harris, Kamala D. (DEM)": 74,
+      "Trump, Donald J. (REP)": 87,
+      "total": 161
+    },
+    "4031": {
+      "Harris, Kamala D. (DEM)": 20,
+      "Trump, Donald J. (REP)": 3,
+      "total": 23
+    },
+    "4007": {
+      "Harris, Kamala D. (DEM)": 92,
+      "Trump, Donald J. (REP)": 113,
+      "total": 205
+    },
+    "3072": {
+      "Harris, Kamala D. (DEM)": 20,
+      "Trump, Donald J. (REP)": 28,
+      "total": 48
+    },
+    "2025": {
+      "Harris, Kamala D. (DEM)": 287,
+      "Trump, Donald J. (REP)": 188,
+      "total": 475
+    },
+    "4402": {
+      "Harris, Kamala D. (DEM)": 189,
+      "Trump, Donald J. (REP)": 138,
+      "total": 327
+    },
+    "6751": {
+      "Harris, Kamala D. (DEM)": 304,
+      "Trump, Donald J. (REP)": 496,
+      "total": 800
+    },
+    "5560": {
+      "Harris, Kamala D. (DEM)": 264,
+      "Trump, Donald J. (REP)": 270,
+      "total": 534
+    },
+    "1063": {
+      "Harris, Kamala D. (DEM)": 205,
+      "Trump, Donald J. (REP)": 320,
+      "total": 525
+    },
+    "6707": {
+      "Harris, Kamala D. (DEM)": 231,
+      "Trump, Donald J. (REP)": 343,
+      "total": 574
+    },
+    "3730": {
+      "Harris, Kamala D. (DEM)": 258,
+      "Trump, Donald J. (REP)": 373,
+      "total": 631
+    },
+    "4413": {
+      "Harris, Kamala D. (DEM)": 134,
+      "Trump, Donald J. (REP)": 219,
+      "total": 353
+    },
+    "5543": {
+      "Harris, Kamala D. (DEM)": 50,
+      "Trump, Donald J. (REP)": 29,
+      "total": 79
+    },
+    "2036": {
+      "Harris, Kamala D. (DEM)": 358,
+      "Trump, Donald J. (REP)": 309,
+      "total": 667
+    },
+    "1368": {
+      "Harris, Kamala D. (DEM)": 249,
+      "Trump, Donald J. (REP)": 342,
+      "total": 591
+    },
+    "4035": {
+      "Harris, Kamala D. (DEM)": 118,
+      "Trump, Donald J. (REP)": 62,
+      "total": 180
+    },
+    "7684": {
+      "Harris, Kamala D. (DEM)": 261,
+      "Trump, Donald J. (REP)": 384,
+      "total": 645
+    },
+    "4009": {
+      "Harris, Kamala D. (DEM)": 132,
+      "Trump, Donald J. (REP)": 127,
+      "total": 259
+    },
+    "4566": {
+      "Harris, Kamala D. (DEM)": 108,
+      "Trump, Donald J. (REP)": 50,
+      "total": 158
+    },
+    "7524": {
+      "Harris, Kamala D. (DEM)": 78,
+      "Trump, Donald J. (REP)": 87,
+      "total": 165
+    },
+    "2469": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 75,
+      "total": 82
+    },
+    "6718": {
+      "Harris, Kamala D. (DEM)": 481,
+      "Trump, Donald J. (REP)": 633,
+      "total": 1114
+    },
+    "3773": {
+      "Harris, Kamala D. (DEM)": 164,
+      "Trump, Donald J. (REP)": 174,
+      "total": 338
+    },
+    "4008": {
+      "Harris, Kamala D. (DEM)": 80,
+      "Trump, Donald J. (REP)": 69,
+      "total": 149
+    },
+    "3780": {
+      "Harris, Kamala D. (DEM)": 207,
+      "Trump, Donald J. (REP)": 417,
+      "total": 624
+    },
+    "4021": {
+      "Harris, Kamala D. (DEM)": 144,
+      "Trump, Donald J. (REP)": 156,
+      "total": 300
+    },
+    "3003": {
+      "Harris, Kamala D. (DEM)": 185,
+      "Trump, Donald J. (REP)": 237,
+      "total": 422
+    },
+    "2004": {
+      "Harris, Kamala D. (DEM)": 155,
+      "Trump, Donald J. (REP)": 224,
+      "total": 379
+    },
+    "4504": {
+      "Harris, Kamala D. (DEM)": 333,
+      "Trump, Donald J. (REP)": 181,
+      "total": 514
+    },
+    "7366": {
+      "Harris, Kamala D. (DEM)": 525,
+      "Trump, Donald J. (REP)": 906,
+      "total": 1431
+    },
+    "1327": {
+      "Harris, Kamala D. (DEM)": 267,
+      "Trump, Donald J. (REP)": 368,
+      "total": 635
+    },
+    "4046": {
+      "Harris, Kamala D. (DEM)": 117,
+      "Trump, Donald J. (REP)": 220,
+      "total": 337
+    },
+    "4411": {
+      "Harris, Kamala D. (DEM)": 243,
+      "Trump, Donald J. (REP)": 241,
+      "total": 484
+    },
+    "4641": {
+      "Harris, Kamala D. (DEM)": 21,
+      "Trump, Donald J. (REP)": 29,
+      "total": 50
+    },
+    "6705": {
+      "Harris, Kamala D. (DEM)": 44,
+      "Trump, Donald J. (REP)": 36,
+      "total": 80
+    },
+    "5634": {
+      "Harris, Kamala D. (DEM)": 63,
+      "Trump, Donald J. (REP)": 65,
+      "total": 128
+    },
+    "2501": {
+      "Harris, Kamala D. (DEM)": 3,
+      "Trump, Donald J. (REP)": 23,
+      "total": 26
+    },
+    "1389": {
+      "Harris, Kamala D. (DEM)": 145,
+      "Trump, Donald J. (REP)": 280,
+      "total": 425
+    },
+    "2480": {
+      "Harris, Kamala D. (DEM)": 170,
+      "Trump, Donald J. (REP)": 177,
+      "total": 347
+    },
+    "5612": {
+      "Harris, Kamala D. (DEM)": 343,
+      "Trump, Donald J. (REP)": 340,
+      "total": 683
+    },
+    "6012": {
+      "Harris, Kamala D. (DEM)": 91,
+      "Trump, Donald J. (REP)": 209,
+      "total": 300
+    },
+    "7017": {
+      "Harris, Kamala D. (DEM)": 102,
+      "Trump, Donald J. (REP)": 187,
+      "total": 289
+    },
+    "4045": {
+      "Harris, Kamala D. (DEM)": 89,
+      "Trump, Donald J. (REP)": 67,
+      "total": 156
+    },
+    "3583": {
+      "Harris, Kamala D. (DEM)": 222,
+      "Trump, Donald J. (REP)": 414,
+      "total": 636
+    },
+    "5037": {
+      "Harris, Kamala D. (DEM)": 206,
+      "Trump, Donald J. (REP)": 787,
+      "total": 993
+    },
+    "5038": {
+      "Harris, Kamala D. (DEM)": 138,
+      "Trump, Donald J. (REP)": 177,
+      "total": 315
+    },
+    "6742": {
+      "Harris, Kamala D. (DEM)": 141,
+      "Trump, Donald J. (REP)": 322,
+      "total": 463
+    },
+    "7552": {
+      "Harris, Kamala D. (DEM)": 179,
+      "Trump, Donald J. (REP)": 653,
+      "total": 832
+    },
+    "1394": {
+      "Harris, Kamala D. (DEM)": 300,
+      "Trump, Donald J. (REP)": 696,
+      "total": 996
+    },
+    "5547": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 74,
+      "total": 81
+    },
+    "7015": {
+      "Harris, Kamala D. (DEM)": 44,
+      "Trump, Donald J. (REP)": 118,
+      "total": 162
+    },
+    "7528": {
+      "Harris, Kamala D. (DEM)": 258,
+      "Trump, Donald J. (REP)": 236,
+      "total": 494
+    },
+    "7582": {
+      "Harris, Kamala D. (DEM)": 83,
+      "Trump, Donald J. (REP)": 198,
+      "total": 281
+    },
+    "1719": {
+      "Harris, Kamala D. (DEM)": 58,
+      "Trump, Donald J. (REP)": 182,
+      "total": 240
+    },
+    "6003": {
+      "Harris, Kamala D. (DEM)": 93,
+      "Trump, Donald J. (REP)": 248,
+      "total": 341
+    },
+    "7056": {
+      "Harris, Kamala D. (DEM)": 300,
+      "Trump, Donald J. (REP)": 441,
+      "total": 741
+    },
+    "7641": {
+      "Harris, Kamala D. (DEM)": 171,
+      "Trump, Donald J. (REP)": 381,
+      "total": 552
+    },
+    "2720": {
+      "Harris, Kamala D. (DEM)": 55,
+      "Trump, Donald J. (REP)": 35,
+      "total": 90
+    },
+    "1674": {
+      "Harris, Kamala D. (DEM)": 170,
+      "Trump, Donald J. (REP)": 364,
+      "total": 534
+    },
+    "1510": {
+      "Harris, Kamala D. (DEM)": 76,
+      "Trump, Donald J. (REP)": 250,
+      "total": 326
+    },
+    "6004": {
+      "Harris, Kamala D. (DEM)": 150,
+      "Trump, Donald J. (REP)": 333,
+      "total": 483
+    },
+    "1016": {
+      "Harris, Kamala D. (DEM)": 78,
+      "Trump, Donald J. (REP)": 124,
+      "total": 202
+    },
+    "1307": {
+      "Harris, Kamala D. (DEM)": 313,
+      "Trump, Donald J. (REP)": 451,
+      "total": 764
+    },
+    "1672": {
+      "Harris, Kamala D. (DEM)": 365,
+      "Trump, Donald J. (REP)": 636,
+      "total": 1001
+    },
+    "1696": {
+      "Harris, Kamala D. (DEM)": 360,
+      "Trump, Donald J. (REP)": 542,
+      "total": 902
+    },
+    "7726": {
+      "Harris, Kamala D. (DEM)": 94,
+      "Trump, Donald J. (REP)": 68,
+      "total": 162
+    },
+    "7430": {
+      "Harris, Kamala D. (DEM)": 129,
+      "Trump, Donald J. (REP)": 253,
+      "total": 382
+    },
+    "5550": {
+      "Harris, Kamala D. (DEM)": 91,
+      "Trump, Donald J. (REP)": 223,
+      "total": 314
+    },
+    "2045": {
+      "Harris, Kamala D. (DEM)": 54,
+      "Trump, Donald J. (REP)": 91,
+      "total": 145
+    },
+    "7542": {
+      "Harris, Kamala D. (DEM)": 5,
+      "Trump, Donald J. (REP)": 10,
+      "total": 15
+    },
+    "6600": {
+      "Harris, Kamala D. (DEM)": 216,
+      "Trump, Donald J. (REP)": 435,
+      "total": 651
+    },
+    "7053": {
+      "Harris, Kamala D. (DEM)": 89,
+      "Trump, Donald J. (REP)": 73,
+      "total": 162
+    },
+    "7562": {
+      "Harris, Kamala D. (DEM)": 236,
+      "Trump, Donald J. (REP)": 889,
+      "total": 1125
+    },
+    "5042": {
+      "Harris, Kamala D. (DEM)": 76,
+      "Trump, Donald J. (REP)": 147,
+      "total": 223
+    },
+    "7052": {
+      "Harris, Kamala D. (DEM)": 21,
+      "Trump, Donald J. (REP)": 3,
+      "total": 24
+    },
+    "7006": {
+      "Harris, Kamala D. (DEM)": 124,
+      "Trump, Donald J. (REP)": 142,
+      "total": 266
+    },
+    "6431": {
+      "Harris, Kamala D. (DEM)": 147,
+      "Trump, Donald J. (REP)": 192,
+      "total": 339
+    },
+    "6030": {
+      "Harris, Kamala D. (DEM)": 126,
+      "Trump, Donald J. (REP)": 192,
+      "total": 318
+    },
+    "6666": {
+      "Harris, Kamala D. (DEM)": 503,
+      "Trump, Donald J. (REP)": 849,
+      "total": 1352
+    },
+    "7022": {
+      "Harris, Kamala D. (DEM)": 96,
+      "Trump, Donald J. (REP)": 71,
+      "total": 167
+    },
+    "6488": {
+      "Harris, Kamala D. (DEM)": 11,
+      "Trump, Donald J. (REP)": 25,
+      "total": 36
+    },
+    "7654": {
+      "Harris, Kamala D. (DEM)": 20,
+      "Trump, Donald J. (REP)": 31,
+      "total": 51
+    },
+    "7332": {
+      "Harris, Kamala D. (DEM)": 242,
+      "Trump, Donald J. (REP)": 229,
+      "total": 471
+    },
+    "7044": {
+      "Harris, Kamala D. (DEM)": 48,
+      "Trump, Donald J. (REP)": 112,
+      "total": 160
+    },
+    "1384": {
+      "Harris, Kamala D. (DEM)": 31,
+      "Trump, Donald J. (REP)": 33,
+      "total": 64
+    },
+    "1343": {
+      "Harris, Kamala D. (DEM)": 96,
+      "Trump, Donald J. (REP)": 280,
+      "total": 376
+    },
+    "2013": {
+      "Harris, Kamala D. (DEM)": 123,
+      "Trump, Donald J. (REP)": 92,
+      "total": 215
+    },
+    "7037": {
+      "Harris, Kamala D. (DEM)": 210,
+      "Trump, Donald J. (REP)": 269,
+      "total": 479
+    },
+    "1695": {
+      "Harris, Kamala D. (DEM)": 113,
+      "Trump, Donald J. (REP)": 338,
+      "total": 451
+    },
+    "2725": {
+      "Harris, Kamala D. (DEM)": 10,
+      "Trump, Donald J. (REP)": 125,
+      "total": 135
+    },
+    "7523": {
+      "Harris, Kamala D. (DEM)": 33,
+      "Trump, Donald J. (REP)": 42,
+      "total": 75
+    },
+    "7622": {
+      "Harris, Kamala D. (DEM)": 71,
+      "Trump, Donald J. (REP)": 136,
+      "total": 207
+    },
+    "1351": {
+      "Harris, Kamala D. (DEM)": 393,
+      "Trump, Donald J. (REP)": 483,
+      "total": 876
+    },
+    "7515": {
+      "Harris, Kamala D. (DEM)": 225,
+      "Trump, Donald J. (REP)": 350,
+      "total": 575
+    },
+    "2016": {
+      "Harris, Kamala D. (DEM)": 15,
+      "Trump, Donald J. (REP)": 49,
+      "total": 64
+    },
+    "6713": {
+      "Harris, Kamala D. (DEM)": 442,
+      "Trump, Donald J. (REP)": 586,
+      "total": 1028
+    },
+    "7707": {
+      "Harris, Kamala D. (DEM)": 30,
+      "Trump, Donald J. (REP)": 93,
+      "total": 123
+    },
+    "7011": {
+      "Harris, Kamala D. (DEM)": 10,
+      "Trump, Donald J. (REP)": 24,
+      "total": 34
+    },
+    "1349": {
+      "Harris, Kamala D. (DEM)": 233,
+      "Trump, Donald J. (REP)": 336,
+      "total": 569
+    },
+    "6487": {
+      "Harris, Kamala D. (DEM)": 33,
+      "Trump, Donald J. (REP)": 126,
+      "total": 159
+    },
+    "1706": {
+      "Harris, Kamala D. (DEM)": 27,
+      "Trump, Donald J. (REP)": 27,
+      "total": 54
+    },
+    "3036": {
+      "Harris, Kamala D. (DEM)": 147,
+      "Trump, Donald J. (REP)": 286,
+      "total": 433
+    },
+    "7007": {
+      "Harris, Kamala D. (DEM)": 215,
+      "Trump, Donald J. (REP)": 238,
+      "total": 453
+    },
+    "1074": {
+      "Harris, Kamala D. (DEM)": 116,
+      "Trump, Donald J. (REP)": 285,
+      "total": 401
+    },
+    "6539": {
+      "Harris, Kamala D. (DEM)": 218,
+      "Trump, Donald J. (REP)": 332,
+      "total": 550
+    },
+    "3057": {
+      "Harris, Kamala D. (DEM)": 80,
+      "Trump, Donald J. (REP)": 320,
+      "total": 400
+    },
+    "2040": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 11,
+      "total": 18
+    },
+    "2466": {
+      "Harris, Kamala D. (DEM)": 74,
+      "Trump, Donald J. (REP)": 242,
+      "total": 316
+    },
+    "5029": {
+      "Harris, Kamala D. (DEM)": 125,
+      "Trump, Donald J. (REP)": 137,
+      "total": 262
+    },
+    "6045": {
+      "Harris, Kamala D. (DEM)": 370,
+      "Trump, Donald J. (REP)": 509,
+      "total": 879
+    },
+    "6038": {
+      "Harris, Kamala D. (DEM)": 198,
+      "Trump, Donald J. (REP)": 290,
+      "total": 488
+    },
+    "3062": {
+      "Harris, Kamala D. (DEM)": 358,
+      "Trump, Donald J. (REP)": 484,
+      "total": 842
+    },
+    "3605": {
+      "Harris, Kamala D. (DEM)": 35,
+      "Trump, Donald J. (REP)": 128,
+      "total": 163
+    },
+    "1072": {
+      "Harris, Kamala D. (DEM)": 14,
+      "Trump, Donald J. (REP)": 72,
+      "total": 86
+    },
+    "5545": {
+      "Harris, Kamala D. (DEM)": 100,
+      "Trump, Donald J. (REP)": 73,
+      "total": 173
+    },
+    "6533": {
+      "Harris, Kamala D. (DEM)": 161,
+      "Trump, Donald J. (REP)": 234,
+      "total": 395
+    },
+    "2030": {
+      "Harris, Kamala D. (DEM)": 169,
+      "Trump, Donald J. (REP)": 155,
+      "total": 324
+    },
+    "6719": {
+      "Harris, Kamala D. (DEM)": 273,
+      "Trump, Donald J. (REP)": 430,
+      "total": 703
+    },
+    "3564": {
+      "Harris, Kamala D. (DEM)": 27,
+      "Trump, Donald J. (REP)": 92,
+      "total": 119
+    },
+    "5542": {
+      "Harris, Kamala D. (DEM)": 92,
+      "Trump, Donald J. (REP)": 50,
+      "total": 142
+    },
+    "6031": {
+      "Harris, Kamala D. (DEM)": 132,
+      "Trump, Donald J. (REP)": 150,
+      "total": 282
+    },
+    "4633": {
+      "Harris, Kamala D. (DEM)": 209,
+      "Trump, Donald J. (REP)": 220,
+      "total": 429
+    },
+    "6750": {
+      "Harris, Kamala D. (DEM)": 240,
+      "Trump, Donald J. (REP)": 281,
+      "total": 521
+    },
+    "1605": {
+      "Harris, Kamala D. (DEM)": 382,
+      "Trump, Donald J. (REP)": 384,
+      "total": 766
+    },
+    "1751": {
+      "Harris, Kamala D. (DEM)": 61,
+      "Trump, Donald J. (REP)": 266,
+      "total": 327
+    },
+    "2060": {
+      "Harris, Kamala D. (DEM)": 92,
+      "Trump, Donald J. (REP)": 159,
+      "total": 251
+    },
+    "7030": {
+      "Harris, Kamala D. (DEM)": 46,
+      "Trump, Donald J. (REP)": 67,
+      "total": 113
+    },
+    "3727": {
+      "Harris, Kamala D. (DEM)": 246,
+      "Trump, Donald J. (REP)": 523,
+      "total": 769
+    },
+    "2052": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 29,
+      "total": 36
+    },
+    "6041": {
+      "Harris, Kamala D. (DEM)": 29,
+      "Trump, Donald J. (REP)": 27,
+      "total": 56
+    },
+    "6034": {
+      "Harris, Kamala D. (DEM)": 134,
+      "Trump, Donald J. (REP)": 139,
+      "total": 273
+    },
+    "1067": {
+      "Harris, Kamala D. (DEM)": 14,
+      "Trump, Donald J. (REP)": 41,
+      "total": 55
+    },
+    "6492": {
+      "Harris, Kamala D. (DEM)": 575,
+      "Trump, Donald J. (REP)": 905,
+      "total": 1480
+    },
+    "5635": {
+      "Harris, Kamala D. (DEM)": 206,
+      "Trump, Donald J. (REP)": 186,
+      "total": 392
+    },
+    "2010": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 15,
+      "total": 22
+    },
+    "5403": {
+      "Harris, Kamala D. (DEM)": 41,
+      "Trump, Donald J. (REP)": 31,
+      "total": 72
+    },
+    "3038": {
+      "Harris, Kamala D. (DEM)": 24,
+      "Trump, Donald J. (REP)": 16,
+      "total": 40
+    },
+    "4034": {
+      "Harris, Kamala D. (DEM)": 73,
+      "Trump, Donald J. (REP)": 52,
+      "total": 125
+    },
+    "7034": {
+      "Harris, Kamala D. (DEM)": 26,
+      "Trump, Donald J. (REP)": 33,
+      "total": 59
+    },
+    "5615": {
+      "Harris, Kamala D. (DEM)": 47,
+      "Trump, Donald J. (REP)": 57,
+      "total": 104
+    },
+    "2709": {
+      "Harris, Kamala D. (DEM)": 96,
+      "Trump, Donald J. (REP)": 221,
+      "total": 317
+    },
+    "4001": {
+      "Harris, Kamala D. (DEM)": 53,
+      "Trump, Donald J. (REP)": 56,
+      "total": 109
+    },
+    "4069": {
+      "Harris, Kamala D. (DEM)": 5,
+      "Trump, Donald J. (REP)": 15,
+      "total": 20
+    },
+    "1621": {
+      "Harris, Kamala D. (DEM)": 136,
+      "Trump, Donald J. (REP)": 175,
+      "total": 311
+    },
+    "5039": {
+      "Harris, Kamala D. (DEM)": 21,
+      "Trump, Donald J. (REP)": 9,
+      "total": 30
+    },
+    "6498": {
+      "Harris, Kamala D. (DEM)": 22,
+      "Trump, Donald J. (REP)": 79,
+      "total": 101
+    },
+    "2465": {
+      "Harris, Kamala D. (DEM)": 85,
+      "Trump, Donald J. (REP)": 498,
+      "total": 583
+    },
+    "5581": {
+      "Harris, Kamala D. (DEM)": 127,
+      "Trump, Donald J. (REP)": 71,
+      "total": 198
+    },
+    "2673": {
+      "Harris, Kamala D. (DEM)": 16,
+      "Trump, Donald J. (REP)": 76,
+      "total": 92
+    },
+    "4420": {
+      "Harris, Kamala D. (DEM)": 52,
+      "Trump, Donald J. (REP)": 49,
+      "total": 101
+    },
+    "2079": {
+      "Harris, Kamala D. (DEM)": 30,
+      "Trump, Donald J. (REP)": 131,
+      "total": 161
+    },
+    "4002": {
+      "Harris, Kamala D. (DEM)": 15,
+      "Trump, Donald J. (REP)": 29,
+      "total": 44
+    },
+    "6043": {
+      "Harris, Kamala D. (DEM)": 25,
+      "Trump, Donald J. (REP)": 39,
+      "total": 64
+    },
+    "1750": {
+      "Harris, Kamala D. (DEM)": 82,
+      "Trump, Donald J. (REP)": 221,
+      "total": 303
+    },
+    "3710": {
+      "Harris, Kamala D. (DEM)": 75,
+      "Trump, Donald J. (REP)": 188,
+      "total": 263
+    },
+    "6032": {
+      "Harris, Kamala D. (DEM)": 94,
+      "Trump, Donald J. (REP)": 131,
+      "total": 225
+    },
+    "2019": {
+      "Harris, Kamala D. (DEM)": 24,
+      "Trump, Donald J. (REP)": 54,
+      "total": 78
+    },
+    "3069": {
+      "Harris, Kamala D. (DEM)": 17,
+      "Trump, Donald J. (REP)": 11,
+      "total": 28
+    },
+    "4012": {
+      "Harris, Kamala D. (DEM)": 360,
+      "Trump, Donald J. (REP)": 441,
+      "total": 801
+    },
+    "1011": {
+      "Harris, Kamala D. (DEM)": 28,
+      "Trump, Donald J. (REP)": 32,
+      "total": 60
+    },
+    "6471": {
+      "Harris, Kamala D. (DEM)": 171,
+      "Trump, Donald J. (REP)": 220,
+      "total": 391
+    },
+    "2384": {
+      "Harris, Kamala D. (DEM)": 51,
+      "Trump, Donald J. (REP)": 77,
+      "total": 128
+    },
+    "2731": {
+      "Harris, Kamala D. (DEM)": 55,
+      "Trump, Donald J. (REP)": 332,
+      "total": 387
+    },
+    "3033": {
+      "Harris, Kamala D. (DEM)": 18,
+      "Trump, Donald J. (REP)": 17,
+      "total": 35
+    },
+    "3067": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 41,
+      "total": 48
+    },
+    "3709": {
+      "Harris, Kamala D. (DEM)": 111,
+      "Trump, Donald J. (REP)": 306,
+      "total": 417
+    },
+    "3041": {
+      "Harris, Kamala D. (DEM)": 16,
+      "Trump, Donald J. (REP)": 9,
+      "total": 25
+    },
+    "5028": {
+      "Harris, Kamala D. (DEM)": 2,
+      "Trump, Donald J. (REP)": 11,
+      "total": 13
+    },
+    "4006": {
+      "Harris, Kamala D. (DEM)": 2,
+      "Trump, Donald J. (REP)": 12,
+      "total": 14
+    },
+    "4434": {
+      "Harris, Kamala D. (DEM)": 8,
+      "Trump, Donald J. (REP)": 20,
+      "total": 28
+    },
+    "2693": {
+      "Harris, Kamala D. (DEM)": 16,
+      "Trump, Donald J. (REP)": 37,
+      "total": 53
+    },
+    "5041": {
+      "Harris, Kamala D. (DEM)": 36,
+      "Trump, Donald J. (REP)": 46,
+      "total": 82
+    },
+    "4638": {
+      "Harris, Kamala D. (DEM)": 40,
+      "Trump, Donald J. (REP)": 28,
+      "total": 68
+    },
+    "2775": {
+      "Harris, Kamala D. (DEM)": 131,
+      "Trump, Donald J. (REP)": 659,
+      "total": 790
+    },
+    "2477": {
+      "Harris, Kamala D. (DEM)": 57,
+      "Trump, Donald J. (REP)": 216,
+      "total": 273
+    },
+    "1753": {
+      "Harris, Kamala D. (DEM)": 8,
+      "Trump, Donald J. (REP)": 37,
+      "total": 45
+    },
+    "6000": {
+      "Harris, Kamala D. (DEM)": 3,
+      "Trump, Donald J. (REP)": 20,
+      "total": 23
+    },
+    "3753": {
+      "Harris, Kamala D. (DEM)": 47,
+      "Trump, Donald J. (REP)": 31,
+      "total": 78
+    },
+    "3700": {
+      "Harris, Kamala D. (DEM)": 51,
+      "Trump, Donald J. (REP)": 84,
+      "total": 135
+    },
+    "3056": {
+      "Harris, Kamala D. (DEM)": 18,
+      "Trump, Donald J. (REP)": 56,
+      "total": 74
+    },
+    "2081": {
+      "Harris, Kamala D. (DEM)": 4,
+      "Trump, Donald J. (REP)": 18,
+      "total": 22
+    },
+    "3736": {
+      "Harris, Kamala D. (DEM)": 3,
+      "Trump, Donald J. (REP)": 24,
+      "total": 27
+    },
+    "3714": {
+      "Harris, Kamala D. (DEM)": 3,
+      "Trump, Donald J. (REP)": 11,
+      "total": 14
+    },
+    "3535": {
+      "Harris, Kamala D. (DEM)": 2,
+      "Trump, Donald J. (REP)": 12,
+      "total": 14
+    },
+    "2602": {
+      "Harris, Kamala D. (DEM)": 16,
+      "Trump, Donald J. (REP)": 37,
+      "total": 53
+    },
+    "3713": {
+      "Harris, Kamala D. (DEM)": 18,
+      "Trump, Donald J. (REP)": 11,
+      "total": 29
+    },
+    "2601": {
+      "Harris, Kamala D. (DEM)": 1,
+      "Trump, Donald J. (REP)": 19,
+      "total": 20
+    },
+    "2056": {
+      "Harris, Kamala D. (DEM)": 5,
+      "Trump, Donald J. (REP)": 64,
+      "total": 69
+    },
+    "2642": {
+      "Harris, Kamala D. (DEM)": 5,
+      "Trump, Donald J. (REP)": 48,
+      "total": 53
+    },
+    "2029": {
+      "Harris, Kamala D. (DEM)": 17,
+      "Trump, Donald J. (REP)": 11,
+      "total": 28
+    },
+    "2676": {
+      "Harris, Kamala D. (DEM)": 3,
+      "Trump, Donald J. (REP)": 8,
+      "total": 11
+    },
+    "2002": {
+      "Harris, Kamala D. (DEM)": 2,
+      "Trump, Donald J. (REP)": 12,
+      "total": 14
+    },
+    "3786": {
+      "Harris, Kamala D. (DEM)": 1,
+      "Trump, Donald J. (REP)": 12,
+      "total": 13
+    },
+    "3066": {
+      "Harris, Kamala D. (DEM)": 11,
+      "Trump, Donald J. (REP)": 18,
+      "total": 29
+    },
+    "3065": {
+      "Harris, Kamala D. (DEM)": 7,
+      "Trump, Donald J. (REP)": 9,
+      "total": 16
+    },
+    "3767": {
+      "Harris, Kamala D. (DEM)": 1,
+      "Trump, Donald J. (REP)": 15,
+      "total": 16
+    },
+    "3578": {
+      "Harris, Kamala D. (DEM)": 8,
+      "Trump, Donald J. (REP)": 21,
+      "total": 29
+    },
+    "2684": {
+      "Harris, Kamala D. (DEM)": 2,
+      "Trump, Donald J. (REP)": 17,
+      "total": 19
+    },
+    "2696": {
+      "Harris, Kamala D. (DEM)": 3,
+      "Trump, Donald J. (REP)": 17,
+      "total": 20
+    },
+    "2691": {
+      "Harris, Kamala D. (DEM)": 0,
+      "Trump, Donald J. (REP)": 13,
+      "total": 13
+    },
+    "4612": {
+      "Harris, Kamala D. (DEM)": 8,
+      "Trump, Donald J. (REP)": 5,
+      "total": 13
+    },
+    "6673": {
+      "Harris, Kamala D. (DEM)": 9,
+      "Trump, Donald J. (REP)": 20,
+      "total": 29
+    }
+  },
+  "precinct_trump_percentages": {
+    "2352": 69.9630314232902,
+    "2048": 53.20945945945946,
+    "5513": 55.97315436241611,
+    "1715": 71.14252061248527,
+    "4505": 47.57281553398058,
+    "3607": 51.87500000000001,
+    "6044": 55.59322033898305,
+    "3011": 64.77438136826783,
+    "4581": 46.725440806045334,
+    "3007": 50.245499181669395,
+    "1631": 57.98816568047337,
+    "1518": 67.47519294377067,
+    "4501": 48.99328859060403,
+    "6520": 64.82412060301507,
+    "2066": 85.84905660377359,
+    "7611": 71.40762463343108,
+    "2740": 48.589341692789965,
+    "5582": 40.520446096654275,
+    "2430": 57.635467980295566,
+    "1331": 53.72848948374761,
+    "3013": 52.0,
+    "2600": 62.6253418413856,
+    "1015": 58.94607843137255,
+    "3758": 72.22222222222221,
+    "3588": 64.26116838487972,
+    "5570": 50.479846449136275,
+    "4543": 35.82089552238806,
+    "1614": 62.06896551724138,
+    "4019": 40.714285714285715,
+    "2700": 61.070911722141815,
+    "5586": 41.015625,
+    "4510": 39.31623931623932,
+    "4547": 40.51724137931034,
+    "2715": 51.11111111111111,
+    "5412": 45.44405997693195,
+    "2371": 59.23076923076923,
+    "1669": 61.30952380952381,
+    "6725": 60.90828138913624,
+    "1001": 64.55696202531645,
+    "7029": 63.69230769230769,
+    "3016": 63.086232980332824,
+    "1645": 49.22279792746114,
+    "7055": 49.92826398852224,
+    "5044": 57.8125,
+    "4461": 19.844357976653697,
+    "7570": 69.6461824953445,
+    "2051": 64.97560975609757,
+    "2087": 43.49775784753363,
+    "3706": 61.262665627435695,
+    "6066": 56.44937586685159,
+    "4040": 39.75903614457831,
+    "5015": 37.19512195121951,
+    "2710": 59.89130434782609,
+    "2063": 46.875,
+    "4030": 21.16182572614108,
+    "7352": 76.41681901279708,
+    "2776": 85.20900321543408,
+    "7025": 54.729729729729726,
+    "6552": 70.63953488372093,
+    "7502": 64.59143968871595,
+    "5565": 45.49878345498784,
+    "5554": 53.91459074733096,
+    "5350": 37.55522827687776,
+    "1008": 55.61904761904762,
+    "3055": 61.925133689839576,
+    "4605": 38.91891891891892,
+    "6685": 71.42857142857143,
+    "6033": 53.104925053533194,
+    "5533": 45.96026490066225,
+    "5047": 64.65968586387434,
+    "5572": 51.843317972350235,
+    "3715": 76.86796315250768,
+    "4020": 36.206896551724135,
+    "5384": 40.0,
+    "2662": 65.88888888888889,
+    "3735": 70.96774193548387,
+    "7032": 70.13574660633483,
+    "3374": 65.90229312063809,
+    "5587": 46.31901840490797,
+    "3000": 46.82835820895522,
+    "2644": 77.93538219070135,
+    "3068": 45.294117647058826,
+    "3037": 61.41124586549063,
+    "5620": 52.138492871690424,
+    "1702": 66.53645833333334,
+    "3017": 57.67676767676768,
+    "1643": 74.23312883435584,
+    "4526": 22.5,
+    "3364": 71.17647058823529,
+    "7503": 46.875,
+    "6648": 57.94920037629351,
+    "1302": 55.82112567463376,
+    "6735": 58.68596881959911,
+    "6540": 55.12048192771084,
+    "2033": 58.6924219910847,
+    "2663": 76.14410905550146,
+    "6708": 61.13416320885201,
+    "7723": 60.04056795131846,
+    "1550": 71.3903743315508,
+    "3863": 58.00524934383202,
+    "2126": 57.88497217068645,
+    "4404": 40.714285714285715,
+    "6512": 75.36813922356092,
+    "3719": 58.0246913580247,
+    "1602": 56.82967959527825,
+    "3363": 65.625,
+    "2695": 69.6245733788396,
+    "1606": 66.77927927927928,
+    "6514": 60.423634336677814,
+    "1712": 62.182203389830505,
+    "5011": 48.126801152737755,
+    "3755": 52.17391304347826,
+    "3385": 59.8314606741573,
+    "5566": 55.95667870036101,
+    "4463": 31.25,
+    "5417": 50.90909090909091,
+    "7715": 60.24305555555556,
+    "1304": 58.04828973843058,
+    "7405": 63.03939962476548,
+    "1653": 52.513966480446925,
+    "7601": 76.09451007644198,
+    "4013": 43.84615384615385,
+    "3609": 80.41504539559014,
+    "7028": 55.50239234449761,
+    "5023": 74.22096317280453,
+    "2005": 58.333333333333336,
+    "2643": 70.72892938496584,
+    "3748": 65.8905704307334,
+    "7603": 74.02323125659979,
+    "4304": 34.55019556714472,
+    "2682": 70.39922103213242,
+    "6530": 61.12730806608357,
+    "2737": 30.976430976430976,
+    "1333": 60.45627376425855,
+    "4506": 44.6927374301676,
+    "4011": 48.275862068965516,
+    "2752": 38.17204301075269,
+    "1356": 59.78428351309707,
+    "5563": 40.569395017793596,
+    "5589": 70.54263565891473,
+    "5425": 49.63636363636363,
+    "4024": 37.01298701298701,
+    "5583": 41.02564102564102,
+    "7079": 44.412607449856736,
+    "4553": 44.11764705882353,
+    "4613": 32.55813953488372,
+    "6632": 64.64088397790056,
+    "5504": 56.416464891041166,
+    "4027": 39.94565217391305,
+    "5603": 61.44578313253012,
+    "6545": 57.40365111561866,
+    "2633": 66.66666666666666,
+    "3757": 75.0,
+    "7625": 63.81461675579323,
+    "2611": 58.4,
+    "2457": 64.03508771929825,
+    "6490": 62.17054263565891,
+    "2417": 42.10526315789473,
+    "5045": 51.34228187919463,
+    "1336": 47.5,
+    "5405": 46.781789638932494,
+    "6036": 63.16397228637414,
+    "3435": 60.60279870828849,
+    "6706": 60.671462829736214,
+    "5569": 56.14035087719298,
+    "3732": 60.47565118912798,
+    "4423": 47.868852459016395,
+    "6526": 69.96904024767801,
+    "5597": 43.40659340659341,
+    "6727": 68.40731070496084,
+    "4597": 32.592592592592595,
+    "2666": 54.054054054054056,
+    "2046": 48.226950354609926,
+    "6710": 48.14004376367615,
+    "2605": 66.89419795221842,
+    "2015": 50.98389982110913,
+    "1390": 58.80281690140845,
+    "2082": 68.26801517067004,
+    "3546": 63.85630498533724,
+    "5624": 56.27705627705628,
+    "1619": 60.05665722379604,
+    "2622": 70.38461538461539,
+    "5395": 69.35483870967742,
+    "1680": 60.87662337662337,
+    "4417": 52.1505376344086,
+    "3043": 45.892351274787536,
+    "6499": 60.73871409028728,
+    "2053": 82.62350936967631,
+    "1396": 55.67129629629629,
+    "6467": 65.06550218340611,
+    "1679": 68.97435897435898,
+    "6527": 63.63636363636363,
+    "5372": 40.66496163682864,
+    "2007": 72.636815920398,
+    "7403": 59.75,
+    "4032": 52.46376811594203,
+    "3045": 56.02605863192183,
+    "5571": 51.95729537366548,
+    "3030": 62.285012285012286,
+    "2037": 68.83996613039797,
+    "7311": 59.13461538461539,
+    "2054": 66.29353233830845,
+    "1685": 68.53146853146853,
+    "3604": 53.333333333333336,
+    "3058": 60.72507552870091,
+    "3717": 72.07920792079207,
+    "2028": 52.96875,
+    "5005": 41.10275689223057,
+    "6528": 68.08510638297872,
+    "4586": 41.89636163175303,
+    "2726": 89.87566607460036,
+    "3059": 62.36842105263158,
+    "7509": 38.961038961038966,
+    "3544": 67.0608108108108,
+    "7059": 65.32438478747203,
+    "3793": 63.27433628318584,
+    "2717": 44.53125,
+    "5022": 32.02614379084967,
+    "1330": 73.73595505617978,
+    "6016": 55.8599695585997,
+    "3764": 54.253112033195016,
+    "7705": 65.03340757238307,
+    "1632": 59.036144578313255,
+    "6610": 66.33663366336634,
+    "3366": 63.58839050131926,
+    "7415": 61.66842661034847,
+    "1660": 61.111111111111114,
+    "6001": 63.26530612244898,
+    "4037": 33.61344537815126,
+    "3606": 62.857142857142854,
+    "2073": 56.58783783783784,
+    "5584": 29.411764705882355,
+    "1354": 53.03186022610483,
+    "5007": 40.419947506561684,
+    "2023": 49.549549549549546,
+    "7402": 58.93060295790671,
+    "7057": 66.4850136239782,
+    "5049": 54.67289719626168,
+    "1682": 55.89622641509434,
+    "6538": 56.256463288521196,
+    "5031": 39.04555314533623,
+    "1328": 56.70731707317073,
+    "2074": 46.61885245901639,
+    "6609": 58.79446640316206,
+    "7019": 69.35933147632312,
+    "3464": 67.10059171597634,
+    "2086": 38.71866295264624,
+    "1353": 55.85714285714286,
+    "5330": 47.50356633380884,
+    "7592": 71.10055423594616,
+    "3022": 65.57835820895522,
+    "4623": 55.51537070524412,
+    "5030": 54.80225988700565,
+    "1613": 61.102603369065854,
+    "2651": 63.172541743970314,
+    "1517": 70.6280193236715,
+    "5025": 70.63106796116504,
+    "6469": 61.142322097378276,
+    "6154": 69.39999999999999,
+    "6656": 60.273972602739725,
+    "2704": 70.27027027027027,
+    "7040": 69.23076923076923,
+    "3740": 70.53517739025857,
+    "2014": 47.474747474747474,
+    "1341": 59.61331901181526,
+    "3152": 81.08108108108108,
+    "6625": 66.3907284768212,
+    "4044": 42.62086513994911,
+    "5556": 77.00915564598169,
+    "5324": 59.51742627345844,
+    "2440": 66.46586345381526,
+    "2399": 47.0668485675307,
+    "5625": 55.57432432432432,
+    "3383": 68.40796019900498,
+    "7569": 68.48484848484848,
+    "3729": 61.240310077519375,
+    "6522": 66.93037974683544,
+    "6547": 58.20689655172414,
+    "5578": 49.7093023255814,
+    "3765": 54.700854700854705,
+    "4585": 38.967136150234744,
+    "6009": 64.5224171539961,
+    "5622": 50.480769230769226,
+    "1700": 56.117290192113245,
+    "3006": 71.1864406779661,
+    "5024": 77.85058977719528,
+    "5530": 76.68562144597888,
+    "3540": 84.75336322869956,
+    "6042": 58.529411764705884,
+    "7341": 57.92349726775956,
+    "7643": 65.7393850658858,
+    "4414": 54.441913439635535,
+    "3021": 60.67172264355363,
+    "5008": 42.888888888888886,
+    "3576": 65.98039215686275,
+    "5012": 43.1438127090301,
+    "6046": 65.29209621993127,
+    "2049": 56.26566416040101,
+    "2743": 49.633967789165446,
+    "5593": 49.90958408679928,
+    "6681": 68.85644768856449,
+    "2746": 56.9620253164557,
+    "2055": 72.9641693811075,
+    "4590": 23.88059701492537,
+    "2464": 49.77973568281938,
+    "7652": 71.8381112984823,
+    "1335": 64.29980276134121,
+    "5017": 52.94117647058824,
+    "7001": 51.891891891891895,
+    "2711": 67.13615023474179,
+    "7414": 58.91089108910891,
+    "2067": 65.18218623481782,
+    "7012": 47.864506627393226,
+    "7595": 85.15463917525773,
+    "3391": 61.787564766839374,
+    "2654": 69.5861405197305,
+    "4022": 46.82080924855491,
+    "5591": 46.05263157894737,
+    "2021": 47.72727272727273,
+    "2606": 49.942462600690455,
+    "3602": 60.71817192600653,
+    "5002": 41.49484536082475,
+    "3565": 65.94746716697935,
+    "7417": 59.80746089049338,
+    "3373": 62.214199759326114,
+    "5046": 44.02810304449648,
+    "7545": 81.57248157248156,
+    "1689": 58.19935691318327,
+    "1010": 48.598130841121495,
+    "4010": 51.92644483362522,
+    "3217": 61.011419249592166,
+    "6731": 60.33789219629928,
+    "1344": 57.082452431289646,
+    "2733": 45.60669456066946,
+    "2088": 37.08487084870848,
+    "7730": 59.68882602545968,
+    "1668": 64.85355648535564,
+    "6704": 55.21472392638037,
+    "3370": 55.95026642984015,
+    "3557": 63.58099878197321,
+    "1514": 70.95890410958904,
+    "6717": 66.27534685165422,
+    "2645": 78.33333333333333,
+    "3414": 66.73960612691467,
+    "3547": 68.5022026431718,
+    "7634": 64.59537572254335,
+    "2372": 52.071823204419886,
+    "5003": 58.06451612903226,
+    "7683": 63.141025641025635,
+    "7614": 63.78174976481655,
+    "3762": 52.219321148825074,
+    "2473": 93.89880952380952,
+    "1334": 60.25039123630673,
+    "6728": 74.03574788334902,
+    "7507": 53.699284009546545,
+    "1609": 62.46786632390745,
+    "7604": 77.63289869608826,
+    "2614": 66.69683257918551,
+    "4028": 14.759036144578314,
+    "5001": 38.613861386138616,
+    "2047": 55.203619909502265,
+    "6497": 61.83510638297872,
+    "4502": 49.056603773584904,
+    "3014": 63.30275229357798,
+    "3754": 50.46382189239333,
+    "7036": 63.25088339222616,
+    "3039": 49.09090909090909,
+    "7410": 61.80555555555556,
+    "3781": 61.02088167053365,
+    "1664": 66.57060518731988,
+    "6741": 65.57788944723619,
+    "7004": 54.57627118644067,
+    "5018": 44.64944649446495,
+    "6652": 62.99862448418156,
+    "7522": 53.071895424836605,
+    "4017": 15.610859728506787,
+    "5020": 40.14598540145985,
+    "7312": 43.653250773993804,
+    "3018": 63.57285429141717,
+    "7501": 50.877192982456144,
+    "1009": 67.37044145873321,
+    "6734": 61.42433234421365,
+    "2080": 81.81818181818183,
+    "5585": 37.94466403162055,
+    "1005": 62.1978021978022,
+    "5531": 71.28712871287128,
+    "6062": 58.2905982905983,
+    "1348": 63.16725978647687,
+    "1039": 67.25317693059628,
+    "7651": 61.29441624365482,
+    "2387": 53.32512315270937,
+    "2631": 64.70588235294117,
+    "6517": 61.7096018735363,
+    "3587": 69.95073891625616,
+    "6658": 66.74556213017752,
+    "2479": 51.732377538829155,
+    "7665": 61.55890168290522,
+    "6468": 63.518299881936244,
+    "2444": 59.49367088607595,
+    "3064": 70.08547008547008,
+    "3034": 55.68181818181818,
+    "5323": 44.801223241590215,
+    "1012": 69.63434022257552,
+    "2730": 47.56756756756757,
+    "1004": 47.94871794871795,
+    "3027": 63.44755970924195,
+    "3048": 86.27450980392157,
+    "2065": 65.8119658119658,
+    "1346": 68.15352697095436,
+    "3071": 74.09836065573771,
+    "4387": 38.04034582132565,
+    "2077": 47.97507788161994,
+    "6015": 57.330415754923415,
+    "1633": 43.56435643564357,
+    "7097": 47.963800904977376,
+    "7675": 69.39890710382514,
+    "4541": 41.61931818181818,
+    "7024": 73.47560975609755,
+    "5013": 42.59818731117825,
+    "6509": 72.2554890219561,
+    "3766": 68.46950517836594,
+    "4421": 51.48936170212765,
+    "2032": 44.29530201342282,
+    "2009": 56.75675675675676,
+    "7021": 52.0,
+    "3074": 48.29931972789115,
+    "1411": 66.03015075376885,
+    "3417": 57.58468335787923,
+    "1006": 55.91572123176661,
+    "6057": 55.35714285714286,
+    "1625": 55.94512195121951,
+    "3800": 60.701438848920866,
+    "1525": 63.17204301075269,
+    "7047": 56.564245810055866,
+    "6695": 62.71008403361344,
+    "7512": 47.30538922155689,
+    "1352": 52.093023255813954,
+    "7041": 76.04790419161677,
+    "6693": 56.01965601965602,
+    "2449": 60.23952095808384,
+    "7553": 77.10547833197057,
+    "3747": 63.22008862629247,
+    "3009": 56.63265306122449,
+    "7411": 54.874651810584965,
+    "4650": 30.526315789473685,
+    "5040": 49.404761904761905,
+    "7023": 50.955414012738856,
+    "1677": 65.0,
+    "2360": 42.56120527306968,
+    "6493": 65.18987341772153,
+    "1318": 55.09090909090909,
+    "2011": 57.95148247978437,
+    "3050": 78.44155844155844,
+    "3787": 63.52941176470588,
+    "7334": 52.29681978798587,
+    "7531": 49.361702127659576,
+    "7500": 64.19529837251356,
+    "6018": 70.44776119402985,
+    "7361": 77.64084507042254,
+    "6736": 59.8159509202454,
+    "7042": 72.66949152542372,
+    "2511": 46.98795180722892,
+    "3392": 66.0,
+    "4000": 42.152466367713004,
+    "7674": 69.53271028037383,
+    "6753": 63.24528301886792,
+    "2003": 56.59574468085107,
+    "3361": 59.885931558935354,
+    "3061": 44.54545454545455,
+    "4018": 67.40331491712708,
+    "3763": 62.01550387596899,
+    "6657": 67.10526315789474,
+    "3382": 63.94485683987274,
+    "7513": 45.91836734693878,
+    "4415": 23.954372623574145,
+    "6017": 62.60069044879172,
+    "3705": 66.73596673596674,
+    "4548": 32.298136645962735,
+    "1717": 67.3913043478261,
+    "7526": 46.85314685314685,
+    "5501": 73.59050445103857,
+    "4043": 40.090090090090094,
+    "6675": 71.0758377425044,
+    "5652": 78.25,
+    "6715": 65.0485436893204,
+    "7058": 56.92307692307692,
+    "3418": 66.43835616438356,
+    "7527": 46.111111111111114,
+    "4529": 38.17330210772833,
+    "4508": 25.736738703339885,
+    "4512": 46.0880195599022,
+    "1000": 62.7906976744186,
+    "2008": 62.73170731707317,
+    "3040": 71.07231920199501,
+    "1038": 63.20346320346321,
+    "1688": 58.294930875576036,
+    "3613": 51.653944020356235,
+    "7003": 61.35265700483091,
+    "7663": 65.814696485623,
+    "6014": 64.98740554156171,
+    "4564": 37.68115942028986,
+    "3724": 56.37513171759747,
+    "7691": 63.5280095351609,
+    "4422": 49.72451790633609,
+    "5577": 54.0,
+    "4555": 39.33649289099526,
+    "7060": 62.80120481927711,
+    "1651": 64.39957492029755,
+    "2445": 54.13533834586466,
+    "4550": 23.376623376623375,
+    "2751": 45.45454545454545,
+    "4562": 42.04946996466431,
+    "4309": 22.966507177033492,
+    "2072": 77.27272727272727,
+    "6007": 66.72212978369384,
+    "1007": 53.724053724053725,
+    "4591": 17.94871794871795,
+    "4400": 41.80522565320665,
+    "4306": 30.909090909090907,
+    "4559": 42.44031830238727,
+    "6037": 60.98535286284953,
+    "7624": 62.61467889908256,
+    "6011": 63.73626373626373,
+    "4583": 45.25222551928783,
+    "4716": 41.06194690265487,
+    "4036": 31.476997578692494,
+    "7378": 68.87351778656127,
+    "7039": 67.78443113772455,
+    "3771": 55.62700964630225,
+    "2632": 65.9090909090909,
+    "4528": 33.89830508474576,
+    "6738": 61.10019646365422,
+    "4573": 30.357142857142854,
+    "7714": 49.78540772532189,
+    "7355": 70.10159651669086,
+    "4540": 30.23255813953488,
+    "3769": 62.96296296296296,
+    "5633": 54.037267080745345,
+    "4031": 13.043478260869565,
+    "4007": 55.1219512195122,
+    "3072": 58.333333333333336,
+    "2025": 39.578947368421055,
+    "4402": 42.201834862385326,
+    "6751": 62.0,
+    "5560": 50.56179775280899,
+    "1063": 60.952380952380956,
+    "6707": 59.756097560975604,
+    "3730": 59.11251980982567,
+    "4413": 62.03966005665722,
+    "5543": 36.708860759493675,
+    "2036": 46.326836581709145,
+    "1368": 57.868020304568525,
+    "4035": 34.44444444444444,
+    "7684": 59.53488372093023,
+    "4009": 49.034749034749034,
+    "4566": 31.645569620253166,
+    "7524": 52.72727272727272,
+    "2469": 91.46341463414635,
+    "6718": 56.82226211849192,
+    "3773": 51.4792899408284,
+    "4008": 46.308724832214764,
+    "3780": 66.82692307692307,
+    "4021": 52.0,
+    "3003": 56.16113744075829,
+    "2004": 59.10290237467019,
+    "4504": 35.21400778210117,
+    "7366": 63.312368972746334,
+    "1327": 57.95275590551181,
+    "4046": 65.28189910979229,
+    "4411": 49.79338842975206,
+    "4641": 57.99999999999999,
+    "6705": 45.0,
+    "5634": 50.78125,
+    "2501": 88.46153846153845,
+    "1389": 65.88235294117646,
+    "2480": 51.008645533141205,
+    "5612": 49.780380673499266,
+    "6012": 69.66666666666667,
+    "7017": 64.70588235294117,
+    "4045": 42.94871794871795,
+    "3583": 65.09433962264151,
+    "5037": 79.25478348439073,
+    "5038": 56.19047619047619,
+    "6742": 69.54643628509719,
+    "7552": 78.48557692307693,
+    "1394": 69.87951807228916,
+    "5547": 91.35802469135803,
+    "7015": 72.8395061728395,
+    "7528": 47.77327935222672,
+    "7582": 70.46263345195729,
+    "1719": 75.83333333333333,
+    "6003": 72.72727272727273,
+    "7056": 59.51417004048582,
+    "7641": 69.02173913043478,
+    "2720": 38.88888888888889,
+    "1674": 68.16479400749064,
+    "1510": 76.68711656441718,
+    "6004": 68.94409937888199,
+    "1016": 61.386138613861384,
+    "1307": 59.031413612565444,
+    "1672": 63.536463536463536,
+    "1696": 60.08869179600887,
+    "7726": 41.9753086419753,
+    "7430": 66.2303664921466,
+    "5550": 71.01910828025477,
+    "2045": 62.758620689655174,
+    "7542": 66.66666666666666,
+    "6600": 66.82027649769586,
+    "7053": 45.06172839506173,
+    "7562": 79.02222222222223,
+    "5042": 65.91928251121077,
+    "7052": 12.5,
+    "7006": 53.383458646616546,
+    "6431": 56.63716814159292,
+    "6030": 60.37735849056604,
+    "6666": 62.79585798816568,
+    "7022": 42.51497005988024,
+    "6488": 69.44444444444444,
+    "7654": 60.78431372549019,
+    "7332": 48.61995753715499,
+    "7044": 70.0,
+    "1384": 51.5625,
+    "1343": 74.46808510638297,
+    "2013": 42.7906976744186,
+    "7037": 56.158663883089766,
+    "1695": 74.94456762749445,
+    "2725": 92.5925925925926,
+    "7523": 56.00000000000001,
+    "7622": 65.70048309178745,
+    "1351": 55.13698630136986,
+    "7515": 60.86956521739131,
+    "2016": 76.5625,
+    "6713": 57.003891050583654,
+    "7707": 75.60975609756098,
+    "7011": 70.58823529411765,
+    "1349": 59.05096660808435,
+    "6487": 79.24528301886792,
+    "1706": 50.0,
+    "3036": 66.05080831408776,
+    "7007": 52.53863134657837,
+    "1074": 71.07231920199501,
+    "6539": 60.36363636363637,
+    "3057": 80.0,
+    "2040": 61.111111111111114,
+    "2466": 76.58227848101265,
+    "5029": 52.29007633587786,
+    "6045": 57.90671217292378,
+    "6038": 59.42622950819673,
+    "3062": 57.482185273159146,
+    "3605": 78.52760736196319,
+    "1072": 83.72093023255815,
+    "5545": 42.19653179190752,
+    "6533": 59.24050632911393,
+    "2030": 47.839506172839506,
+    "6719": 61.16642958748222,
+    "3564": 77.31092436974791,
+    "5542": 35.2112676056338,
+    "6031": 53.191489361702125,
+    "4633": 51.28205128205128,
+    "6750": 53.93474088291747,
+    "1605": 50.13054830287206,
+    "1751": 81.34556574923548,
+    "2060": 63.34661354581673,
+    "7030": 59.29203539823009,
+    "3727": 68.01040312093627,
+    "2052": 80.55555555555556,
+    "6041": 48.214285714285715,
+    "6034": 50.91575091575091,
+    "1067": 74.54545454545455,
+    "6492": 61.14864864864865,
+    "5635": 47.44897959183674,
+    "2010": 68.18181818181817,
+    "5403": 43.05555555555556,
+    "3038": 40.0,
+    "4034": 41.6,
+    "7034": 55.932203389830505,
+    "5615": 54.807692307692314,
+    "2709": 69.71608832807571,
+    "4001": 51.37614678899083,
+    "4069": 75.0,
+    "1621": 56.27009646302251,
+    "5039": 30.0,
+    "6498": 78.21782178217822,
+    "2465": 85.42024013722127,
+    "5581": 35.858585858585855,
+    "2673": 82.6086956521739,
+    "4420": 48.51485148514851,
+    "2079": 81.36645962732919,
+    "4002": 65.9090909090909,
+    "6043": 60.9375,
+    "1750": 72.93729372937293,
+    "3710": 71.48288973384031,
+    "6032": 58.22222222222222,
+    "2019": 69.23076923076923,
+    "3069": 39.285714285714285,
+    "4012": 55.0561797752809,
+    "1011": 53.333333333333336,
+    "6471": 56.26598465473146,
+    "2384": 60.15625,
+    "2731": 85.78811369509044,
+    "3033": 48.57142857142857,
+    "3067": 85.41666666666666,
+    "3709": 73.38129496402878,
+    "3041": 36.0,
+    "5028": 84.61538461538461,
+    "4006": 85.71428571428571,
+    "4434": 71.42857142857143,
+    "2693": 69.81132075471697,
+    "5041": 56.09756097560976,
+    "4638": 41.17647058823529,
+    "2775": 83.41772151898735,
+    "2477": 79.12087912087912,
+    "1753": 82.22222222222221,
+    "6000": 86.95652173913044,
+    "3753": 39.743589743589745,
+    "3700": 62.22222222222222,
+    "3056": 75.67567567567568,
+    "2081": 81.81818181818183,
+    "3736": 88.88888888888889,
+    "3714": 78.57142857142857,
+    "3535": 85.71428571428571,
+    "2602": 69.81132075471697,
+    "3713": 37.93103448275862,
+    "2601": 95.0,
+    "2056": 92.7536231884058,
+    "2642": 90.56603773584906,
+    "2029": 39.285714285714285,
+    "2676": 72.72727272727273,
+    "2002": 85.71428571428571,
+    "3786": 92.3076923076923,
+    "3066": 62.06896551724138,
+    "3065": 56.25,
+    "3767": 93.75,
+    "3578": 72.41379310344827,
+    "2684": 89.47368421052632,
+    "2696": 85.0,
+    "2691": 100.0,
+    "4612": 38.46153846153847,
+    "6673": 68.96551724137932
+  }
+}
