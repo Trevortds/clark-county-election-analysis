@@ -4,6 +4,16 @@
  */
 import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
 
+// Cached Tabulator Processing for Rolling Average
+let cachedRollingAverageTabulatorVoteCounts = null;
+let cachedRollingAverageTabulatorArray = null;
+
+// Cache management functions
+export function clearRollingAverageCache() {
+    cachedRollingAverageTabulatorVoteCounts = null;
+    cachedRollingAverageTabulatorArray = null;
+}
+
 /**
  * Process scatter data to create rolling average data
  * @param {Array} scatterData - Scatter data with vote_history arrays
@@ -11,43 +21,88 @@ import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm"
  * @returns {Array} - Array with processed rolling average data points
  */
 export function processRollingAverageData(scatterData, windowSize) {
+    const startTime = performance.now();
+    
     // Create rolling average data from vote_history arrays
     const rollingAverageData = [];
+    
+    const processingStart = performance.now();
+    
+    let processedItems = 0;
+    let skippedItems = 0;
+    let totalVotePoints = 0;
     
     scatterData.forEach(item => {
         // Skip if vote_history is missing
         if (!item.vote_history || !Array.isArray(item.vote_history)) {
+            skippedItems++;
             return;
         }
         
         // Skip if the vote history is shorter than the window size
         if (item.vote_history.length < windowSize) {
+            skippedItems++;
             return;
         }
         
-        // Process vote history to calculate rolling averages
+        processedItems++;
+        totalVotePoints += item.vote_history.length - windowSize + 1;
+        
+        // Sliding window optimization: Calculate initial window sum
+        let trumpVotesInWindow = 0;
+        for (let j = 0; j < windowSize; j++) {
+            if (item.vote_history[j] === 1) {
+                trumpVotesInWindow++;
+            }
+        }
+        
+        // Initialize urban vote count for cumulative calculation
+        let urbanVoteCount = 0;
+        if (item.urban_voter && Array.isArray(item.urban_voter)) {
+            for (let j = 0; j < windowSize; j++) {
+                if (item.urban_voter[j] === 1) {
+                    urbanVoteCount++;
+                }
+            }
+        }
+        
+        // Process vote history using sliding window
         for (let i = windowSize - 1; i < item.vote_history.length; i++) {
-            // Calculate sum of Trump votes in the window
-            let trumpVotesInWindow = 0;
-            for (let j = i - (windowSize - 1); j <= i; j++) {
-                if (item.vote_history[j] === 1) {
+            // For positions after the first window, update the sliding window
+            if (i >= windowSize) {
+                // Remove the vote that's sliding out of the window
+                const exitingVoteIndex = i - windowSize;
+                if (item.vote_history[exitingVoteIndex] === 1) {
+                    trumpVotesInWindow--;
+                }
+                
+                // Add the new vote that's entering the window
+                if (item.vote_history[i] === 1) {
                     trumpVotesInWindow++;
+                }
+                
+                // Update urban vote count for cumulative calculation
+                if (item.urban_voter && Array.isArray(item.urban_voter)) {
+                    if (item.urban_voter[i] === 1) {
+                        urbanVoteCount++;
+                    }
+                }
+            } else {
+                // For the first window position, add the current vote to urban count
+                if (item.urban_voter && Array.isArray(item.urban_voter) && item.urban_voter[i] === 1) {
+                    // Urban count was already calculated above for the initial window
+                    // Just need to ensure we have the right count for position i
+                    urbanVoteCount = 0;
+                    for (let j = 0; j <= i; j++) {
+                        if (item.urban_voter[j] === 1) {
+                            urbanVoteCount++;
+                        }
+                    }
                 }
             }
             
             // Calculate rolling average as percentage
             const rollingAverage = (trumpVotesInWindow / windowSize) * 100;
-            
-            // Calculate cumulative urban percentage if urban_voter array exists
-            let urbanVoteCount = 0;
-            if (item.urban_voter && Array.isArray(item.urban_voter)) {
-                // Count urban votes up to current index
-                for (let j = 0; j <= i; j++) {
-                    if (item.urban_voter[j] === 1) {
-                        urbanVoteCount++;
-                    }
-                }
-            }
             
             // Calculate cumulative urban percentage
             const cumulativeUrbanPercentage = item.urban_voter ? 
@@ -70,6 +125,10 @@ export function processRollingAverageData(scatterData, windowSize) {
         }
     });
     
+    const processingTime = performance.now() - processingStart;
+    
+    const totalTime = performance.now() - startTime;
+    
     return rollingAverageData;
 }
 
@@ -80,6 +139,7 @@ export function processRollingAverageData(scatterData, windowSize) {
  * @param {Object} options - Configuration options
  */
 export function createRollingAveragePlot(containerId, scatterData, options = {}) {
+    
     const { 
         colorMode = 'binary', 
         lineCount = '50', 
@@ -98,23 +158,36 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
     // Limit the number of tabulators to display if needed
     let tabulatorsToDisplay = uniqueTabulators;
     if (lineCount !== 'all') {
-        // Count votes per tabulator
-        const tabulatorVoteCounts = {};
-        rollingAverageData.forEach(point => {
-            if (!tabulatorVoteCounts[point.tabulator]) {
-                tabulatorVoteCounts[point.tabulator] = 0;
-            }
-            tabulatorVoteCounts[point.tabulator] = Math.max(
-                tabulatorVoteCounts[point.tabulator], 
-                point.total_votes
-            );
-        });
+        // Use cached tabulator vote counts if available
+        let tabulatorVoteCounts, tabulatorArray;
         
-        // Convert to array for sorting or random selection
-        const tabulatorArray = Object.entries(tabulatorVoteCounts).map(([tabulator, voteCount]) => ({
-            tabulator,
-            voteCount
-        }));
+        if (cachedRollingAverageTabulatorVoteCounts && cachedRollingAverageTabulatorArray) {
+            tabulatorVoteCounts = cachedRollingAverageTabulatorVoteCounts;
+            tabulatorArray = cachedRollingAverageTabulatorArray;
+        } else {
+            // Count votes per tabulator
+            
+            tabulatorVoteCounts = {};
+            rollingAverageData.forEach(point => {
+                if (!tabulatorVoteCounts[point.tabulator]) {
+                    tabulatorVoteCounts[point.tabulator] = 0;
+                }
+                tabulatorVoteCounts[point.tabulator] = Math.max(
+                    tabulatorVoteCounts[point.tabulator], 
+                    point.total_votes
+                );
+            });
+            
+            // Convert to array for sorting or random selection
+            tabulatorArray = Object.entries(tabulatorVoteCounts).map(([tabulator, voteCount]) => ({
+                tabulator,
+                voteCount
+            }));
+            
+            // Cache the results
+            cachedRollingAverageTabulatorVoteCounts = tabulatorVoteCounts;
+            cachedRollingAverageTabulatorArray = [...tabulatorArray]; // Create a copy for caching
+        }
         
         if (selectionMethod === 'longest') {
             // Sort by vote count (descending) and take the top N
@@ -125,9 +198,10 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
         } else if (selectionMethod === 'random') {
             // Use previously selected random tabulators if available (to preserve selection when window size changes)
             if (selectedRandomTabulators && selectedRandomTabulators.length > 0) {
-                console.log('Using preserved random selection');
+                console.log('Using preserved random selection:', selectedRandomTabulators.length, 'tabulators');
                 tabulatorsToDisplay = selectedRandomTabulators;
             } else {
+                console.log('Randomly selecting', lineCount, 'tabulators');
                 // Shuffle the array using Fisher-Yates algorithm
                 for (let i = tabulatorArray.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -142,14 +216,18 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
                 // Save the random selection for future use
                 if (window.setSelectedRandomTabulators) {
                     window.setSelectedRandomTabulators(tabulatorsToDisplay);
+                    console.log('Saved random selection for future use');
                 }
             }
         }
     }
     
-    // Filter data to only include selected tabulators
+    
+    // Use Set for O(1) lookup instead of Array.includes() which is O(n)
+    const tabulatorSet = new Set(tabulatorsToDisplay);
+    
     let filteredData = rollingAverageData.filter(point => 
-        tabulatorsToDisplay.includes(point.tabulator)
+        tabulatorSet.has(point.tabulator)
     );
     
     // Apply fake data manipulation if the toggle is enabled
@@ -184,7 +262,59 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
         
         // Flatten the groups back to a single array
         filteredData = Object.values(tabulatorGroups).flat();
-    }
+        }
+    
+    // Data sampling optimization for large datasets
+    let sampledData = filteredData;
+    const maxPointsPerLine = 100; // Reasonable limit for smooth visualization
+    
+    // Group data by tabulator for sampling
+    const dataByTabulator = {};
+    filteredData.forEach(point => {
+        if (!dataByTabulator[point.tabulator]) {
+            dataByTabulator[point.tabulator] = [];
+        }
+        dataByTabulator[point.tabulator].push(point);
+    });
+    
+    // Sample each tabulator's data if it's too large
+    const sampledDataByTabulator = {};
+    let totalOriginalPoints = 0;
+    let totalSampledPoints = 0;
+    
+    Object.keys(dataByTabulator).forEach(tabulator => {
+        const tabulatorData = dataByTabulator[tabulator];
+        totalOriginalPoints += tabulatorData.length;
+        
+        if (tabulatorData.length <= maxPointsPerLine) {
+            // Keep all data if under limit
+            sampledDataByTabulator[tabulator] = tabulatorData;
+            totalSampledPoints += tabulatorData.length;
+        } else {
+            // Sample data using uniform sampling
+            const step = Math.floor(tabulatorData.length / maxPointsPerLine);
+            const sampled = [];
+            
+            // Always include first and last points
+            sampled.push(tabulatorData[0]);
+            
+            // Sample intermediate points
+            for (let i = step; i < tabulatorData.length - step; i += step) {
+                sampled.push(tabulatorData[i]);
+            }
+            
+            // Always include the last point
+            if (tabulatorData.length > 1) {
+                sampled.push(tabulatorData[tabulatorData.length - 1]);
+            }
+            
+            sampledDataByTabulator[tabulator] = sampled;
+            totalSampledPoints += sampled.length;
+        }
+    });
+    
+    // Flatten back to single array
+    sampledData = Object.values(sampledDataByTabulator).flat();
     
     // Helper function to calculate maximum votes without using spread operator
     function calculateMaxVotes(data) {
@@ -196,6 +326,9 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
         }
         return max;
     }
+    
+    // Use sampled data for max calculation
+    const maxVotes = calculateMaxVotes(sampledData);
     
     // Configure line color based on color mode
     let colorConfig = {};
@@ -230,23 +363,27 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
         };
     }
     
-    // Create the plot
+    // Create the plot    
     const plot = Plot.plot({
         width: 800,
         height: 500,
         marginBottom: 50,
         marginLeft: 60,
+        // Use canvas for better performance with large datasets
+        style: {
+            background: "white"
+        },
         title: fakeDataMode ? 
             `SIMULATED FRAUD SCENARIO - Rolling Average (Window Size: ${windowSize}) of Trump Votes` :
             `Rolling Average (Window Size: ${windowSize}) of Trump Votes by Tabulator`,
         subtitle: fakeDataMode ?
-            `FAKE DATA - NOT REAL - ${filteredData.length} data points, ${tabulatorsToDisplay.length} machines` :
-            `${filteredData.length} data points, ${tabulatorsToDisplay.length} machines`,
+            `FAKE DATA - NOT REAL - ${sampledData.length} sampled from ${filteredData.length} points, ${tabulatorsToDisplay.length} machines` :
+            `${sampledData.length} sampled from ${filteredData.length} points, ${tabulatorsToDisplay.length} machines`,
         color: colorConfig,
         x: {
             label: "Total Votes Counted",
             grid: true,
-            domain: lineCount === 'all' ? [0, 1250] : [0, calculateMaxVotes(filteredData) * 1.05]
+            domain: lineCount === 'all' ? [0, 1250] : [0, maxVotes * 1.05]
         },
         y: {
             label: `Trump % (${windowSize}-Vote Rolling Average)`,
@@ -256,18 +393,18 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
         marks: [
             // Add a reference line at 50%
             Plot.ruleY([50], {stroke: "#888", strokeWidth: 1, strokeDasharray: "4,4"}),
-            // Add the rolling average lines (these will be manipulated by D3 for highlighting)
-            Plot.line(filteredData, {
+            // Add the rolling average lines using sampled data
+            Plot.line(sampledData, {
                 x: "total_votes",
                 y: "rolling_average",
                 z: "tabulator", // Group by tabulator to create one line per tabulator
                 ...lineConfig,
                 strokeWidth: 1.5,
-                strokeOpacity: 0.7,
+                strokeOpacity: 0.8, // Slightly more transparent for better performance
             }),
             
-            // Add a dot to show exactly which point is being hovered
-            Plot.dot(filteredData, {
+            // Add a dot to show exactly which point is being hovered using sampled data
+            Plot.dot(sampledData, {
                 x: "total_votes",
                 y: "rolling_average",
                 r: 5,
@@ -277,11 +414,11 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
                 filter: Plot.pointerX({x: "total_votes", y: "rolling_average"})
             }),
             
-            // Add dots at the end points for each tabulator
+            // Add dots at the end points for each tabulator using sampled data
             Plot.dot(
-                // Get the last point for each tabulator
+                // Get the last point for each tabulator from sampled data
                 Object.values(
-                    filteredData.reduce((acc, point) => {
+                    sampledData.reduce((acc, point) => {
                         acc[point.tabulator] = point;
                         return acc;
                     }, {})
@@ -306,7 +443,6 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
     container.appendChild(plot);
     
     // Add D3-based line highlighting behavior
-    // Wait for the plot to be fully rendered
     setTimeout(() => {
         if (typeof d3 === 'undefined') {
             console.warn('D3 is not available. Line highlighting will not work.');
@@ -325,9 +461,6 @@ export function createRollingAveragePlot(containerId, scatterData, options = {})
                 // Typically, the endpoint dots are in the last mark group
                 endpointDots = d3.select(plot).selectAll('g.mark:last-child circle');
             }
-            
-            // Log what we found for debugging
-            console.log(`Found ${paths.size()} paths and ${endpointDots.size()} endpoint dots in the plot`);
             
             // Filter to only include the paths that are part of our line chart
             // This helps exclude axis lines and other non-data paths

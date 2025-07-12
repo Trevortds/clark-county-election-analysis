@@ -4,6 +4,28 @@
  */
 import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
 
+// Cached Data Loader
+let cachedGameHistoryData = null;
+
+// Cached Tabulator Processing
+let cachedTabulatorVoteCounts = null;
+let cachedTabulatorArray = null;
+
+// Cache management functions
+export function clearGameHistoryCache() {
+    cachedGameHistoryData = null;
+    cachedTabulatorVoteCounts = null;
+    cachedTabulatorArray = null;
+}
+
+function getGameHistoryData(scatterData) {
+    if (cachedGameHistoryData) {
+        return cachedGameHistoryData;
+    }
+    cachedGameHistoryData = processGameHistoryData(scatterData);
+    return cachedGameHistoryData;
+}   
+
 /**
  * Process scatter data to create game history data
  * @param {Array} scatterData - Scatter data with vote_history and urban_voter arrays
@@ -76,34 +98,54 @@ export function processGameHistoryData(scatterData) {
  * @param {Object} options - Configuration options
  */
 export function createGameHistoryPlot(containerId, scatterData, options = {}) {
+    const startTime = performance.now();
     const { colorMode = 'binary', lineCount = '50', selectionMethod = 'longest' } = options;
     
     // Process the data using the vote_history arrays
-    const gameHistoryData = processGameHistoryData(scatterData);
+    const dataProcessingStart = performance.now();
+    const gameHistoryData = getGameHistoryData(scatterData);
+    const dataProcessingTime = performance.now() - dataProcessingStart;
     
     // Get a list of unique tabulators
+    const tabulatorProcessingStart = performance.now();
     const uniqueTabulators = [...new Set(gameHistoryData.map(item => item.tabulator))];
     
     // Limit the number of tabulators to display if needed
     let tabulatorsToDisplay = uniqueTabulators;
     if (lineCount !== 'all') {
-        // Count votes per tabulator
-        const tabulatorVoteCounts = {};
-        gameHistoryData.forEach(point => {
-            if (!tabulatorVoteCounts[point.tabulator]) {
-                tabulatorVoteCounts[point.tabulator] = 0;
-            }
-            tabulatorVoteCounts[point.tabulator] = Math.max(
-                tabulatorVoteCounts[point.tabulator], 
-                point.total_votes
-            );
-        });
+        // Use cached tabulator vote counts if available
+        let tabulatorVoteCounts, tabulatorArray;
         
-        // Convert to array for sorting or random selection
-        const tabulatorArray = Object.entries(tabulatorVoteCounts).map(([tabulator, voteCount]) => ({
-            tabulator,
-            voteCount
-        }));
+        if (cachedTabulatorVoteCounts && cachedTabulatorArray) {
+            tabulatorVoteCounts = cachedTabulatorVoteCounts;
+            tabulatorArray = cachedTabulatorArray;
+        } else {
+            // Count votes per tabulator
+            const voteCountingStart = performance.now();
+            
+            tabulatorVoteCounts = {};
+            gameHistoryData.forEach(point => {
+                if (!tabulatorVoteCounts[point.tabulator]) {
+                    tabulatorVoteCounts[point.tabulator] = 0;
+                }
+                tabulatorVoteCounts[point.tabulator] = Math.max(
+                    tabulatorVoteCounts[point.tabulator], 
+                    point.total_votes
+                );
+            });
+            
+            // Convert to array for sorting or random selection
+            tabulatorArray = Object.entries(tabulatorVoteCounts).map(([tabulator, voteCount]) => ({
+                tabulator,
+                voteCount
+            }));
+            
+            // Cache the results
+            cachedTabulatorVoteCounts = tabulatorVoteCounts;
+            cachedTabulatorArray = [...tabulatorArray]; // Create a copy for caching
+            
+            const voteCountingTime = performance.now() - voteCountingStart;
+        }
         
         if (selectionMethod === 'longest') {
             // Sort by vote count (descending) and take the top N
@@ -125,10 +167,74 @@ export function createGameHistoryPlot(containerId, scatterData, options = {}) {
         }
     }
     
+    const tabulatorProcessingTime = performance.now() - tabulatorProcessingStart;
+    
     // Filter data to only include selected tabulators
+    const filteringStart = performance.now();
+    
+    // Use Set for O(1) lookup instead of Array.includes() which is O(n)
+    const tabulatorSet = new Set(tabulatorsToDisplay);
+    
     const filteredData = gameHistoryData.filter(point => 
-        tabulatorsToDisplay.includes(point.tabulator)
+        tabulatorSet.has(point.tabulator)
     );
+    const filteringTime = performance.now() - filteringStart;
+    
+    // Data sampling optimization for large datasets
+    const samplingStart = performance.now();
+    
+    let sampledData = filteredData;
+    const maxPointsPerLine = 80; // Reasonable limit for smooth visualization
+    
+    // Group data by tabulator for sampling
+    const dataByTabulator = {};
+    filteredData.forEach(point => {
+        if (!dataByTabulator[point.tabulator]) {
+            dataByTabulator[point.tabulator] = [];
+        }
+        dataByTabulator[point.tabulator].push(point);
+    });
+    
+    // Sample each tabulator's data if it's too large
+    const sampledDataByTabulator = {};
+    let totalOriginalPoints = 0;
+    let totalSampledPoints = 0;
+    
+    Object.keys(dataByTabulator).forEach(tabulator => {
+        const tabulatorData = dataByTabulator[tabulator];
+        totalOriginalPoints += tabulatorData.length;
+        
+        if (tabulatorData.length <= maxPointsPerLine) {
+            // Keep all data if under limit
+            sampledDataByTabulator[tabulator] = tabulatorData;
+            totalSampledPoints += tabulatorData.length;
+        } else {
+            // Sample data using uniform sampling
+            const step = Math.floor(tabulatorData.length / maxPointsPerLine);
+            const sampled = [];
+            
+            // Always include first and last points
+            sampled.push(tabulatorData[0]);
+            
+            // Sample intermediate points
+            for (let i = step; i < tabulatorData.length - step; i += step) {
+                sampled.push(tabulatorData[i]);
+            }
+            
+            // Always include the last point
+            if (tabulatorData.length > 1) {
+                sampled.push(tabulatorData[tabulatorData.length - 1]);
+            }
+            
+            sampledDataByTabulator[tabulator] = sampled;
+            totalSampledPoints += sampled.length;
+        }
+    });
+    
+    // Flatten back to single array
+    sampledData = Object.values(sampledDataByTabulator).flat();
+    
+    const samplingTime = performance.now() - samplingStart;
     
     // Helper function to calculate maximum votes without using spread operator
     // which can cause stack overflow with large datasets
@@ -142,7 +248,11 @@ export function createGameHistoryPlot(containerId, scatterData, options = {}) {
         return max;
     }
     
+    // Use sampled data for max calculation
+    const maxVotes = calculateMaxVotes(sampledData);
+    
     // Configure line color based on color mode
+    const colorConfigStart = performance.now();
     let colorConfig = {};
     let lineConfig = {};
     
@@ -175,19 +285,26 @@ export function createGameHistoryPlot(containerId, scatterData, options = {}) {
         };
     }
     
-    // Create the plot
+    const colorConfigTime = performance.now() - colorConfigStart;
+    
+    // Create the plot with optimizations
+    const plotCreationStart = performance.now();
+    
     const plot = Plot.plot({
         width: 800,
         height: 500,
         marginBottom: 50,
         marginLeft: 60,
-        title: `Vote Counting Progression by Tabulator (${filteredData.length} data points, ${tabulatorsToDisplay.length} machines)`,
+        // Use canvas for better performance with large datasets
+        style: {
+            background: "white"
+        },
+        title: `Vote Counting Progression by Tabulator ${filteredData.length} points, ${tabulatorsToDisplay.length} machines)`,
         color: colorConfig,
         x: {
             label: "Total Votes Counted",
             grid: true,
-            // Use hardcoded value for 'all' to avoid stack overflow
-            domain: lineCount === 'all' ? [0, 1250] : [0, calculateMaxVotes(filteredData) * 1.05]
+            domain: lineCount === 'all' ? [0, 1250] : [0, maxVotes * 1.05]
         },
         y: {
             label: "Trump %",
@@ -198,21 +315,21 @@ export function createGameHistoryPlot(containerId, scatterData, options = {}) {
             // Add a reference line at 50%
             Plot.ruleY([50], {stroke: "#888", strokeWidth: 1, strokeDasharray: "4,4"}),
             
-            // Add the game history lines
-            Plot.line(filteredData, {
+            // Add the game history lines using sampled data
+            Plot.line(sampledData, {
                 x: "total_votes",
                 y: "trump_percentage",
                 z: "tabulator", // Group by tabulator to create one line per tabulator
                 ...lineConfig,
                 strokeWidth: 1.5,
-                strokeOpacity: 0.7
+                strokeOpacity: 0.8 // Slightly more transparent for better performance
             }),
             
-            // Add dots at the end points for each tabulator
+            // Add dots at the end points for each tabulator using sampled data
             Plot.dot(
-                // Get the last point for each tabulator
+                // Get the last point for each tabulator from sampled data
                 Object.values(
-                    filteredData.reduce((acc, point) => {
+                    sampledData.reduce((acc, point) => {
                         acc[point.tabulator] = point;
                         return acc;
                     }, {})
@@ -229,8 +346,12 @@ export function createGameHistoryPlot(containerId, scatterData, options = {}) {
         ]
     });
     
+    const plotCreationTime = performance.now() - plotCreationStart;
+    
     // Render the plot
+    const renderingStart = performance.now();
     const container = document.getElementById(containerId);
     container.innerHTML = '';
     container.appendChild(plot);
+    const renderingTime = performance.now() - renderingStart;
 }

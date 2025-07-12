@@ -982,18 +982,10 @@
                 <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Early Voting Scatterplot</h3>
                 <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
                     <div class="radio-container" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px;">
-                        <span style="font-weight: bold; margin-right: 8px; white-space: nowrap;">Color Mode:</span>
+                        <span style="font-weight: bold; margin-right: 8px; white-space: nowrap;">Truncate Mode:</span>
                         <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
-                            <input type="radio" name="earlyVotingColorMode" value="none" style="margin-right: 4px;">
+                            <input type="radio" name="earlyVotingColorMode" value="none" checkedstyle="margin-right: 4px;">
                             None
-                        </label>
-                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
-                            <input type="radio" name="earlyVotingColorMode" value="binary" checked style="margin-right: 4px;">
-                            Urban/Rural
-                        </label>
-                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
-                            <input type="radio" name="earlyVotingColorMode" value="gradient" style="margin-right: 4px;">
-                            Urban %
                         </label>
                         <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
                             <input type="radio" name="earlyVotingColorMode" value="cutoff800" style="margin-right: 4px;">
@@ -1012,23 +1004,6 @@
             <!-- Election Day Scatterplot Visualization -->
             <div class="viz-container-light step" id="election-day-scatterplot-viz">
                 <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Day Scatterplot</h3>
-                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
-                    <div class="radio-container" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px;">
-                        <span style="font-weight: bold; margin-right: 8px; white-space: nowrap;">Color Mode:</span>
-                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
-                            <input type="radio" name="electionDayColorMode" value="none" style="margin-right: 4px;">
-                            None
-                        </label>
-                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
-                            <input type="radio" name="electionDayColorMode" value="binary" checked style="margin-right: 4px;">
-                            Urban/Rural
-                        </label>
-                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
-                            <input type="radio" name="electionDayColorMode" value="gradient" style="margin-right: 4px;">
-                            Urban %
-                        </label>
-                    </div>
-                </div>
                 <div id="election-day-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
                 <div id="election-day-scatterplot" class="plot-container"></div>
             </div>
@@ -1129,6 +1104,58 @@
             <!-- Reversed Game History Visualization -->
             <div class="viz-container-light step" id="reversed-game-history-viz">
                 <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Reversed Voting History</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Line Count:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryLineCount" value="all" style="margin-right: 4px;">
+                                All
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryLineCount" value="100" style="margin-right: 4px;">
+                                100
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryLineCount" value="50" checked style="margin-right: 4px;">
+                                50
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryLineCount" value="20" style="margin-right: 4px;">
+                                20
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Selection Method:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistorySelectionMethod" value="longest" checked style="margin-right: 4px;">
+                                Longest
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistorySelectionMethod" value="random" style="margin-right: 4px;">
+                                Random
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Direction:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryTimeDirection" value="reverse" checked style="margin-right: 4px;">
+                                Backward
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryTimeDirection" value="forward" style="margin-right: 4px;">
+                                Forward
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="reversed-game-history-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
                 <div id="reversed-game-history-plot" class="plot-container"></div>
             </div>
             
@@ -1545,6 +1572,12 @@
             },
             userPrediction: 50
         };
+
+        /*
+        is there a way to make the scrollama a little more robust with the sections? like, it's currently set up with the assumption that you'll scroll fro the top to the bottom, but if you move too fast, it might miss that a trigger point has passed, and so the coin flip sliders are visible in the election section, and vice versa. Also it's a problem when refreshing the page, because you may be far down the page but the trigger to draw the color mode toggle is far up the page. 
+
+
+        */
         
         // Handle single coin flip
         document.querySelector('button[data-viz="single"]').addEventListener('click', async function() {
@@ -1972,46 +2005,37 @@
         };
         
         // Early Voting Scatterplot Functionality
-        function initEarlyVotingScatterplot() {
-            // Show loading indicator
+        async function initEarlyVotingScatterplot() {
             document.getElementById('early-voting-loading').style.display = 'block';
             
-            // Fetch the early voting scatter data
-            fetch('data/processed_data/early_votes_scatter_data.json')
-                .then(response => response.json())
-                .then(scatterData => {
-                    // Hide loading indicator
-                    document.getElementById('early-voting-loading').style.display = 'none';
-                    
-                    // Store data in global state
-                    globalVisualizationData.earlyVotingData = scatterData.data;
-                    
-                    // Create the scatter plot
-                    createEarlyVotingScatterPlot(scatterData.data);
-                    
-                    // Add event listeners for radio buttons
-                    document.querySelectorAll('input[name="earlyVotingColorMode"]').forEach(radio => {
-                        radio.addEventListener('change', function() {
-                            createEarlyVotingScatterPlot(scatterData.data);
-                        });
+            try {
+                const data = await getEarlyVotingData();
+                document.getElementById('early-voting-loading').style.display = 'none';
+                globalVisualizationData.earlyVotingData = data;
+                createEarlyVotingScatterPlot(data);
+                
+                // Add event listeners for radio buttons
+                document.querySelectorAll('input[name="earlyVotingColorMode"]').forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        createEarlyVotingScatterPlot(data);
                     });
-                })
-                .catch(error => {
-                    console.error('Error loading early voting data:', error);
-                    document.getElementById('early-voting-loading').textContent = 'Error loading data. Please check console for details.';
                 });
+            } catch (error) {
+                console.error('Error loading early voting data:', error);
+                document.getElementById('early-voting-loading').textContent = 'Error loading data.';
+            }
         }
         
         function createEarlyVotingScatterPlot(data) {
             // Get the selected color mode - try global first, then fallback to local
             let colorMode;
             const globalColorModeElement = document.querySelector('input[name="globalColorMode"]:checked');
-            const localColorModeElement = document.querySelector('input[name="earlyVotingColorMode"]:checked');
-            
-            if (globalColorModeElement) {
+            const truncateModeElement = document.querySelector('input[name="earlyVotingColorMode"]:checked');
+
+            if (truncateModeElement && truncateModeElement.value !== "none") {
+                colorMode = truncateModeElement.value;
+            } else if (globalColorModeElement) {
                 colorMode = globalColorModeElement.value;
-            } else if (localColorModeElement) {
-                colorMode = localColorModeElement.value;
             } else {
                 colorMode = 'binary'; // default fallback
             }
@@ -2368,39 +2392,28 @@
             });
 
         // Machine History Visualization Functionality
-        function initMachineHistoryVisualization() {
-            // Show loading indicator
+        async function initMachineHistoryVisualization() {
             document.getElementById('machine-history-loading').style.display = 'block';
             
-            // Show global color controls in sidebar
             const globalColorControls = document.getElementById('globalColorControls');
             globalColorControls.style.display = 'block';
             setTimeout(() => {
                 globalColorControls.style.opacity = '1';
             }, 100);
             
-            // Fetch the early voting scatter data which contains the vote history
-            fetch('data/processed_data/early_votes_scatter_data.json')
-                .then(response => response.json())
-                .then(scatterData => {
-                    // Hide loading indicator
-                    document.getElementById('machine-history-loading').style.display = 'none';
-                    
-                    // Store data in global state
-                    globalVisualizationData.machineHistoryData = scatterData.data;
-                    
-                    // Create the machine history plot
-                    updateMachineHistoryPlot(scatterData.data);
-                    
-                    // Add event listeners for all controls
-                    document.querySelectorAll('input[name="globalColorMode"], input[name="machineHistoryLineCount"], input[name="machineHistorySelectionMethod"]').forEach(radio => {
-                        radio.addEventListener('change', () => updateMachineHistoryPlot(scatterData.data));
-                    });
-                })
-                .catch(error => {
-                    console.error('Error loading machine history data:', error);
-                    document.getElementById('machine-history-loading').textContent = 'Error loading data. Please check console for details.';
+            try {
+                const data = await getEarlyVotingData();
+                document.getElementById('machine-history-loading').style.display = 'none';
+                globalVisualizationData.machineHistoryData = data;
+                updateMachineHistoryPlot(data);
+                
+                document.querySelectorAll('input[name="globalColorMode"], input[name="machineHistoryLineCount"], input[name="machineHistorySelectionMethod"]').forEach(radio => {
+                    radio.addEventListener('change', () => updateMachineHistoryPlot(data));
                 });
+            } catch (error) {
+                console.error('Error loading machine history data:', error);
+                document.getElementById('machine-history-loading').textContent = 'Error loading data.';
+            }
         }
         
         function updateMachineHistoryPlot(scatterData) {
@@ -2438,12 +2451,79 @@
                     initMachineHistoryVisualization();
                 }
             });
+
+        // Reversed Game History Functionality
+        async function initReversedGameHistory() {
+            document.getElementById('reversed-game-history-loading').style.display = 'block';
+            
+            try {
+                const data = await getEarlyVotingData();
+                document.getElementById('reversed-game-history-loading').style.display = 'none';
+                updateReversedGameHistoryPlot(data);
+                
+                document.querySelectorAll('input[name="globalColorMode"], input[name="reversedHistoryLineCount"], input[name="reversedHistorySelectionMethod"], input[name="reversedHistoryTimeDirection"]').forEach(radio => {
+                    radio.addEventListener('change', () => updateReversedGameHistoryPlot(data));
+                });
+            } catch (error) {
+                console.error('Error loading reversed game history data:', error);
+                document.getElementById('reversed-game-history-loading').textContent = 'Error loading data.';
+            }
+        }
+        
+        function updateReversedGameHistoryPlot(scatterData) {
+            const colorMode = document.querySelector('input[name="globalColorMode"]:checked')?.value || 'binary';
+            const lineCount = document.querySelector('input[name="reversedHistoryLineCount"]:checked').value;
+            const selectionMethod = document.querySelector('input[name="reversedHistorySelectionMethod"]:checked').value;
+            const timeDirection = document.querySelector('input[name="reversedHistoryTimeDirection"]:checked').value;
+            
+            import('./src/reversed_game_history.js').then(module => {
+                const { createReversedGameHistoryPlot } = module;
+                createReversedGameHistoryPlot('reversed-game-history-plot', scatterData, {
+                    colorMode,
+                    lineCount,
+                    selectionMethod,
+                    timeDirection
+                });
+            }).catch(error => {
+                console.error('Error loading reversed game history module:', error);
+            });
+        }
+
+        const reversedGameHistoryInitializer = scrollama();
+        reversedGameHistoryInitializer
+            .setup({
+                step: document.querySelectorAll('#reversed-game-history-viz'),
+                offset: 0.1,
+                threshold: 4,
+                once: true,
+            })
+            .onStepEnter((response) => {
+                console.log("reversed game history enter")
+                if (response.index === 0) {
+                    initReversedGameHistory();
+                }
+            });
+        
+        // Cached Data Loader
+        let cachedEarlyVotingData = null;
+        
+        async function getEarlyVotingData() {
+            if (cachedEarlyVotingData) {
+                return cachedEarlyVotingData;
+            }
+            
+            const response = await fetch('data/processed_data/early_votes_scatter_data.json');
+            const scatterData = await response.json();
+            cachedEarlyVotingData = scatterData.data;
+            return cachedEarlyVotingData;
+        }
         
         // Global Color Control Management
         let globalVisualizationData = {
             earlyVotingData: null,
             electionDayData: null,
-            machineHistoryData: null
+            machineHistoryData: null,
+            reversedGameHistoryData: null
         };
         
         // Function to update all visualizations when global color mode changes

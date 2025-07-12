@@ -27,36 +27,7 @@ You are building an interactive data visualization about election statistics.
 - Optimize for readability over premature optimization
 - Follow PEP8 style guide for Python code
 
-## Todos
 
-- [x] Figure out if we can know which machines are urban and which are rural.
-- [x] Load data for early and election day voting separately
-- [/] Reproduce ETA graphs:
-    - [x] plot machine counts vs percentages for each x axis is total votes per machine, y axis is trump %. 
-        - Expectation: looks like their charts, the election day data caps out around 140 votes per machine, and looks like a blob of data, early data is more spread out, up to 1250 per machine, looks like a funnel
-        - [ ] Improve on the graphs by showing 1/sqrt(n) falloff that outlines the funnel.
-        - [x] Color them by presinct, ideally with a color spectrum showing urban/rural 
-            - [ ] Early experiments show that the urban/rural didn't quite behave as expected, but there might be other ways to color the data, such as by assembly district. Get all the assembly district presinct lists, and add that as color options. (probably not going to do this)
-            - [ ] Consider using a beeswarm graph where the bubble sizes are the number of votes a tabulator processed
-    - [x] Plot histogram of machine vote percentages, with Trump % on x axis and number of machines on y axis, separate graphs for election day and early voting
-        - [x] Try making separate overlapping histograms for urban/rural if possible
-- [x] Create game history graph, same type as the machine counts vs percentages, but this time with a lineage of each machine as it counts up as a line.
-- [x] Reverse the game history graph, counting backwards. Take only the machines that have more than 200 votes, and show how those vote counts accumulate starting from the latest ones and proceeding towards the earliest ones. 
-    - [ ] Create a "If their interpretation was right" graph, that looks like the original game history graph but mirrored, where the votes all start out around 60% and then when the machines hit the 300 vote mark, they suddenly diverge into many different counts (I'll just do this by mirroring the image, because I don't want to make it look like it's generated from real data)
-    - Expectation: they look basically the same as the orignial, because it's just convergence to the mean, law of large numbers. SUCCESS
-- [x] Create "Smoking Gun" graph
-    - [x] plot a moving average of votes on each machine over time. The X axis is number of votes counted, y axis is the moving average. Try a few different window sizes. 
-    - [x] Create a "if their interpretation was right" graph, that shows a sudden jump in the moving average, from some lower pro-kamala number to a higher pro-trump number. It should be a very distinct leap, a discontinuity in the linear history
-    - Expectation: it shold look like a random walk, with no sudden jumps. SUCCESS
-
-- [x] Simulate a real election that shows a real "Russian Tail"
-- [x] Simulate the clark county election with voting clusters and urban/rural voting divide. Provide sliders to manipulate the strength of the divide, number of machines per polling place, etc. 
-    - [ ] Add suburban votes to the simulation, and make it configurable with a slider, since the real data seems to be trimodal, with rural at around 80, urban at around 50, and suburban at around 60.
-    - [ ] Tune the simulation so it looks like the real data, and save it to be what the app initializes with.
-- [x] simulate the coin flip game, starting with 1 coin, then 4, then 10. Make the preference for heads or tails configurable.
-- [x] After getting to 10 coins start doing many experiments simultaneously and make the number of coins per experiment configurable with a slider under the graph, so that as the user moves the slider, the graph populates from left to right. It should show a funneling effect. 
-    - [x] potential optimization: have the games pre-played and stored in a file so we don't have to do so many actual generations and can just change the point at which the data cuts off before going to the plot. 
-    - [ ] Display the variance as a number, so the user can see how much it decreases as the number of coins per experiment increases
 
     
 
