@@ -318,7 +318,7 @@
         predictionScroller
             .setup({
                 step: '#four-coins-viz',
-                offset: 0.1, // Trigger when section is 90% up the viewport
+                offset: 0.9, // Trigger when section is 90% up the viewport
                 once: true // Only trigger once
             })
             .onStepEnter(response => {
@@ -781,7 +781,7 @@
         earlyVotingPlotInitializer
             .setup({
                 step: document.querySelectorAll('#early-voting-scatterplot-viz'),
-                offset: 0.1, // Trigger when section is 90% down the viewport
+                offset: 0.9, // Trigger when section is 90% down the viewport
                 threshold: 4,
                 once: true,
             })
@@ -929,7 +929,7 @@
         electionDayPlotInitializer
             .setup({
                 step: document.querySelectorAll('#election-day-scatterplot-viz'),
-                offset: 0.1, // Trigger when section is 90% down the viewport
+                offset: 0.9, // Trigger when section is 90% down the viewport
                 threshold: 4,
                 once: true,
             })
@@ -990,7 +990,7 @@
         machineHistoryInitializer
             .setup({
                 step: document.querySelectorAll('#machine-history-viz'),
-                offset: 0.1, // Trigger when section is 90% down the viewport
+                offset: 0.9, // Trigger when section is 90% down the viewport
                 threshold: 4,
                 once: true,
             })
@@ -1041,7 +1041,7 @@
         reversedGameHistoryInitializer
             .setup({
                 step: document.querySelectorAll('#reversed-game-history-viz'),
-                offset: 0.1,
+                offset: 0.9,
                 threshold: 4,
                 once: true,
             })
@@ -1121,7 +1121,7 @@
         smokingGunInitializer
             .setup({
                 step: document.querySelectorAll('#smoking-gun-viz'),
-                offset: 0.1,
+                offset: 0.9,
                 threshold: 4,
                 once: true,
             })
@@ -1391,7 +1391,7 @@
         russianTailInitializer
             .setup({
                 step: document.querySelectorAll('#russian-tail-sim-viz'),
-                offset: 0.1,
+                offset: 0.9,
                 threshold: 4,
                 once: true,
             })
@@ -1483,7 +1483,7 @@
         earlyVotingHistogramInitializer
             .setup({
                 step: document.querySelectorAll('#early-voting-histogram-viz'),
-                offset: 0.1,
+                offset: 0.9,
                 threshold: 4,
                 once: true,
             })
@@ -1498,7 +1498,7 @@
         electionDayHistogramInitializer
             .setup({
                 step: document.querySelectorAll('#election-day-histogram-viz'),
-                offset: 0.1,
+                offset: 0.9,
                 threshold: 4,
                 once: true,
             })
@@ -2021,7 +2021,7 @@
         simulationInitializer
             .setup({
                 step: document.querySelectorAll('#election-simulation-viz'),
-                offset: 0.1,
+                offset: 0.9,
                 threshold: 4,
                 once: true,
             })
