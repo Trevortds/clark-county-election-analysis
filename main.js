@@ -2,6 +2,7 @@
         // - Download the libs I am reliant on and use them either primarily or as a fallback
         // - Add histogram (footnote?) with mail-in votes, also one that combines mail ins and early, to show the curve balance out
         // - convert the rest of the radio toggles to buttons 
+        // - Add a link to the original somewhere
         
         // Import our visualization modules
         import { animateCoinFlip } from './src/coin_flip.js';
@@ -445,13 +446,27 @@
                 hideTooltip(); // Hide tooltip when opening sidebar
                 sidebar.classList.add('mobile-active', 'open');
                 overlay.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevent body scroll
+                
+                // Store current scroll position and prevent scrolling
+                // Use position fixed instead of overflow hidden to avoid Firefox mobile issues
+                const scrollY = window.scrollY;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollY}px`;
+                document.body.style.width = '100%';
             };
             
             const closeSidebar = () => {
                 sidebar.classList.remove('open');
                 overlay.classList.remove('active');
-                document.body.style.overflow = ''; // Restore body scroll
+                
+                // Restore scroll position and body styles
+                const scrollY = document.body.style.top;
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                if (scrollY) {
+                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                }
                 
                 // Remove mobile-active class after transition
                 setTimeout(() => {
