@@ -444,34 +444,50 @@
             
             const openSidebar = () => {
                 hideTooltip(); // Hide tooltip when opening sidebar
-                sidebar.classList.add('mobile-active', 'open');
-                overlay.classList.add('active');
                 
-                // Store current scroll position and prevent scrolling
-                // Use position fixed instead of overflow hidden to avoid Firefox mobile issues
-                const scrollY = window.scrollY;
-                document.body.style.position = 'fixed';
-                document.body.style.top = `-${scrollY}px`;
-                document.body.style.width = '100%';
+                // Delay the position fixing slightly to let any address bar animations complete
+                requestAnimationFrame(() => {
+                    // Store current scroll position and prevent scrolling
+                    // Use position fixed instead of overflow hidden to avoid Firefox mobile issues
+                    const scrollY = window.scrollY;
+                    
+                    // Add classes first
+                    sidebar.classList.add('mobile-active', 'open');
+                    overlay.classList.add('active');
+                    
+                    // Then lock scrolling (slight delay helps with mobile browsers)
+                    setTimeout(() => {
+                        document.body.style.position = 'fixed';
+                        document.body.style.top = `-${scrollY}px`;
+                        document.body.style.width = '100%';
+                        document.body.style.overscrollBehavior = 'none'; // Prevent pull-to-refresh
+                    }, 50);
+                });
             };
             
             const closeSidebar = () => {
+                // First remove open class to start transition
                 sidebar.classList.remove('open');
                 overlay.classList.remove('active');
                 
                 // Restore scroll position and body styles
                 const scrollY = document.body.style.top;
+                document.body.style.overscrollBehavior = ''; // Restore pull-to-refresh
                 document.body.style.position = '';
                 document.body.style.top = '';
                 document.body.style.width = '';
-                if (scrollY) {
-                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
-                }
                 
-                // Remove mobile-active class after transition
-                setTimeout(() => {
-                    sidebar.classList.remove('mobile-active');
-                }, 300);
+                // Use requestAnimationFrame to ensure smooth transition
+                requestAnimationFrame(() => {
+                    if (scrollY) {
+                        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                    }
+                    
+                    // Remove mobile-active class after transition
+                    setTimeout(() => {
+                        sidebar.classList.remove('mobile-active');
+                    }, 300);
+                });
             };
             
             // Toggle button click

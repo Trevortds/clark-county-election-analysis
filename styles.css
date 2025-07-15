@@ -710,6 +710,11 @@ h6 strong {
     cursor: pointer;
     z-index: 1000;
     transition: all 0.3s ease;
+    /* Ensure button stays in viewport even with address bar changes */
+    transform: translateZ(0);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .mobile-controls-toggle:hover {
