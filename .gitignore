@@ -1,4 +1,7 @@
 data/**.zip
+data/processed_data/mail_votes.json
+data/processed_data/early_votes.json
+data/processed_data/election_day_votes.json
 
 # Dependencies
 node_modules/

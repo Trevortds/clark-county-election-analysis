@@ -102,10 +102,20 @@ export function createCoinGamesPlot(containerId, games, options = {}) {
         return max;
     }
     
+    // Get responsive width
+    const getResponsiveWidth = () => {
+        const container = document.querySelector('.viz-container-light');
+        if (container) {
+            const containerWidth = container.clientWidth;
+            return Math.min(800, Math.max(320, containerWidth));
+        }
+        return window.innerWidth < 768 ? Math.min(320, window.innerWidth - 40) : 800;
+    };
+    
     // Create the plot
     const plot = Plot.plot({
-        width: 800,
-        height: 500,
+        width: getResponsiveWidth(),
+        height: window.innerWidth < 768 ? 400 : 500,
         marginBottom: 50,
         marginLeft: 60,
         title: `${title} (${plotData.length} data points, ${TOTAL_GAMES} games)`,

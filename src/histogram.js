@@ -363,11 +363,22 @@ export function createHistogram(
         };
     }
     
+    // Get responsive width
+    const getResponsiveWidth = () => {
+        const container = document.querySelector('.viz-container-light');
+        if (container) {
+            const containerWidth = container.clientWidth;
+            const padding = 96; // Account for container padding
+            return Math.min(800, Math.max(320, containerWidth));
+        }
+        return window.innerWidth < 768 ? Math.min(320, window.innerWidth - 40) : 800;
+    };
+    
     // Create the plot
     const plot = Plot.plot({
         title,
-        width: 800,
-        height: 400,
+        width: getResponsiveWidth(),
+        height: window.innerWidth < 768 ? 300 : 400,
         marginLeft: 50,
         marginRight: 50,
         marginTop: 20,

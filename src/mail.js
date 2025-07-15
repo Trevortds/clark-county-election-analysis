@@ -64,11 +64,22 @@ function createVoteCountVisualization(data) {
     plotContainer.className = 'plot-container';
     vizContainer.appendChild(plotContainer);
     
+    // Get responsive width
+    const getResponsiveWidth = () => {
+        const container = document.querySelector('.viz-container-light');
+        if (container) {
+            const containerWidth = container.clientWidth;
+            return Math.min(800, Math.max(320, containerWidth));
+        }
+        return window.innerWidth < 768 ? Math.min(320, window.innerWidth - 40) : 800;
+    };
+    
     // Create the bar chart using Observable Plot
     const chart = Plot.plot({
+        width: getResponsiveWidth(),
+        height: window.innerWidth < 768 ? 300 : 400,
         marginLeft: 60,
         marginBottom: 40,
-        height: 400,
         x: {
             label: 'Votes'
         },

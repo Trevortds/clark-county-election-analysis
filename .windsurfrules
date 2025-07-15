@@ -27,7 +27,9 @@ You are building an interactive data visualization about election statistics.
 - Optimize for readability over premature optimization
 - Follow PEP8 style guide for Python code
 
+## Style
 
+When writing HTML, CSS, or JS, make consistent use of the style guide in the styles.css file, paying attention to the color palette.
 
     
 

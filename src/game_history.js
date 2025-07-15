@@ -290,9 +290,20 @@ export function createGameHistoryPlot(containerId, scatterData, options = {}) {
     // Create the plot with optimizations
     const plotCreationStart = performance.now();
     
+    // Get responsive width
+    const getResponsiveWidth = () => {
+        const container = document.querySelector('.viz-container-light');
+        if (container) {
+            const containerWidth = container.clientWidth;
+            const padding = 96; // Account for container padding
+            return Math.min(800, Math.max(320, containerWidth));
+        }
+        return window.innerWidth < 768 ? Math.min(320, window.innerWidth - 40) : 800;
+    };
+    
     const plot = Plot.plot({
-        width: 800,
-        height: 500,
+        width: getResponsiveWidth(),
+        height: window.innerWidth < 768 ? 400 : 500,
         marginBottom: 50,
         marginLeft: 60,
         // Use canvas for better performance with large datasets

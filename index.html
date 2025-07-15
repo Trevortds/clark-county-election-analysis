@@ -3,17 +3,1247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Election Visualization</title>
-    <link rel="stylesheet" href="assets/styles.css">
-    <!-- Observable Plot loaded as ES module -->
-    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm" type="module"></script>
+    <title>The Fraud Behind Election Fraud</title>
+    
+    <!-- Dependencies -->
+    <script src="https://unpkg.com/scrollama@3.2.0/build/scrollama.min.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Scrollama library -->
+    <script src="https://unpkg.com/scrollama"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Election Visualization</h1>
-        <div id="visualization"></div>
-        <div id="controls"></div>
+    <div class="main-container">
+        <!-- Left sidebar: Table of Contents -->
+        <nav class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#coin-flip" class="toc-link">The Coin Flip Game</a></li>
+                <li><a href="#eta-introduction" class="toc-link">Introduction</a></li>
+                <li><a href="#main-chart" class="toc-link">The Main Chart</a></li>
+                <li><a href="#smoking-gun" class="toc-link">A Smoking Gun (The Complete Absence of)</a></li>
+                <li><a href="#clark-county-russian-tail" class="toc-link">The Russian Tail</a></li>
+                <li><a href="#simulation-introduction" class="toc-link">The Simulation</a></li>
+                <li><a href="#pattern-of-deception" class="toc-link">The Pattern of Deception</a></li>
+                <li><a href="#conclusion" class="toc-link">Conclusion</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Main content area -->
+        <article class="article-content">
+            <h1>The Fraud Behind Election Fraud</h1>
+            <p class="subtitle">How a viral misunderstanding of basic statistics spawned a conspiracy subculture</p>
+            
+            <section id="coin-flip">
+                <h2> Let's play a game </h2>
+                <p> You flip a coin, I'll call it.<sup id="fnref1">1</sup></p>
+            </section>  
+          
+            <!-- First Visualization: Single Coin -->
+            <div class="viz-container" id="single-coin-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Single Coin Flip</h3>
+                <div class="coin-container" data-viz="single">
+                    <div class="coin">
+                        <div class="coin-face heads">H</div>
+                        <div class="coin-face tails">T</div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="single">Flip the Coin!</button>
+                    <div class="viz-result" data-viz="single"></div>
+                </div>
+            </div>
+            
+            <section id="four-coins">
+                <p>
+                    Now let's make things more interesting. Instead of flipping one coin, let's flip four coins 
+                    at once. Can you predict what percentage will be heads?
+                </p>
+            </section>
+            
+            <!-- Second Visualization: Four Coins -->
+            <div class="viz-container step" id="four-coins-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Four Coins</h3>
+                <div class="coins-grid" data-viz="four">
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="four">Flip All Four!</button>
+                    <div class="viz-result" data-viz="four"></div>
+                </div>
+            </div>
+
+            <section id="ten-coins">
+                <p>
+                    With more coins, we start to see patterns emerge. The results become more predictable, 
+                    even though each individual coin flip is still random. This is the beginning of understanding 
+                    the Law of Large Numbers.
+                </p>
+                <p>
+                    Let's do ten coins now. How many will be heads. Put in your guess:
+                </p>
+            </section>
+
+            <!-- Third Visualization: Ten Coins -->
+            <div class="viz-container step" id="ten-coins-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Ten Coins</h3>
+                <div class="ten-coins-grid" data-viz="ten">
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="ten">Flip All Ten!</button>
+                    <div class="viz-result" data-viz="ten"></div>
+                </div>
+            </div>
+            <section id="coin-games">
+                <p>
+                    I get the feeling you feel like you can win more often than you have, so 
+                    I'll make it easy for you. 
+                </p>
+                <p>
+                    I'll run 20 games at once, and put them on a chart for you, 
+                    and this time you get to pick how many coins are tossed. You only need to be correct within a 10% window.
+                </p>
+            </section>
+
+            <!-- Fourth Visualization: Coin Games -->
+            <div class="viz-container-light step" id="coin-games-viz">
+                <div id="coin-games-plot" class="plot-container"></div>
+                <div class="coin-games-controls">
+                    <div class="slider-control">
+                        <label>Number of Flips:</label>
+                        <input type="range" id="flips-slider" min="10" max="1000" value="0" step="10">
+                        <span class="value" id="flips-display">10</span>
+                    </div>
+                    <p style="text-align: center; font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Slide to change how many flips are done for each game</p>
+                    <p id="win-percentage" style="text-align: center; font-size: 18px; color: var(--dark-spring-green); font-weight: 600; margin-top: 12px; opacity: 0; transition: opacity 0.3s ease-in;">Your win rate: <span id="win-rate-value">0%</span></p>
+                    <p id="convergence-notice" style="text-align: center; font-size: 28px; color: var(--auburn); font-weight: bold; margin-top: 20px; display: none; opacity: 0; transition: opacity 0.5s ease-in;">Hey, wait a minute...</p>
+                </div>
+            </div>
+            
+            
+            <section id="coin-game-explanation">
+                <p class="lead">
+                    Did that chart do something odd?
+                </p>
+                <p class="lead">
+
+                    Sorry,I forgot to mention, the coins that we've been flipping prefer to land on tails. Here, 
+                    you can make them fair if you want, or bias them towards you. <strong style="color: var(--auburn);">Check your control panel.</strong>
+                </p>
+                
+            </section>   
+            <section id="law-of-large-numbers-explanation">
+                <p class="lead">
+                    I did not lie to you about the outcomes of any of our prediction games, I just withheld the underlying preferences of the coins. 
+                    You were able to detect those preferences by playing a large number of games with a large number of flips each. 
+                    The more flips in a game, the closer the average result was to the true preference of the coin. 
+                </p>
+                <h3>
+                    What you've just experienced is the Law of Large Numbers <sup id="fnref2">2</sup> and it is a centerpiece of statistics. 
+                    Arguably, it is why we even do statistics <strong><em>at all</em></strong>.
+                </h3>
+                <p>
+                    The fact that variance around the mean is guaranteed to decrease as more samples are taken is critical for decision making using statistics. 
+                    This is why scientists look for the largest test groups they can get their hands on for running experiments. 
+                    This is also why casinos are never afraid for their profits: even though the outcome of any individual game can be very hard to predict, 
+                    and the house may frequently lose several games in a row, over the long run, the average outcome of thousands of games will converge to the
+                     "house edge", their initial likelihood of winning. 
+                </p>
+                <p>
+                    The Law of Large Numbers tells us that the more samples we take from some hard-to-predict source, the closer the average will be to the true value we are sampling from. More samples, more consistent and accurate results. 
+                </p>
+            </section>
+            
+            
+            <section id="eta-introduction-lead-in">
+                <p class="lead">
+                    Now we are ready to talk about Election Truth Alliance
+                </p>
+            </section>
+            
+            <section id="eta-introduction">
+                <h2>Introduction</h2>
+                
+                <p>
+                    Election Truth Alliance is self-declared election watchdog incorporated on January 13 2025, three-person team 
+                    composed of Lilli McGregor (Canadian civil servant), Nathan Taylor ("cybersecurity specialist", works as a 25B tech support for the US Army,
+                     job description includes "connecting printers" and "resetting passwords"), and "Jive", the anonymous executive director who "envisioned and 
+                     articulated the need for our organization", the only detail we know is that they are an "auditor and accountant". 
+                </p>
+
+                <p>
+                    This group coalesced very shortly after the 2024 US Federal election, as early as November 13, and 
+                    began preparing to publish arguments that the election was rigged at that point in time, even before much of the 
+                    data that they would later be basing their work on was released. 
+                </p>
+                
+                <p>
+                    In March 2025, Election Truth Alliance debuted their proof that the 2024 US Presidential election was stolen by means of 
+                    electronic vote flipping. This post will be focused on their original analysis of Clark County Nevada. 
+                </p>
+                
+                <p>
+                    Election Truth Alliance claims that Nevada vote records show that voting machines were altered to start flipping Presidential 
+                    votes in favor of Trump after 250 or so votes were cast. 
+                </p>
+                
+                <p>
+                    I have reproduced their charts to confirm their methodology, and I will explain how that methodology does not 
+                    show what they claim it does. I will show you what Election Truth Alliance found in the Clark County Cast Vote Records,
+                     why it looks suspicious to them, and why it is exactly what we'd expect to see.
+                </p>
+                
+                <h3>Who am I?</h3>
+                
+                <p>
+                    I am a person who cares deeply about election integrity, which is why misleading statistical claims concern me
+                     regardless of their source and in support of which candidate. 
+                </p>
+            </section>
+            
+            <section id="main-chart">
+                <h2>The Main Chart</h2>
+                
+                <p>
+                    Election Truth Alliance's analysis focus on this chart, which they claim is anomalous.
+                     To understand how to read this chart, keep in mind that each point is not a vote, but an entire voting machine.
+                      The numbers on the X axis are the number of votes each machine has counted, and the Y axis is Trump preference.            
+                </p>
+
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702074913.png" alt="ETA main analysis chart showing voting machines" class="content-image">
+                </div>
+
+                <p>
+                    Here's what Election Truth Alliance has to say about this chart: 
+                </p>
+
+                <blockquote class="analysis-quote">
+                    <p>Expected randomness in the Early Voting results are observed <strong>until approximately 250 ballots have been processed. Beyond that range, a visible shift is observed</strong> once the number of ballots processed exceeds the threshold, resulting in a <strong>high degree of clustering and unusual uniformity</strong>, a departure from expected human voting behavior. The pattern is more distinct (closer to 60% votes for Trump, closer to 40% votes for Harris) with more ballots processed by a given voting machine.</p>
+                    
+                    <p>Rather than an expected distribution of votes, similar to Election Day votes, the Early Voting data suggests there may be a correlation between the quantity of ballots processed and the overall candidate vote percentage.</p>
+                </blockquote>
+
+                <p>
+                So, are they right? Is this data anomalous? 
+                </p>
+                <p>
+                Clearly the machines tend to converge at around 60% Pro-Trump as the number of votes counted by each machine increases, as they say. But <strong>is that proof of tampering?</strong> 
+                </p>
+                <p>
+                    To answer that for yourself, think back to the coin game we played above. If I said, "rather than showing an expected distribution of coin 
+                    flips, the coin flipping games showed a correlation between the number of coin flips and the overall heads percentage", 
+                    does that describe a manipulation affecting the results, or does that describe what the game naturally does when you increase 
+                    the number of flips per game?
+                </p>
+                <p>
+                    Let's go back to Election Truth Alliance for a second, because they say that these graphs are "abnormal" 
+                    compared to Election Day votes. So what do Election Day votes look like? 
+                </p>
+                <p>
+                    I have to preface this by pointing out that for some reason ETA often vertically mirrors their graphs back on themselves,
+                     switching the color to blue. They are showing the exact same data in both colors, 
+                     just for the red dots, the top of the graph is Trump preference and the bottom is Harris preference, 
+                     and in the blue graph it's vice-versa. <strong>It's one dataset, but mirrored so it looks like two.</strong> 
+                </p>
+                <p>
+                    So, our point of comparison is this:
+                </p>
+            
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702080329.png" alt="ETA mirrored chart showing the same data in different colors" class="content-image">
+                </div>
+
+                <p>
+                    And here is what Election Truth Alliance claims is a "normal" Election Day chart:
+                </p>
+                <div class="image-grid">
+                    <div class="image-container">
+                        <img src="images/Pasted image 20250702080345.png" alt="ETA normal early-voting election chart" class="content-image">
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="images/Pasted image 20250702075428.png" alt="ETA General election chart" class="content-image">
+                    </div>
+                </div>
+                
+                <p>
+                    If you don't immediately see the problem here, I don't blame you, it's one of the oldest tricks in the bad-statistics book.                
+                 </p>
+            </section>
+            
+            <section id="x-axis-analysis">
+                <h3>The X Axis</h3>
+                
+                <p>
+                    Take a look at the X axis in these graphs. The "normal" elections max out at 800 or 100 votes per machine, 
+                    but the 2024 Early Voting election has as many as 1200 votes per machine! We can't tell what the election 
+                    day machines would have done if they had 1200 votes, because none of them cracked 125!                
+                 </p>
+                
+                <p>
+                    If we truncate the Early Voting chart so that we have an apples-to-apples comparison along the same width of X axis as the 2020 early votes...
+                </p>
+                <div class="image-grid">
+                    <div class="image-container">
+                        <img src="images/Pasted image 20250702080345.png" alt="ETA normal early-voting election chart" class="content-image">
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="images/Pasted image 20250702081653.png" alt="Truncated early voting chart for fair comparison" class="content-image">
+                    </div>
+                </div>
+
+                <p>
+                    They look identical! Note how both of the graphs do very clearly show a tendency to start converging in the same way.                 
+                </p>
+                
+                <p>
+                    Either the 2020 election was manipulated in the exact same way as ETA is claiming that 2024 was manipulated, 
+                    or comparing these charts to each other does not prove manipulation. 
+                </p>
+
+                <p>
+                    If you want to peruse the data further, here are some interactive visualizations of the 2024 Cast Vote Records, 
+                    both for Early Voting and Election Day voting                
+                </p>
+            </section>
+            
+            <!-- Early Voting Scatterplot Visualization -->
+            <div class="viz-container-light step" id="early-voting-scatterplot-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Early Voting Scatterplot</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="radio-container" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; margin-right: 8px; white-space: nowrap;">Truncate Mode:</span>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="earlyVotingColorMode" value="none" checkedstyle="margin-right: 4px;">
+                            None
+                        </label>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="earlyVotingColorMode" value="cutoff800" style="margin-right: 4px;">
+                            < 800 votes
+                        </label>
+                        <label style="margin-right: 8px; white-space: nowrap; font-size: 0.9em;">
+                            <input type="radio" name="earlyVotingColorMode" value="cutoff125" style="margin-right: 4px;">
+                            < 125 votes
+                        </label>
+                    </div>
+                </div>
+                <div id="early-voting-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
+                <div id="early-voting-scatterplot" class="plot-container"></div>
+            </div>
+            
+            <!-- Election Day Scatterplot Visualization -->
+            <div class="viz-container-light step" id="election-day-scatterplot-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Day Scatterplot</h3>
+                <div id="election-day-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
+                <div id="election-day-scatterplot" class="plot-container"></div>
+            </div>
+            
+            <section id="machine-history">
+                <h3>The Machine History</h3>
+                
+                <p>
+                    Remember, the dots in the graphs above are <em>machines</em> not <em>votes</em>. Each dot is a machine tabulator. 
+                    The analysis provided by Election Truth Alliance is not based on a time-wise analysis of the votes as they went in, 
+                    but rather a guess based on the tallies that came out of machines with more or less total votes. 
+                </p>
+
+                <p>
+                    However, we <strong><em>do</em></strong> have access to the vote data, on each machine, in the order the votes were cast. 
+                </p>
+                
+                <p>
+                    This means that we can play a history game, just like we did with the coin flips above, showing each machine's
+                     average vote as each new vote is added to it. We can watch the election play out on each machine over time, and see 
+                     the running tallies as the ballots go in!                 
+                </p>
+                
+                <p>
+                    I have also given you the option to color the machines by their location, urban or rural. Nevada allows voters to vote at any location, so each machine at each voting site will get a mix of voters from many places, but if most of the people who used a machine live in rural precincts, we can surmise that the machine was in a rural location. Similarly if most of the votes on a machine came from voters who live in urban precincts, that machine was probably in an urban area. Machines with an even split were likely placed on the urban periphery, (perhaps near suburban shopping centers that attract people from inside and outside the city).                </p>
+            </section>
+            
+            <!-- Machine History Visualization -->
+            <div class="viz-container-light step" id="machine-history-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Machine Vote History</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Line Count:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistoryLineCount" value="all" style="margin-right: 4px;">
+                                All
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistoryLineCount" value="100" style="margin-right: 4px;">
+                                100
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistoryLineCount" value="50" checked style="margin-right: 4px;">
+                                50
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistoryLineCount" value="20" style="margin-right: 4px;">
+                                20
+                            </label>
+                        </div>
+                        <div style="font-size: 0.8em; color: #666; text-align: center; max-width: 200px;">
+                            <em>Note: "All" may take time to load</em>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Selection Method:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistorySelectionMethod" value="longest" checked style="margin-right: 4px;">
+                                Longest
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="machineHistorySelectionMethod" value="random" style="margin-right: 4px;">
+                                Random
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="machine-history-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
+                <div id="machine-history-plot" class="plot-container"></div>
+            </div>
+            <section id="machine-history-analysis">
+                <p>
+                    As you can see, every machine quickly finds its way to a stable average, 
+                    and that average correlates not with the number of votes total on the machine 
+                    (they don't progress upwards as the graph continues right), they level out. 
+                    We know from the coin flip game above that the point they level out at is the true opinion of the group they are sampling from, 
+                    which is why the vertical axis does correlate so strongly to color. Rural people were more likely to support Trump, 
+                    urban people more likely to support Kamala, and suburban people, whose voting sites got a mix of both in large numbers, leaned towards Trump.
+                </p>
+                
+                <p>
+                    Okay, so what? The machines all converge to various numbers. What does this mean for our analysis?                 
+                </p>
+                <p>
+                    Well, Election Truth Alliance's allegation is that the machines started flipping votes to maintain a certain level of Trump support starting at 200 or so votes.
+                </p>
+                <div class="callout-box">
+                    <p>So let's see if that's true. Let's run time backwards.</p>
+                </div>
+                
+                <p>
+                    The next visualization will show the voting history of each machine *as if* the ballots were inserted in the opposite order, from last to first.                 </p>
+                
+                <p>
+                    If Election Truth Alliance is correct, we would see something like this, where starting from the last vote cast and 
+                     working backwards in time to the first vote, each machine will show a solid line of "manipulated" votes, 
+                     and then when they hit the magical 250-votes-left threshold when they suddenly bloom out to a variety of "true" vote counts.   
+                </p>
+                
+                <div class="image-container">
+                    <img src="images/Reversed_voting_game_history.png" alt="Hypothetical reversed voting history if ETA was correct" class="content-image">
+                </div>
+                
+                <p>
+                    Instead what we see is this:
+                </p>
+            </section>
+            
+            <!-- Reversed Game History Visualization -->
+            <div class="viz-container-light step" id="reversed-game-history-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Reversed Voting History</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Line Count:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryLineCount" value="all" style="margin-right: 4px;">
+                                All
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryLineCount" value="100" style="margin-right: 4px;">
+                                100
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryLineCount" value="50" checked style="margin-right: 4px;">
+                                50
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryLineCount" value="20" style="margin-right: 4px;">
+                                20
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Selection Method:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistorySelectionMethod" value="longest" checked style="margin-right: 4px;">
+                                Longest
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistorySelectionMethod" value="random" style="margin-right: 4px;">
+                                Random
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Direction:</span>
+                        <div class="radio-group" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryTimeDirection" value="reverse" checked style="margin-right: 4px;">
+                                Backward
+                            </label>
+                            <label style="white-space: nowrap; font-size: 0.9em; cursor: pointer;">
+                                <input type="radio" name="reversedHistoryTimeDirection" value="forward" style="margin-right: 4px;">
+                                Forward
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="reversed-game-history-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
+                <div id="reversed-game-history-plot" class="plot-container"></div>
+            </div>
+            
+            <section id="reversed-game-analysis">
+                <p>
+                    It looks the same!
+                </p>
+
+                <div class="callout-box">
+                    <p>Because this isn't what fraud looks like, this is what counting looks like.</p>
+                </div>
+            </section>
+            
+            <section id="smoking-gun">
+                <h3>A Smoking Gun, The Complete Absence of</h3>
+                
+                <p>
+                    We have the vote history data (Election Truth Alliance does too). We can plot the votes for a particular machine over time.                 </p>
+                
+                <p>
+                    This means that there is a very simple graph we can make for our machines. It would actually take *less* effort to produce this next graph than any of the graphs above, and this one has the indisputable power to prove definitively and unambiguously whether the election was manipulated in the way ETA claims or not.                 </p>
+                
+                <p>
+                    Let's take the running average of votes as they come in. If Election Truth Alliance was correct, we would see a huge noticable step in the running average, where before the 250th ballot was inserted, the ballots averaged a certain value, and then after the 250th ballot, they all began trending towards a different value. It would look like this:                 </p>
+                
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702085553.png" alt="Hypothetical step function if vote flipping occurred" class="content-image">
+                </div>
+                
+                <p>
+                    This is what it looks like when tabulators suddenly start flipping votes for Trump after 250. If the hackers were sneaky, they might have made it a little less dis-continuous and gradually sloped the cheating up to hide the effect in this style of visualization, but the effect would be the same: at the left edge of the graph we would see all of the lines hovering around some value, and then on the right edge they would be hovering around a different value.                 </p>
+                
+                <p>
+                    However, what we actually find is a normal random walk for each box.
+                </p>
+            </section>
+            
+            <!-- Smoking Gun Visualization -->
+            <div class="viz-container-light step" id="smoking-gun-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Running Average of Votes</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Line Count:</span>
+                        <div class="button-group" style="display: inline-flex; border: 1px solid #ccc; border-radius: 6px; overflow: hidden; flex-wrap: wrap;">
+                            <button type="button" class="smoking-gun-line-count-btn" data-mode="all" 
+                                    style="padding: 4px 8px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.8em; transition: all 0.2s;">All</button>
+                            <button type="button" class="smoking-gun-line-count-btn" data-mode="100" 
+                                    style="padding: 4px 8px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.8em; transition: all 0.2s;">100</button>
+                            <button type="button" class="smoking-gun-line-count-btn active" data-mode="50" 
+                                    style="padding: 4px 8px; border: none; background: #0066cc; color: white; cursor: pointer; font-size: 0.8em; transition: all 0.2s;">50</button>
+                            <button type="button" class="smoking-gun-line-count-btn" data-mode="20" 
+                                    style="padding: 4px 8px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.8em; transition: all 0.2s;">20</button>
+                            <button type="button" class="smoking-gun-line-count-btn" data-mode="10" 
+                                    style="padding: 4px 8px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.8em; transition: all 0.2s;">10</button>
+                            <button type="button" class="smoking-gun-line-count-btn" data-mode="5" 
+                                    style="padding: 4px 8px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.8em; transition: all 0.2s;">5</button>
+                        </div>
+                        <div style="font-size: 0.8em; color: #666; text-align: center; max-width: 200px;">
+                            <em>Note: "All" may take time to load</em>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Selection Method:</span>
+                        <div class="button-group" style="display: inline-flex; border: 1px solid #ccc; border-radius: 6px; overflow: hidden;">
+                            <button type="button" class="smoking-gun-selection-btn active" data-mode="longest" 
+                                    style="padding: 6px 12px; border: none; background: #0066cc; color: white; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Longest</button>
+                            <button type="button" class="smoking-gun-selection-btn" data-mode="random" 
+                                    style="padding: 6px 12px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Random</button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Simulation:</span>
+                        <div class="toggle-container" style="display: flex; align-items: center; gap: 8px;">
+                            <label class="toggle-switch" style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                                <input type="checkbox" id="smokingGunFakeToggle" style="opacity: 0; width: 0; height: 0;">
+                                <span class="toggle-slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                            </label>
+                            <span style="font-size: 0.9em;">"What if ETA was right?"</span>
+                        </div>
+                        <div style="font-size: 0.8em; color: #666; text-align: center; max-width: 250px;">
+                            <em>Shows artificial manipulation for educational purposes</em>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Window Size:</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="range" id="smokingGunWindowSize" min="5" max="50" value="30" step="1" style="width: 120px;">
+                            <span id="smokingGunWindowSizeValue" style="font-size: 0.9em; font-weight: bold; min-width: 25px;">30</span>
+                        </div>
+                        <div style="font-size: 0.8em; color: #666; text-align: center; max-width: 200px;">
+                            <em>Votes included in rolling average</em>
+                        </div>
+                    </div>
+                </div>
+                <div id="smoking-gun-loading" style="text-align: center; margin: 20px 0;">Loading data...</div>
+                <div id="smoking-gun-plot" class="plot-container"></div>
+            </div>
+
+            <section id="smoking-gun-conclusion">
+                <p>
+                    I can only imagine <sup id="fnref3">3</sup> why ETA didn't do this visualization, because it is easier than all of the graphs above which required additional vote data accumulation and processing, and it would have proved them right.
+                </p>
+                
+                <p>
+                    Election Truth Alliance made one other argument though, that many online have found convincing, we should look at The Russian Tail.                </p>
+            </section>
+            
+            <section id="russian-tail">
+                <h2>The "Russian Tail"</h2>
+                
+                <p>
+                    Election Truth Alliance posts the following histogram, graphing the number of machines that report a given Trump percentage. 
+                </p>
+                
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702091015.png" alt="ETA histogram showing alleged Russian Tail" class="content-image">
+                </div>
+                
+                <p>
+                    ETA states that the pattern above is "Inexplicable", "Statistically unlikely based on typical human voting behavior", and it represents a "Russian Tail", which is a deviation from a normal distribution that can be an indicator of unfair elections.                 
+                </p>
+                
+                <div class="note-box">
+                    <!-- Emphasise this more , put it inside a callout box-->
+                    <h4>Note</h4>
+                    <p>
+                        Before moving on, we should discuss why we are drawing a normal distribution here. Pull out that pin from earlier, the Law of Large Numbers states that when you take a bigger sample from a population, your mean sample is closer to the true mean value of the population. There is a similar idea known as the Central Limit Theorem. The Central Limit Theorem states that the distribution of unique samples of uniform size from a certain population, whatever the distribution of the underlying data may be, will approximate a normal distribution.
+                    </p>
+                    <p>
+                        ETA glosses over some of that definition in a deceptive manner. In order for the Central Limit Theorem to hold true, sample populations need to be of <strong>Uniform Size</strong>, but in the Clark County machine data, they span from 10 to 1000 samples. They also need to be pulled from the <strong>same population</strong>. The combined plots of repeated 50/50 coin flip games and 70/30 coin flip games mixed together should <strong>not be expected to be a normal distribution</strong>.
+                    </p>
+                    <p>
+                        Do you expect a sample of votes from your local downtown to have the <em>exact same average result</em> as a sample of votes from a random suburb or outlying village? If the answer is "no" (which it is), then you should not be trying to map geographical voting patterns onto a normal distribution.
+                    </p>
+                </div>
+                
+                <h3>What is a Russian Tail?</h3>
+
+                <p>
+                    The term "Russian Tail" was coined by data analyst and former political prisoner Roman Udot, to describe a pattern that was noticed in Georgia's Georgian 2020 Constitutional Referendum.                 </p>
+                
+                <p>
+                    Udot noticed that when Georgian precincts were separated out into urban and rural groups, an interesting pattern emerged, where the histogram showing the distribution of precincts and the support proportion they reported deviates from the normal distribution by "growing a tail".                 </p>
+                
+                <div class="image-container">
+                    <img src="images/Pasted image 20250702091704.png" alt="Original Russian Tail example from Georgian referendum" class="content-image">
+                </div>
+                
+                <p>
+                    The tail indicates that there are a suspiciously large number of districts that are unanimously or near-unanimously pro-GD, which Udot claims to be evidence of ballot stuffing. The logic is that each of the se precincts would normally be somewhere closer to the center of the normal distribution, but Georgian Dream ballots were stuffed into them after the fact, pushing them rightwards on the graph.                 </p>
+                
+                <p>
+                    Here is a simulation of a Russian Tail that you can play with yourself:
+                </p>
+            </section>
+            
+            <!-- Russian Tail Simulation Visualization -->
+            <div class="viz-container-light step" id="russian-tail-sim-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Russian Tail Simulation</h3>
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Manipulation Level:</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="range" id="russianTailManipulationLevel" min="0" max="30" value="10" step="5" style="width: 120px;">
+                            <span id="russianTailManipulationValue" style="font-size: 0.9em; font-weight: bold; min-width: 35px;">10%</span>
+                        </div>
+                        <div style="font-size: 0.8em; color: #666; text-align: center; max-width: 150px;">
+                            <em>of districts</em>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Display Mode:</span>
+                        <div class="button-group" style="display: inline-flex; border: 1px solid #ccc; border-radius: 6px; overflow: hidden;">
+                            <button type="button" class="russian-tail-display-btn" data-mode="stacked" 
+                                    style="padding: 6px 12px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Stacked</button>
+                            <button type="button" class="russian-tail-display-btn active" data-mode="overlapping" 
+                                    style="padding: 6px 12px; border: none; background: #0066cc; color: white; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Overlapping</button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <button id="russianTailGenerate" style="background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
+                            Generate Distribution
+                        </button>
+                    </div>
+                </div>
+                <div id="russian-tail-sim-plot" class="plot-container"></div>
+                <div class="warning" style="background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px; padding: 15px; margin: 20px 0; color: #856404;">
+                    <strong>Important:</strong> A bimodal distribution (two peaks) is NORMAL in elections with strong regional divides. A "Russian tail" is specifically a flat distribution at extreme values (80-95%), not just any peak at high percentages.
+                </div>
+            </div>
+            
+            <section id="clark-county-russian-tail">
+                <h3>Does Clark County have a Russian Tail?</h3>
+                
+                <p>
+                    So, how do we apply this lesson from Roman Udot to Clark County? A hint is in how the original graph from Georgia is presented, with two groups forming two distinct lines, because...                </p>
+                
+                <div class="callout-box">
+                    <p>Election Precincts do not obey normal distributions, they are multimodal.</p>
+                </div>
+
+                <p>
+                    "Multimodal" means that there are multiple peaks in the histogram, which makes sense, because all of the machines and all of the precincts do not sample from the same population. They sample from the population of people who live nearby that machine, and the people who live by a voting center are more likely to have more similar opinions to each other than they are to the general population.                 </p>
+                
+                <p>
+                    In Georgia, there were two major populations, <strong>Urban</strong> and <strong>Rural</strong>.
+                </p>
+                
+                <p>
+                    In Nevada, there are three major populations, <strong>Urban</strong>, <strong>Rural</strong>, and <strong>Suburban</strong>. You may have noticed in some of the charts above that the most-used election machines tended to land on one of three numbers, 75% pro-Trump (Rural), 60% pro-Trump (suburban), and 47% pro-Trump (Urban). 
+                </p>
+                
+                <p>
+                    Here's where it gets tricky: where do you draw a line between "urban" and "suburban" Las Vegas? Vegas is one of the most sprawling cities in the world, with an exurban second downtown in Henderson ("The Strip" which is not technically part of the city). Rather than take a stand, I have left "urban" and "suburban" as a single color in these visualizations.                
+                </p>
+            </section>
+            
+            <!-- Early Voting Histogram Visualization -->
+            <div class="viz-container-light step" id="early-voting-histogram-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Early Voting Histogram</h3>
+                
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px;">
+                    <div class="control-group">
+                        <label>Display Mode:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="earlyVotingDisplayModeStacked" name="earlyVotingDisplayMode" value="stacked" checked>
+                            <label for="earlyVotingDisplayModeStacked">Stacked</label>
+                            <input type="radio" id="earlyVotingDisplayModeOverlapping" name="earlyVotingDisplayMode" value="overlapping">
+                            <label for="earlyVotingDisplayModeOverlapping">Overlapping</label>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Color Mode:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="earlyVotingColorModeNone" name="earlyVotingColorMode" value="none">
+                            <label for="earlyVotingColorModeNone">None (Red)</label>
+                            <input type="radio" id="earlyVotingColorModeBinary" name="earlyVotingColorMode" value="binary" checked>
+                            <label for="earlyVotingColorModeBinary">Urban/Rural</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="early-voting-histogram-plot" class="plot-container"></div>
+            </div>
+            
+            <section id="histogram-analysis">
+                <p>
+                    Compare this view to the Georgian Dream histogram above. There is clearly no "Russian Tail". None of the distributions have a weird shoulder off to the right, like Georgian Dream did.                 </p>
+                
+                <p>
+                    And the election day data, for good measure:
+                </p>
+            </section>
+            
+            <!-- Election Day Histogram Visualization -->
+            <div class="viz-container-light step" id="election-day-histogram-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Day Histogram</h3>
+                
+                <div class="controls" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Display Mode:</span>
+                        <div class="button-group" style="display: inline-flex; border: 1px solid #ccc; border-radius: 6px; overflow: hidden;">
+                            <button type="button" class="election-day-display-btn active" data-mode="stacked" 
+                                    style="padding: 6px 12px; border: none; background: #0066cc; color: white; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Stacked</button>
+                            <button type="button" class="election-day-display-btn" data-mode="overlapping" 
+                                    style="padding: 6px 12px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Overlapping</button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                        <span style="font-weight: bold; font-size: 0.9em;">Color Mode:</span>
+                        <div class="button-group" style="display: inline-flex; border: 1px solid #ccc; border-radius: 6px; overflow: hidden;">
+                            <button type="button" class="election-day-color-btn" data-mode="none" 
+                                    style="padding: 6px 12px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">None (Red)</button>
+                            <button type="button" class="election-day-color-btn active" data-mode="binary" 
+                                    style="padding: 6px 12px; border: none; background: #0066cc; color: white; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Urban/Rural</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="election-day-histogram-plot" class="plot-container"></div>
+            </div>
+            
+            <section id="population-analysis">
+                <p>
+                    The fact that we have three populations, not two, but I can only mark two in color, is kind of throwing things off, but we can fix that with some simulation. 
+                </p>
+                
+                <p>
+                    In 2024, Republicans made an appeal to their base to vote early, and rural precincts in Nevada saw higher Early Voting turnout overall, Registered Republicans were 51.9% of early voters Registered Democrats were only 27.8% of early voters. This means that <em>there were more Republicans out voting than Democrats, so a pro-Trump result overall is expected*. </em>
+                </p>
+
+                <p>
+                    There are more early voting locations in urban areas than rural areas, but the same number of tabulator machines at each. This means that the urban mode, especially in early voting, will be smaller overall and more spread out than the rural mode. 
+                </p>
+            </section>
+            <section id="simulation-introduction">
+                <h4>
+                    So here is our simulation:
+                </h4>
+                <p>
+                Urban polling sites are more frequent, and get less votes each, because Democrats were less likely to vote early (they mostly voted by mail). We also assign high variance to urban polling locations, because the average opinion at a polling site in a city can vary based on proximity to job centers or universities. 
+                </p>
+                <p>
+                Suburban polling sites tend to be more homogenous because of the culture of the suburbs, and because they exist at a "crossroads" of urban and rural culture, where they recieve a large number of voters visiting from inside the city and outside. Many of these polling sites were at shopping malls, for example. So they tend to attract more voters and a denser mix. 
+                </p>
+                <p>
+                Rural polling sites are few in number and have few machines each. They will be used by people who come from a broad area around, so they have relatively high total vote counts but a relatively tight distribution, since rural voters broke consistently for Trump. 
+                </p>
+                <p>
+                We plug in these values to our simulation, and we find:
+                </p>
+            </section>
+            
+            <!-- Election Simulation Visualization -->
+            <div class="viz-container-light step" id="election-simulation-viz">
+                <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Distribution Simulation</h3>
+                <div id="election-simulation-plot" class="plot-container"></div>
+                
+                <!-- Simulation Results Box -->
+                <div class="simulation-results" style="background: #e8f5e8; padding: 15px; border-radius: 5px; margin: 20px auto; border-left: 4px solid #27ae60; max-width: 300px; text-align: center;">
+                    <h4 style="margin: 0 0 10px 0; color: #27ae60; font-size: 1.1em;">Simulation Results</h4>
+                    <div style="display: flex; justify-content: space-between; gap: 20px;">
+                        <div><strong>Total Votes:</strong> <span id="simTotalVotes">0</span></div>
+                        <div><strong>Trump:</strong> <span id="simTrumpPercent">0.0%</span></div>
+                        <div><strong>Harris:</strong> <span id="simHarrisPercent">0.0%</span></div>
+                    </div>
+                </div>
+                
+                <h3 style="color: var(--text-secondary); text-align: center; margin: 40px 0 20px 0;">Distribution of Trump Vote % by Machine</h3>
+                
+                <!-- Histogram Controls -->
+                <div class="controls" style="margin: 20px auto; max-width: 800px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+                    <div style="display: flex; flex-direction: column; gap: 25px; align-items: center;">
+                        <!-- Display Mode Buttons -->
+                        <div class="control-group" style="text-align: center;">
+                            <h4 style="margin: 0 0 10px 0; color: var(--text-primary); font-size: 1em;">Display Mode</h4>
+                            <div class="button-group" style="display: inline-flex; border: 1px solid #ccc; border-radius: 6px; overflow: hidden;">
+                                <button type="button" class="display-mode-btn" data-mode="stacked" 
+                                        style="padding: 8px 16px; border: none; background: #0066cc; color: white; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Stacked</button>
+                                <button type="button" class="display-mode-btn" data-mode="overlapping" 
+                                        style="padding: 8px 16px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Overlapping</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Color Mode Buttons -->
+                        <div class="control-group" style="text-align: center;">
+                            <h4 style="margin: 0 0 10px 0; color: var(--text-primary); font-size: 1em;">Color Mode</h4>
+                            <div class="button-group" style="display: inline-flex; border: 1px solid #ccc; border-radius: 6px; overflow: hidden; flex-wrap: wrap;">
+                                <button type="button" class="color-mode-btn" data-mode="ternary" 
+                                        style="padding: 8px 16px; border: none; background: #0066cc; color: white; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Urban/Suburban/Rural</button>
+                                <button type="button" class="color-mode-btn" data-mode="binary" 
+                                        style="padding: 8px 16px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">Urban/Rural Combined</button>
+                                <button type="button" class="color-mode-btn" data-mode="unary" 
+                                        style="padding: 8px 16px; border: none; background: white; color: #333; cursor: pointer; font-size: 0.9em; transition: all 0.2s;">All Combined (Red)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="election-simulation-histogram" class="plot-container"></div>
+                
+                <!-- Educational Explanation -->
+                <div class="explanation" style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 30px auto; max-width: 800px; border-left: 4px solid var(--primary-color);">
+                    <h4 style="margin: 0 0 15px 0; color: var(--primary-color);">What you're seeing:</h4>
+                    <p style="margin-bottom: 15px;">Each point represents a voting machine. Machines are grouped into voting locations (clusters), with each location having its own true support rate.</p>
+                    
+                    <p style="margin-bottom: 10px; font-weight: 600;">We're modeling several real-world patterns:</p>
+                    <ul style="margin-left: 20px; line-height: 1.6;">
+                        <li><strong>Urban-Rural Divide:</strong> Urban locations (more Democratic-leaning) tend to have more machines but fewer votes per machine. Rural locations (more Republican-leaning) have fewer machines but more votes per machine.</li>
+                        <li><strong>Local Clustering:</strong> Machines in the same location have similar Trump support rates, creating clusters in the visualization.</li>
+                        <li><strong>Sampling Variability:</strong> Machines with fewer votes show more scatter from their location's true rate due to the Law of Large Numbers.</li>
+                    </ul>
+                    
+                    <p style="margin-top: 15px; font-style: italic;">These patterns create a more realistic simulation that better matches actual election data distributions.</p>
+                </div>
+            </div>
+            
+            <section id="simulation-analysis">
+                <div class="image-container">
+                    <img src="images/Pasted image 20250703145415.png" alt="Simulation results showing three distinct modes" class="content-image">
+                </div>
+                
+                <p>
+                    Tadaa! It looks exactly like the real data. No after-vote manipulation happening here, just the exact same population effects we would expect to see in the real world, spelled out in a simulated election.                 
+                </p>
+                <p>
+                    Here, I added the control sliders for this simulation to your control panel, you can see how manipulating the real-world parameters that govern the election impacts the resulting chart. 
+                </p>
+            </section>
+            
+            <section id="pattern-of-deception">
+                <h2>The Pattern of Deception</h2>
+                
+                <h3>Manipulative data visualizations</h3>
+                
+                <p>
+                    As pointed out above, Election Truth Alliance visually compares data that is numerically very different by hiding the difference on the X axis legend. Sharing one chart that is compressed in this way against another that includes much larger sample is not an honest comparison.                 </p>
+                
+                <p>
+                    ETA also mirrors their data vertically and superimposes it on itself. There isn't any additional value in doing this, it really baffles me because it just makes the data less readable.                 </p>
+                
+
+                <p>
+                    The only reason I can imagine to do this is to imply a diverging pattern that does not exist. In reality this is one pattern that converges, but by showing the same graph twice, flipped, ETA implies that there are two trends that *diverge*, which is intuitively less realistic, and therefore stokes the reader's suspicions unless they read closely.
+                </p>
+                <h3>Just straight up lies</h3>
+
+                <p>
+                    A Russian Tail is not a "deviation from a normal distribution", it is a particular kind of deviation, and the kind of it is implicit in the name: it's a tail. A spike is not a tail. 
+                </p>
+                
+                <h3>Cherrypicking</h3>
+                
+                <p>
+                    Election Truth Alliance began crafting their case that the election was stolen within *days* of the election, before the first data set they released was even available. This is a classic telltale of dishonest investigation: the determination was made, the people committed to proving it, <em>even though they didn't look at any evidence yet</em>.                 
+                </p>
+                
+                <p>
+                    So the Clark County data eventually came out, and they found a way to make it show the trend that they were already committed to finding before they saw the data, and then they stopped. In the following nine months, they only released two other examples of the supposed manipulations. Why not more? The analysis isn't hard. The visualizations in this post took only about two days to make, the bulk of my time on this project was building the website. 
+                </p>
+                
+                <p>
+                    So why did ETA not release any more analyses? Why not any of the other counties in Nevada? 
+                </p>
+
+                <p>
+                    Could it be that some of the notable visuals seen here is a statistical blip? 
+                </p>
+                
+                <p>
+                    Could it be that they don't actually care how right they are, they are just searching through all of the counties in America trying to find examples that confirm their their pre-determined conclusion, and burying all the evidence that disproves them? The answer is yes.                 </p>
+                
+                
+                <h3>About those Audits they are calling for...</h3>
+                
+                <div class="callout-box">
+                    <p>There have been audits!</p>
+                </div>
+                
+                <p>
+                    <a href="https://elections.wi.gov/sites/default/files/documents/2024%20Post-Election%20Voting%20Equipment%20Audit%20Final%20Report.pdf" target="_blank">Wisconsin performed the largest and most thorough post-election audit in its history</a>, hand-counting more ballots than the total that were recorded in Clark County, and found <em>zero</em> incorrectly tabulated ballots.
+                </p>
+                <p>
+                    When the Wisconsin audit occurred, it fell out of the news cycle fast, because the lack of fraud is normal, it's not newsworthy. That quick news cycle is handy for election conspiracy grifters who can lie, "there have been no audits", and be confident that their audience has forgotten about the audits that have occurred. 
+                </p>
+            </section>
+
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+                <p>
+                Here's what makes this so frustrating to me, why I spent so much effort on this website: Liberals and leftists take pride in crafting rigorously thought out, scientificaly grounded policies. 
+                </p>
+                <p>
+                The classic Colbert joke that "Reality has a liberal bias" works because the opposite is generally true: liberals orient their beliefs based on the scientific truth, rather than deciding what they want to believe and then making up "alternative facts" about it. 
+                </p>
+                <p>
+                But that's not what's happening here. Election Truth Alliance is bad statistics, bad math, bad science, incurious policy, that exists because the conclusion was fixed before the evidence was seen, and that's not what I want to see my side of the political spectrum doing. 
+                </p>
+                <p>
+                I don't know if Election Truth Alliance are mislead or malicious, but it doesn't matter. They are wrong. Their analysis is fundamentally flawed. The responsible thing to do would be to acknowledge these errors, retract their claims, and apologize for misleading the public. Publications like [Newsweek](https://www.newsweek.com/2024-election-rigged-donald-trump-elon-musk-2019482) that have repeated these claims uncritically should retract their articles and issue corrections. 
+                </p>
+                <p>
+                Bad statistics don't become good just because you want to believe them, and skepticism needs to be applied even when someone is telling you what you want to hear. 
+                </p>
+            </section>
+        </article>
+        
+        <!-- Right sidebar: Controls and footnotes -->
+        <aside class="right-sidebar" id="controls-sidebar">
+            <!-- Close button for mobile -->
+            <button class="mobile-close" id="mobile-close-btn" aria-label="Close controls">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                </svg>
+            </button>
+            <div class="controls-section">
+                <h4 class="desktop-only">Controls</h4>
+                <h4 class="mobile-only" style="display: none;">Game Controls</h4>
+                
+                <!-- Prediction slider - hidden initially -->
+                <div class="slider-control" id="predictionControl" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <label>
+                        Your Prediction
+                        <span class="value">50%</span>
+                    </label>
+                    <input type="range" min="0" max="100" value="50" id="userPrediction">
+                    <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">
+                        What percentage of heads do you expect?
+                    </div>
+                </div>
+                
+                <!-- Coin bias slider, hidden initially -->
+                <div class="slider-control" id="coinBiasControl" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <label>
+                        Coin Bias
+                        <span class="value">40%</span>
+                    </label>
+                    <input type="range" min="0" max="100" value="40" id="coinBias">
+                </div>
+                
+                <!-- Global Color Mode Controls -->
+                <div class="control-group" id="globalColorControls" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <h5 style="margin-bottom: 10px; color: var(--text-primary);">Color Mode</h5>
+                    <div class="radio-group" style="display: flex; flex-direction: column; gap: 8px;">
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="none" style="margin-right: 8px;">
+                            None
+                        </label>
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="binary" checked style="margin-right: 8px;">
+                            Urban/Rural
+                        </label>
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="gradient" style="margin-right: 8px;">
+                            Urban %
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Election Simulation Controls -->
+                <div class="control-group" id="simulationControls" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <h5 style="margin-bottom: 15px; color: var(--text-primary);">Simulation Parameters</h5>
+                    
+                    <!-- Support Base Controls -->
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Urban Support Base
+                            <span class="value" id="urbanSupportBaseValue">45%</span>
+                        </label>
+                        <input type="range" id="urbanSupportBase" min="0" max="100" value="45" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Suburban Support Base
+                            <span class="value" id="suburbanSupportBaseValue">60%</span>
+                        </label>
+                        <input type="range" id="suburbanSupportBase" min="0" max="100" value="60" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Rural Support Base
+                            <span class="value" id="ruralSupportBaseValue">73%</span>
+                        </label>
+                        <input type="range" id="ruralSupportBase" min="0" max="100" value="73" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <!-- Machine Distribution Controls -->
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Rural Machines
+                            <span class="value" id="ruralMachinesValue">250</span>
+                        </label>
+                        <input type="range" id="ruralMachines" min="0" max="500" value="250" step="10" style="width: 100%;">
+                        <div style="font-size: 0.75em; color: var(--text-secondary); margin-top: 2px;">
+                            Non-rural: <span id="nonRuralCount">714</span>
+                        </div>
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Urban % of Non-Rural
+                            <span class="value" id="urbanPercentageValue">55%</span>
+                        </label>
+                        <input type="range" id="urbanPercentage" min="0" max="100" value="55" step="5" style="width: 100%;">
+                        <div style="font-size: 0.75em; color: var(--text-secondary); margin-top: 2px;">
+                            U: <span id="urbanCount">392</span> | S: <span id="suburbanCount">322</span> | R: <span id="ruralCountDisplay">250</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Cluster Variance Controls -->
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Urban Cluster Variance
+                            <span class="value" id="urbanClusterStrengthValue">11</span>
+                        </label>
+                        <input type="range" id="urbanClusterStrength" min="1" max="20" value="11" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Suburban Cluster Variance
+                            <span class="value" id="suburbanClusterStrengthValue">3</span>
+                        </label>
+                        <input type="range" id="suburbanClusterStrength" min="1" max="20" value="3" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 15px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Rural Cluster Variance
+                            <span class="value" id="ruralClusterStrengthValue">9</span>
+                        </label>
+                        <input type="range" id="ruralClusterStrength" min="1" max="20" value="9" step="1" style="width: 100%;">
+                    </div>
+                    
+                    
+                    <button id="runSimulation" style="width: 100%; padding: 8px; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">Run Simulation</button>
+                </div>
+            </div>
+            
+            <!-- Footnotes will appear here dynamically -->
+            <div id="footnotes-container">
+                <div class="footnote" data-section="intro">
+                    <strong>Note:</strong> The Election Truth Alliance's analysis 
+                    focused on the convergence of vote percentages as more votes 
+                    were counted—a phenomenon we'll explore through simple probability.
+                </div>
+                <div class="footnote" data-section="single-coin-viz">
+                    <strong><sup>1</sup></strong>: Don't worry, it's truly random—the best quality random numbers your computer can generate. I do not know what you are seeing right now.
+                </div>
+                <div class="footnote" data-section="law-of-large-numbers-explanation">
+                    <strong><sup>2</sup></strong>: The Law of Large Numbers is related to but not quite the same as the Central Limit Theorem, put a pin in that.
+                    It is also related to but not the same as the confusingly named Law of Very Large Numbers, 
+                    which states that unlikely events do still happen sometimes, especially when given enough trials.
+                </div>
+                <div class="footnote" data-section="smoking-gun-conclusion">
+                    <strong><sup>3</sup></strong>: I can imagine, actually. It's because they didn't do the analysis properly and were more 
+                    interested in confirming their pre-existing bias than finding the truth. 
+                </div>
+            </div>
+        </aside>
     </div>
-    <script src="src/main.js" type="module"></script>
+    
+    <!-- Mobile controls toggle button -->
+    <button class="mobile-controls-toggle" id="mobile-controls-toggle" aria-label="Open controls">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/>
+        </svg>
+    </button>
+    
+    <!-- Mobile controls tooltip -->
+    <div class="mobile-controls-tooltip" id="mobile-controls-tooltip">
+        <button class="tooltip-close" id="tooltip-close" aria-label="Close tooltip">×</button>
+        Footnotes and control sliders will appear here. Click to set your prediction for the coin flip game!
+    </div>
+    
+    <!-- Mobile overlay -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+    
+    <!-- Image Lightbox Modal -->
+    <div class="lightbox-overlay" id="lightbox-overlay">
+        <div class="lightbox-container">
+            <button class="lightbox-close" id="lightbox-close" aria-label="Close image">&times;</button>
+            <img class="lightbox-image" id="lightbox-image" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+    
+    <script type="module" src="main.js"></script>
+
 </body>
 </html>
