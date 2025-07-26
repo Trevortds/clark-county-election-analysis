@@ -2,7 +2,6 @@
         // - Download the libs I am reliant on and use them either primarily or as a fallback
         // - Add histogram (footnote?) with mail-in votes, also one that combines mail ins and early, to show the curve balance out
         // - convert the rest of the radio toggles to buttons 
-        // - Add a link to the original somewhere
         
         // Import our visualization modules
         import { animateCoinFlip } from './src/coin_flip.js';
