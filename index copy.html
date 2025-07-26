@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Law of Large Numbers: Understanding Election Statistics</title>
+    
+    <!-- Dependencies -->
+    <script src="https://unpkg.com/scrollama@3.2.0/build/scrollama.min.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Scrollama library -->
+    <script src="https://unpkg.com/scrollama"></script>
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WFVL4QQCXF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WFVL4QQCXF');
+</script>
+
+</head>
+<body>
+    <div class="main-container">
+        <!-- Left sidebar: Table of Contents -->
+        <nav class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#intro" class="active">Introduction</a></li>
+                <li><a href="#coin-flip">The Coin Flip Game</a></li>
+                <li><a href="#law-of-large">Law of Large Numbers</a></li>
+                <li><a href="#election-data">Election Data Analysis</a></li>
+                <li><a href="#smoking-gun">The "Smoking Gun"</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Main content area -->
+        <article class="article-content">
+            <h1>The Fraud Behind 2024 Election Fraud Claims</h1>
+            <p class="subtitle">How the Election Truth Alliance misunderstood Stats 101, decieved themselves, and created a new conspiracy subculture</p>
+            
+            <section id="coin-flip">
+                <h2> Let's play a game </h2>
+                <p> You flip a coin, I'll call it. </p>
+            </section>  
+          
+            <!-- First Visualization: Single Coin -->
+            <div class="viz-container" id="single-coin-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Single Coin Flip</h3>
+                <div class="coin-container" data-viz="single">
+                    <div class="coin">
+                        <div class="coin-face heads">H</div>
+                        <div class="coin-face tails">T</div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="single">Flip the Coin!</button>
+                    <div class="viz-result" data-viz="single"></div>
+                </div>
+            </div>
+            
+            <section id="four-coins">
+                <p>
+                    Now let's make things more interesting. Instead of flipping one coin, let's flip four coins 
+                    at once. Can you predict what percentage will be heads?
+                </p>
+                
+                <p>
+                    With more coins, we start to see patterns emerge. The results become more predictable, 
+                    even though each individual coin flip is still random. This is the beginning of understanding 
+                    the Law of Large Numbers.
+                </p>
+            </section>
+            
+            <!-- Second Visualization: Four Coins -->
+            <div class="viz-container step" id="four-coins-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Four Coins</h3>
+                <div class="coins-grid" data-viz="four">
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="four">Flip All Four!</button>
+                    <div class="viz-result" data-viz="four"></div>
+                </div>
+            </div>
+
+            <section id="ten-coins">
+                <p>
+                    Let's do ten coins now. How many will be heads. Put in your guess:
+                </p>
+            </section>
+
+            <!-- Third Visualization: Ten Coins -->
+            <div class="viz-container step" id="ten-coins-viz">
+                <h3 style="color: var(--text-light); text-align: center; margin-bottom: 30px;">Ten Coins</h3>
+                <div class="ten-coins-grid" data-viz="ten">
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin">
+                            <div class="coin-face heads">H</div>
+                            <div class="coin-face tails">T</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="viz-button" data-viz="ten">Flip All Ten!</button>
+                    <div class="viz-result" data-viz="ten"></div>
+                </div>
+            </div>
+            <section id="coin-games">
+                <p>
+                    I get the feeling you feel like you can win more often than you have, so 
+                    I'll make it easy for you. 
+                </p>
+                <p>
+                    I'll run 20 games at once, and put them on a chart for you, 
+                    and this time you get to pick how many coins are tossed. You only need to be correct within a 10% window.
+                </p>
+            </section>
+
+            <!-- Fourth Visualization: Coin Games -->
+            <div class="viz-container-light step" id="coin-games-viz">
+                <div id="coin-games-plot" class="plot-container"></div>
+                <div class="coin-games-controls">
+                    <div class="slider-control">
+                        <label>Number of Flips:</label>
+                        <input type="range" id="flips-slider" min="10" max="1000" value="0" step="10">
+                        <span class="value" id="flips-display">10</span>
+                    </div>
+                    <p style="text-align: center; font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Slide to change how many flips are done for each game</p>
+                    <p id="win-percentage" style="text-align: center; font-size: 18px; color: var(--dark-spring-green); font-weight: 600; margin-top: 12px; opacity: 0; transition: opacity 0.3s ease-in;">Your win rate: <span id="win-rate-value">0%</span></p>
+                    <p id="convergence-notice" style="text-align: center; font-size: 28px; color: var(--auburn); font-weight: bold; margin-top: 20px; display: none; opacity: 0; transition: opacity 0.5s ease-in;">Hey, wait a minute...</p>
+                </div>
+            </div>
+            
+            
+
+            </article>
+        
+        <!-- Right sidebar: Controls and footnotes -->
+        <aside class="right-sidebar" id="controls-sidebar">
+            <!-- Close button for mobile -->
+            <button class="mobile-close" id="mobile-close-btn" aria-label="Close controls">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                </svg>
+            </button>
+            <div class="controls-section">
+                <h4 class="desktop-only">Controls</h4>
+                <h4 class="mobile-only" style="display: none;">Game Controls</h4>
+                
+                <!-- Prediction slider - hidden initially -->
+                <div class="slider-control" id="predictionControl" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <label>
+                        Your Prediction
+                        <span class="value">50%</span>
+                    </label>
+                    <input type="range" min="0" max="100" value="50" id="userPrediction">
+                    <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">
+                        What percentage of heads do you expect?
+                    </div>
+                </div>
+                
+                <!-- Coin bias slider, hidden initially -->
+                <div class="slider-control" id="coinBiasControl" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <label>
+                        Coin Bias
+                        <span class="value">40%</span>
+                    </label>
+                    <input type="range" min="0" max="100" value="40" id="coinBias">
+                </div>
+                
+                <!-- Global Color Mode Controls -->
+                <div class="control-group" id="globalColorControls" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <h5 style="margin-bottom: 10px; color: var(--text-primary);">Color Mode</h5>
+                    <div class="radio-group" style="display: flex; flex-direction: column; gap: 8px;">
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="none" style="margin-right: 8px;">
+                            None
+                        </label>
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="binary" checked style="margin-right: 8px;">
+                            Urban/Rural
+                        </label>
+                        <label style="display: flex; align-items: center; font-size: 0.9em; cursor: pointer;">
+                            <input type="radio" name="globalColorMode" value="gradient" style="margin-right: 8px;">
+                            Urban %
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Election Simulation Controls -->
+                <div class="control-group" id="simulationControls" style="display: none; opacity: 0; transition: opacity 0.5s ease-in-out;">
+                    <h5 style="margin-bottom: 15px; color: var(--text-primary);">Simulation Parameters</h5>
+                    
+                    <!-- Support Base Controls -->
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Urban Support Base
+                            <span class="value" id="urbanSupportBaseValue">45%</span>
+                        </label>
+                        <input type="range" id="urbanSupportBase" min="0" max="100" value="45" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Suburban Support Base
+                            <span class="value" id="suburbanSupportBaseValue">60%</span>
+                        </label>
+                        <input type="range" id="suburbanSupportBase" min="0" max="100" value="60" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Rural Support Base
+                            <span class="value" id="ruralSupportBaseValue">73%</span>
+                        </label>
+                        <input type="range" id="ruralSupportBase" min="0" max="100" value="73" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <!-- Machine Distribution Controls -->
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Rural Machines
+                            <span class="value" id="ruralMachinesValue">250</span>
+                        </label>
+                        <input type="range" id="ruralMachines" min="0" max="500" value="250" step="10" style="width: 100%;">
+                        <div style="font-size: 0.75em; color: var(--text-secondary); margin-top: 2px;">
+                            Non-rural: <span id="nonRuralCount">714</span>
+                        </div>
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Urban % of Non-Rural
+                            <span class="value" id="urbanPercentageValue">55%</span>
+                        </label>
+                        <input type="range" id="urbanPercentage" min="0" max="100" value="55" step="5" style="width: 100%;">
+                        <div style="font-size: 0.75em; color: var(--text-secondary); margin-top: 2px;">
+                            U: <span id="urbanCount">392</span> | S: <span id="suburbanCount">322</span> | R: <span id="ruralCountDisplay">250</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Cluster Variance Controls -->
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Urban Cluster Variance
+                            <span class="value" id="urbanClusterStrengthValue">11</span>
+                        </label>
+                        <input type="range" id="urbanClusterStrength" min="1" max="20" value="11" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 12px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Suburban Cluster Variance
+                            <span class="value" id="suburbanClusterStrengthValue">3</span>
+                        </label>
+                        <input type="range" id="suburbanClusterStrength" min="1" max="20" value="3" step="1" style="width: 100%;">
+                    </div>
+                    
+                    <div class="slider-control" style="margin-bottom: 15px;">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.85em;">
+                            Rural Cluster Variance
+                            <span class="value" id="ruralClusterStrengthValue">9</span>
+                        </label>
+                        <input type="range" id="ruralClusterStrength" min="1" max="20" value="9" step="1" style="width: 100%;">
+                    </div>
+                    
+                    
+                    <button id="runSimulation" style="width: 100%; padding: 8px; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">Run Simulation</button>
+                </div>
+            </div>
+            
+            <!-- Footnotes will appear here dynamically -->
+            <div id="footnotes-container">
+                <div class="footnote" data-section="intro">
+                    <strong>Note:</strong> The Election Truth Alliance's analysis 
+                    focused on the convergence of vote percentages as more votes 
+                    were counted—a phenomenon we'll explore through simple probability.
+                </div>
+                <div class="footnote" data-section="single-coin-viz">
+                    <strong><sup>1</sup></strong>: Don't worry, it's truly random—the best quality random numbers your computer can generate. I do not know what you are seeing right now.
+                </div>
+                <div class="footnote" data-section="law-of-large-numbers-explanation">
+                    <strong><sup>2</sup></strong>: The Law of Large Numbers is related to but not quite the same as the Central Limit Theorem, put a pin in that.
+                    It is also related to but not the same as the confusingly named Law of Very Large Numbers, 
+                    which states that unlikely events do still happen sometimes, especially when given enough trials.
+                </div>
+                <div class="footnote" data-section="smoking-gun-conclusion">
+                    <strong><sup>3</sup></strong>: I can imagine, actually. It's because they didn't do the analysis properly and were more 
+                    interested in confirming their pre-existing bias than finding the truth. 
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- Mobile controls toggle button -->
+    <button class="mobile-controls-toggle" id="mobile-controls-toggle" aria-label="Open controls">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/>
+        </svg>
+    </button>
+    
+    <!-- Mobile overlay -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+    
+    <script type="module" src="main.js"></script>
+
+</body>
+</html>
