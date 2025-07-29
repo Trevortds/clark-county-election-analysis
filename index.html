@@ -319,7 +319,7 @@
                 <p>
                     Election Truth Alliance's analysis focuses on this chart, which they claim is anomalous.
                      To understand how to read this chart, keep in mind that each point is not a vote, but an entire voting machine.
-                      The numbers on the X-axis are the number of votes each machine has counted, and the Y axis is Trump preference.            
+                      The numbers on the x-axis are the number of votes each machine has counted, and the y-axis is Trump preference.            
                 </p>
 
                 <div class="image-container">
@@ -388,13 +388,13 @@
                 <h3>The X-Axis</h3>
                 
                 <p>
-                    Take a look at the X-axis in these graphs. The "normal" elections max out at 800 or 100 votes per machine, 
+                    Take a look at the x-axis in these graphs. The "normal" elections max out at 800 or 100 votes per machine, 
                     but the 2024 Early Voting election has as many as 1200 votes per machine! We can't tell what the election 
                     day machines would have done if they had 1200 votes, because none of them cracked 125!                
                  </p>
                 
                 <p>
-                    If we truncate the Early Voting chart so that we have an apples-to-apples comparison along the same width of X-axis as the 2020 early votes...
+                    If we truncate the Early Voting chart so that we have an apples-to-apples comparison along the same width of x-axis as the 2020 early votes...
                 </p>
                 <div class="image-grid">
                     <div class="image-container">
@@ -547,7 +547,7 @@
                 </div>
                 
                 <p>
-                    The next visualization will show the voting history of each machine *as if* the ballots were inserted in the opposite order, from last to first.                 </p>
+                    The next visualization will show the voting history of each machine <em>as if</em> the ballots were inserted in the opposite order, from last to first.                 </p>
                 
                 <p>
                     If Election Truth Alliance is correct, we would see something like this, where starting from the last vote cast and 
@@ -639,7 +639,7 @@
                     We have the vote history data (Election Truth Alliance does, too). We can plot the votes for a particular machine over time.                 </p>
                 
                 <p>
-                    This means that there is a very simple graph we can make for our machines. It would actually take *less* effort to produce this next graph than any of the graphs above, and this one has the indisputable power to prove definitively and unambiguously whether the election was manipulated in the way ETA claims or not.                 </p>
+                    This means that there is a very simple graph we can make for our machines. It would actually take <em>less</em> effort to produce this next graph than any of the graphs above, and this one has the indisputable power to prove definitively and unambiguously whether the election was manipulated in the way ETA claims or not.                 </p>
                 
                 <p>
                     Let's take the running average of votes as they come in. If Election Truth Alliance was correct, we would see a huge noticable step in the running average, where before the 250th ballot was inserted, the ballots averaged a certain value, and then after the 250th ballot, they all began trending towards a different value. It would look like this:                 </p>
@@ -952,7 +952,11 @@
             <!-- Election Simulation Visualization -->
             <div class="viz-container-light step" id="election-simulation-viz">
                 <h3 style="color: var(--text-secondary); text-align: center; margin-bottom: 20px;">Election Distribution Simulation</h3>
-                <div id="election-simulation-plot" class="plot-container"></div>
+                <div id="election-simulation-plot" class="plot-container">
+                    <div class="image-container">
+                        <img src="images/main_plot_3_colors.png" alt="Simulation results showing three distinct modes" class="content-image">
+                    </div>
+                </div>
                 
                 <!-- Simulation Results Box -->
                 <div class="simulation-results" style="background: #e8f5e8; padding: 15px; border-radius: 5px; margin: 20px auto; border-left: 4px solid #27ae60; max-width: 300px; text-align: center;">
@@ -963,7 +967,21 @@
                         <div><strong>Harris:</strong> <span id="simHarrisPercent">0.0%</span></div>
                     </div>
                 </div>
-                
+            </div>
+
+            <section id="simulation-analysis">
+                <p>
+                    Tadaa! It looks exactly like the real data. No after-vote manipulation happening here, just the exact same population effects we would expect to see in the real world, spelled out in a simulated election.                 
+                </p>
+                <p>
+                    Here, I added the control sliders for this simulation to your control panel, you can see how manipulating the real-world parameters that govern the election impacts the resulting chart.
+                </p>
+                <p>
+                    And for completeness' sake, here is the same data visualized as a histogram:
+                </p>
+            </section>
+
+            <div class="viz-container-light step" id="election-simulation-histogram-viz">
                 <h3 style="color: var(--text-secondary); text-align: center; margin: 40px 0 20px 0;">Distribution of Trump Vote % by Machine</h3>
                 
                 <!-- Histogram Controls -->
@@ -1000,7 +1018,7 @@
                 <!-- Educational Explanation -->
                 <div class="explanation" style="background: #f8f9fa; padding: 20px 20px 0px 20px; border-radius: 8px; margin: 0px; max-width: 800px; border-left: 4px solid var(--primary-color);">
                     <h4 style="margin: 0 0 15px 0; color: var(--primary-color);">What you're seeing:</h4>
-                    <p style="margin-bottom: 15px;">Each data point in the chart below represents a voting machine. Machines are grouped into voting locations (clusters), with each location having its own true support rate.</p>
+                    <p style="margin-bottom: 15px;">Each data point in the Election Simulation charts above represents a voting machine. Machines are grouped into voting locations (clusters), with each location having its own true support rate.</p>
                     
                     <p style="margin-bottom: 10px; font-weight: 600;">We're modeling several real-world patterns:</p>
                     <ul style="margin-left: 20px; line-height: 1.6;">
@@ -1008,23 +1026,9 @@
                         <li><strong>Local Clustering:</strong> Machines in the same location have similar Trump support rates, creating clusters in the visualization.</li>
                         <li><strong>Sampling Variability:</strong> Machines with fewer votes show more scatter from their location's true rate due to the Law of Large Numbers.</li>
                     </ul>
-                    
-                    <p style="margin-top: 15px; margin-bottom: 0px; font-style: italic;">These patterns create a more realistic simulation that better matches actual election data distributions.</p>
                 </div>
             </div>
             
-            <section id="simulation-analysis">
-                <div class="image-container">
-                    <img src="images/main_plot_3_colors.png" alt="Simulation results showing three distinct modes" class="content-image">
-                </div>
-                
-                <p>
-                    Tadaa! It looks exactly like the real data. No after-vote manipulation happening here, just the exact same population effects we would expect to see in the real world, spelled out in a simulated election.                 
-                </p>
-                <p>
-                    Here, I added the control sliders for this simulation to your control panel, you can see how manipulating the real-world parameters that govern the election impacts the resulting chart. 
-                </p>
-            </section>
             
             <section id="pattern-of-deception">
                 <h2>The Pattern of Deception</h2>
@@ -1032,14 +1036,14 @@
                 <h3>Manipulative data visualizations</h3>
                 
                 <p>
-                    As pointed out above, Election Truth Alliance visually compares data that is numerically very different by hiding the difference on the X-axis legend. Sharing one chart that is compressed in this way against another that includes much larger sample is not an honest comparison.                 </p>
+                    As pointed out above, Election Truth Alliance visually compares data that is numerically very different by hiding the difference on the x-axis legend. Sharing one chart that is compressed in this way against another that includes much larger sample is not an honest comparison.                 </p>
                 
                 <p>
                     ETA also mirrors their data vertically and superimposes it on itself. There isn't any additional value in doing this, it really baffles me because it just makes the data less readable.                 </p>
                 
 
                 <p>
-                    The only reason I can imagine to do this is to imply a diverging pattern that does not exist. In reality this is one pattern that converges, but by showing the same graph twice, flipped, ETA implies that there are two trends that *diverge*, which is intuitively less realistic, and therefore stokes the reader's suspicions unless they read closely.
+                    The only reason I can imagine to do this is to imply a diverging pattern that does not exist. In reality this is one pattern that converges, but by showing the same graph twice, flipped, ETA implies that there are two trends that <em>diverge</em>, which is intuitively less realistic, and therefore stokes the reader's suspicions unless they read closely.
                 </p>
                 <h3>Just straight up lies</h3>
 
@@ -1050,11 +1054,12 @@
                 <h3>Cherrypicking</h3>
                 
                 <p>
-                    Election Truth Alliance began crafting their case that the election was stolen within *days* of the election, before the first data set they released was even available. This is a classic telltale of dishonest investigation: the determination was made, the people committed to proving it, <em>even though they didn't look at any evidence yet</em>.                 
+                    Election Truth Alliance began crafting their case that the election was stolen within <em>days</em> of the election, before the first data set they released was even available. This is a classic telltale of dishonest investigation: the determination was made, and the people committed to proving it - <em>even though they didn't look at any evidence yet</em>.                 
                 </p>
                 
                 <p>
-                    So the Clark County data eventually came out, and they found a way to make it show the trend that they were already committed to finding before they saw the data, and then they stopped. In the following nine months, they only released two other examples of the supposed manipulations. Why not more? The analysis isn't hard. The visualizations in this post took only about two days to make, the bulk of my time on this project was building the website. 
+                    So the Clark County data eventually came out, and they found a way to make it show the trend that they were already committed to finding before they saw the data, and then they stopped. In the following nine months, they only released two other examples of the supposed manipulations. Why not more? The analysis isn't hard. 
+                    The visualizations in this post took only about two days to make, the bulk of my time on this project was spent building the website. 
                 </p>
                 
                 <p>
@@ -1066,7 +1071,7 @@
                 </p>
                 
                 <p>
-                    Could it be that they don't actually care how right they are, they are just searching through all of the counties in America trying to find examples that confirm their their pre-determined conclusion, and burying all the evidence that disproves them? The answer is yes.                 </p>
+                    Could it be that they don't actually care how right they are, they are just searching through all of the counties in America trying to find examples that confirm their pre-determined conclusion, and burying all the evidence that disproves them? The answer is yes.                 </p>
                 
                 
                 <h3>About those Audits they are calling for...</h3>
@@ -1086,13 +1091,13 @@
             <section id="conclusion">
                 <h2>Conclusion</h2>
                 <p>
-                Here's what makes this so frustrating to me, why I spent so much effort on this website: Liberals and leftists take pride in crafting rigorously thought out, scientificaly grounded policies. 
+                Here's what makes this so frustrating to me, why I spent so much effort on this website: liberals and leftists take pride in crafting rigorously thought out, scientifically grounded policies. 
                 </p>
                 <p>
                 The classic Colbert joke that "Reality has a liberal bias" works because the opposite is generally true: liberals orient their beliefs based on the scientific truth, rather than deciding what they want to believe and then making up "alternative facts" about it. 
                 </p>
                 <p>
-                But that's not what's happening hesre. Election Truth Alliance is bad statistics, bad math, bad science, incurious policy, that exists because the conclusion was fixed before the evidence was seen, and that's not what I want to see my side of the political spectrum doing. 
+                But that's not what's happening here. Election Truth Alliance is bad statistics, bad math, bad science, incurious policy, that exists because the conclusion was fixed before the evidence was seen. That's not what I want to see my side of the political spectrum doing. 
                 </p>
                 <p>
                 I don't know if Election Truth Alliance are mislead or malicious, but it doesn't matter. They are wrong. Their analysis is fundamentally flawed. The responsible thing to do would be to acknowledge these errors, retract their claims, and apologize for misleading the public. Publications like <a href="https://www.newsweek.com/2024-election-rigged-donald-trump-elon-musk-2019482">Newsweek</a> that have repeated these claims uncritically should retract their articles and issue corrections. 

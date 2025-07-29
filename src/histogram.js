@@ -108,7 +108,8 @@ function createStatsTextMarks(stats, types, colors, maxBinCount) {
     types.forEach((type, i) => {
         if (!stats[type]) return;
         const { mean, stdDev, count } = stats[type];
-        const textY = maxBinCount * (0.7 - i * 0.1);
+        const textY = maxBinCount * (0.8 - i * 0.2);
+        const textSpacing = maxBinCount * (0.8 - 3 * 0.2) * 0.15; // because i like the spacing on rural
         
         marks.push(
             Plot.text(
@@ -116,11 +117,11 @@ function createStatsTextMarks(stats, types, colors, maxBinCount) {
                 {x: "x", y: "y", text: "text", fill: colors[i], textAnchor: "start"}
             ),
             Plot.text(
-                [{x: 10, y: textY * 0.9, text: `Std. Dev. = ${stdDev.toFixed(2)}`}],
+                [{x: 10, y: textY - textSpacing, text: `Std. Dev. = ${stdDev.toFixed(2)}`}],
                 {x: "x", y: "y", text: "text", fill: colors[i], textAnchor: "start"}
             ),
             Plot.text(
-                [{x: 10, y: textY * 0.8, text: `N = ${count}`}],
+                [{x: 10, y: textY - 2 * textSpacing, text: `N = ${count}`}],
                 {x: "x", y: "y", text: "text", fill: colors[i], textAnchor: "start"}
             )
         );
