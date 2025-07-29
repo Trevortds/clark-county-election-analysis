@@ -338,7 +338,7 @@ export function createHistogram(
         const types = colorMode === 'binary' ? ['Urban', 'Rural'] : ['Urban', 'Suburban', 'Rural'];
         const colors = colorMode === 'binary' 
             ? ['steelblue', 'green'] 
-            : ['#FDEA45', '#808080', '#002051'];
+            : ['#CFBB02', '#808080', '#002051'];
         
         marks.push(...createStatsTextMarks(stats, types, colors, maxBinCount));
     } else {
