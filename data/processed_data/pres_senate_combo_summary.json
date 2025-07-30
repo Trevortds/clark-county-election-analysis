@@ -1,0 +1,42 @@
+{
+  "trump-rosen": 26321,
+  "trump-brown": 427950,
+  "trump-none": 38446,
+  "harris-rosen": 481698,
+  "harris-brown": 8427,
+  "harris-none": 29866,
+  "by_vote_type": {
+    "early": {
+      "trump-rosen": 7928,
+      "trump-brown": 213594,
+      "trump-none": 12709,
+      "harris-rosen": 147299,
+      "harris-brown": 2161,
+      "harris-none": 7245
+    },
+    "mail": {
+      "trump-rosen": 10166,
+      "trump-brown": 137312,
+      "trump-none": 13346,
+      "harris-rosen": 255005,
+      "harris-brown": 3831,
+      "harris-none": 12619
+    },
+    "election_day": {
+      "trump-rosen": 8227,
+      "trump-brown": 77044,
+      "trump-none": 12391,
+      "harris-rosen": 79394,
+      "harris-brown": 2435,
+      "harris-none": 10002
+    },
+    "other": {
+      "trump-rosen": 0,
+      "trump-brown": 0,
+      "trump-none": 0,
+      "harris-rosen": 0,
+      "harris-brown": 0,
+      "harris-none": 0
+    }
+  }
+}

@@ -140,8 +140,14 @@ def process_csv_chunks(input_file, custom_headers, candidate_start_idx, counting
     chunk_size = 1000
     total_rows = 0
     
-    # Find presidential candidate columns after we've read the first chunk
+    # Initialize candidate column lists
     president_cols = []
+    # Senate candidate columns we care about
+    rosen_cols = []
+    brown_cols = []
+    # Keep track of specific president columns for summary later
+    harris_cols = []
+    trump_cols = []
     
     # Read the CSV, skipping the first 4 rows which contain our header information
     # Note: The data actually starts at row 5 (0-indexed would be 4)
@@ -187,22 +193,26 @@ def process_csv_chunks(input_file, custom_headers, candidate_start_idx, counting
             if not president_cols and chunk_num == 0:
                 all_candidate_cols = chunk.columns[candidate_start_idx:].tolist()
                 
-                # Look for major candidates with flexible matching
-                harris_cols = [col for col in all_candidate_cols if 'harris' in col.lower() and ('kamala' in col.lower())]
-                trump_cols = [col for col in all_candidate_cols if 'trump' in col.lower() and ('donald' in col.lower())]
-                
-                # Combine candidate columns
-                president_cols = harris_cols + trump_cols                
-                if president_cols:
-                    print(f"Found presidential candidates: {president_cols}")
+                # Detect presidential candidates with flexible matching
+                harris_cols = [col for col in all_candidate_cols if 'harris' in col.lower() and 'kamala' in col.lower()]
+                trump_cols = [col for col in all_candidate_cols if 'trump' in col.lower() and 'donald' in col.lower()]
+
+                # Detect senate candidates Jacky Rosen and Sam Brown
+                rosen_cols = [col for col in all_candidate_cols if 'rosen' in col.lower() and 'jacky' in col.lower()]
+                brown_cols = [col for col in all_candidate_cols if 'brown' in col.lower() and 'sam' in col.lower()]
+
+                # Combine all relevant candidate columns for processing
+                candidate_cols = harris_cols + trump_cols + rosen_cols + brown_cols
+                if candidate_cols:
+                    print(f"Found candidate columns: {candidate_cols}")
                 else:
-                    # If we can't find presidential candidates, use the first few candidate columns as a fallback
-                    president_cols = all_candidate_cols[:5] if len(all_candidate_cols) >= 5 else all_candidate_cols
-                    print(f"No presidential candidates found. Using these columns instead: {president_cols}")
+                    # Fallback: use first few candidate columns
+                    candidate_cols = all_candidate_cols[:10] if len(all_candidate_cols) >= 10 else all_candidate_cols
+                    print(f"No specific candidates found. Using fallback columns: {candidate_cols}")
             
             # Process the chunk and extract vote data by type
             # Note: this mutates voting_data in place
-            process_chunk_data(chunk, counting_group_col, vote_type_patterns, president_cols, metadata_cols, voting_data)
+            process_chunk_data(chunk, counting_group_col, vote_type_patterns, candidate_cols, metadata_cols, voting_data)
             
         except Exception as e:
             print(f"Error processing chunk {chunk_num+1}: {e}")
@@ -210,7 +220,19 @@ def process_csv_chunks(input_file, custom_headers, candidate_start_idx, counting
             continue
     
     # Create output from the processed data
-    return generate_output_files(voting_data, president_cols, metadata_cols, total_rows, output_dir)
+    summary = generate_output_files(voting_data, candidate_cols, metadata_cols, total_rows, output_dir)
+
+    # Generate president–senate combination summary
+    combo_counts = generate_pres_senate_combo_summary(
+        voting_data,
+        trump_cols=trump_cols,
+        harris_cols=harris_cols,
+        rosen_cols=rosen_cols,
+        brown_cols=brown_cols,
+        output_dir=output_dir
+    )
+    summary["pres_senate_combo_counts"] = combo_counts
+    return summary
 
 
 def process_chunk_data(chunk, counting_group_col, vote_type_patterns, president_cols, metadata_cols, voting_data):
@@ -377,6 +399,79 @@ def process_election_data_complex_headers(input_file, output_dir, counting_group
         return None
 
 
+def generate_pres_senate_combo_summary(voting_data, trump_cols, harris_cols, rosen_cols, brown_cols, output_dir):
+    """Generate a summary of ballot combinations between presidential and senate candidates.
+
+    The summary includes counts for:
+        - trump-rosen
+        - trump-brown
+        - trump-none
+        - harris-rosen
+        - harris-brown
+        - harris-none
+
+    Args:
+        voting_data: Dict of vote records by vote type.
+        trump_cols, harris_cols, rosen_cols, brown_cols: Lists of column names corresponding to each candidate.
+        output_dir: Directory to save the summary JSON file.
+    Returns:
+        Dictionary mapping combination name to count.
+    """
+    combo_keys = [
+        "trump-rosen",
+        "trump-brown",
+        "trump-none",
+        "harris-rosen",
+        "harris-brown",
+        "harris-none",
+    ]
+
+    # Overall counts
+    combo_counts = {k: 0 for k in combo_keys}
+    # Per-vote-type counts
+    per_vote_type_counts = {vt: {k: 0 for k in combo_keys} for vt in voting_data.keys()}
+
+    has_vote = lambda record, cols: any(record.get(col, 0) == 1 for col in cols)
+
+    for vote_type, records in voting_data.items():
+        for record in records:
+            pres_choice = None
+            senate_choice = None
+
+            if has_vote(record, trump_cols):
+                pres_choice = "trump"
+            elif has_vote(record, harris_cols):
+                pres_choice = "harris"
+
+            if has_vote(record, rosen_cols):
+                senate_choice = "rosen"
+            elif has_vote(record, brown_cols):
+                senate_choice = "brown"
+            else:
+                senate_choice = "none"
+
+            if pres_choice:
+                key = f"{pres_choice}-{senate_choice}"
+                if key in combo_counts:
+                    combo_counts[key] += 1
+                    per_vote_type_counts[vote_type][key] += 1
+
+    # Build final structure including both views
+    summary_dict = {
+        **combo_counts,  # keep flat keys for backward compatibility
+        "by_vote_type": per_vote_type_counts,
+    }
+
+    # Save summary to JSON
+    os.makedirs(output_dir, exist_ok=True)
+    summary_path = os.path.join(output_dir, "pres_senate_combo_summary.json")
+    with open(summary_path, "w") as f:
+        json.dump(summary_dict, f, indent=2)
+    print(f"Saved president–senate combination summary to {summary_path}")
+
+    return summary_dict
+
+
 def generate_output_files(voting_data, president_cols, metadata_cols, total_rows, output_dir):
     """
     Generate JSON output files from the processed voting data.
@@ -494,9 +589,9 @@ def generate_output_files(voting_data, president_cols, metadata_cols, total_rows
                     clean_record[k] = None if pd.isna(v) else v
                 clean_data.append(clean_record)
                 
-            with open(os.path.join(output_dir, f'{category}_votes.json'), 'w') as f:
-                json.dump(clean_data, f, cls=NpEncoder)
-            print(f"Saved {len(clean_data)} {category} votes to {category}_votes.json")
+            # with open(os.path.join(output_dir, f'{category}_votes.json'), 'w') as f:
+            #     json.dump(clean_data, f, cls=NpEncoder)
+            print(f"Saved {len(clean_data)} {category} votes to {category}_votes.json (not really)")
     
     return summary
 
