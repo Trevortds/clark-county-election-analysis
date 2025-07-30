@@ -1101,3 +1101,15 @@ input:checked + .toggle-slider:before {
         margin-top: 10px;
     }
 }
+
+/* Run Simulation Button */
+.run-simulation-btn {
+    width: 100%;
+    padding: 8px;
+    background: var(--dark-spring-green);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
