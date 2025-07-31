@@ -513,7 +513,7 @@
             // Tooltip close button
             tooltipClose.addEventListener('click', hideTooltip);
             
-            // Show tooltip initially on mobile (with delay to ensure visibility)
+            // Show tooltip initially on mobile (with delay to ensure visibility) (only once)
             const showTooltipInitially = () => {
                 if (!tooltipShown && window.innerWidth <= 968) {
                     setTimeout(() => {
@@ -530,7 +530,7 @@
             // Show tooltip on page load if on mobile
             showTooltipInitially();
             
-            // Show tooltip again when resizing to mobile
+            // Show tooltip if not shown previously when resizing to mobile
             let resizeTimeout;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimeout);
