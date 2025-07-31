@@ -432,13 +432,18 @@
             const overlay = document.getElementById('mobile-overlay');
             const tooltip = document.getElementById('mobile-controls-tooltip');
             const tooltipClose = document.getElementById('tooltip-close');
+            // Track if the tooltip has ever been dismissed to avoid showing it again
+            let tooltipShown = false;
+            let tooltipDismissed = false;
             
             const showTooltip = () => {
                 tooltip.classList.add('show');
+                tooltipShown = true;
             };
             
             const hideTooltip = () => {
                 tooltip.classList.remove('show');
+                tooltipDismissed = true; // Mark as dismissed so it won't show again
             };
             
             const openSidebar = () => {
@@ -510,7 +515,7 @@
             
             // Show tooltip initially on mobile (with delay to ensure visibility)
             const showTooltipInitially = () => {
-                if (window.innerWidth <= 968) {
+                if (!tooltipShown && window.innerWidth <= 968) {
                     setTimeout(() => {
                         showTooltip();
                         
@@ -530,7 +535,7 @@
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
-                    if (window.innerWidth <= 968 && !tooltip.classList.contains('show')) {
+                    if (window.innerWidth <= 968 && !tooltip.classList.contains('show') && !tooltipShown) {
                         showTooltipInitially();
                     } else if (window.innerWidth > 968) {
                         hideTooltip();
